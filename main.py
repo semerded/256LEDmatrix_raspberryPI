@@ -150,6 +150,10 @@ class ColorButtons:
         Drawing.border(5, buttonRect, Color.GREEN, 10)
         APP.setUpdatePending
         
+    @property
+    def getButtonHeight(self):
+        return ScreenUnit.vh(2 + 9 * len(self.buttonList))
+        
         
 class Pixels:
     def __init__(self, pixels) -> None:
@@ -174,6 +178,9 @@ RGBmatrix = Matrix(16, 16)
 colorButtons = ColorButtons(10)
 pixelMatrix = Pixels(pixels) # TODO change name
 
+drawPixelOnMatrixButton = Button((ScreenUnit.vw(10), ScreenUnit.vh(7)), Color.WHITE, 5)
+drawPixelOnMatrixButton.border(4, Color.GRAY)
+
 
     
 while True:
@@ -184,10 +191,14 @@ while True:
     
     colorButtons.placeButtons()
     RGBmatrix.checkForTouchInGrid()
+    drawPixelOnMatrixButton.place(ScreenUnit.vw(75), colorButtons.getButtonHeight)
+    
+    if drawPixelOnMatrixButton.onMouseClick():
+        pixelMatrix.drawMatrixOnPixelMatrix(RGBmatrix.getMatrix)
+        
     
     if APP.firstFrame() or APP.updateAvalible:
         RGBmatrix.drawMatrix((0, 0), ScreenUnit.vh(100)) 
-        pixelMatrix.drawMatrixOnPixelMatrix(RGBmatrix.getMatrix)
     
     
 def main():
