@@ -1,11 +1,14 @@
 import threading, math
+import board, neopixel
 from enum import Enum
 
 
 #temp voor pg lib te verkrijgen
 import sys
-sys.path.append("C:\\Users\\VaSe310806\\OneDrive - MOSA-RT\\.visual studio code\\Python\\myMachine\\256LEDmatrix_raspberryPI\\pygameAddons")
+sys.path.append("../256LEDmatrix_raspberryPI/pygameAddons")
 from pygameAddons.pygameaddons import *
+
+pixels = neopixel.NeoPixel(board.D18, 256, brightness = 0.3)
 
 
 
@@ -110,6 +113,10 @@ class Matrix:
         returns the size of the matrix as tuple(size_Xaxis, size_Yaxis)
         """
         return len(self.matrix[0]), len(self.matrix)
+    
+    @property
+    def getMatrix(self):
+        return self.matrix
         
         
 currentColor = 0
@@ -144,13 +151,29 @@ class ColorButtons:
         APP.setUpdatePending
         
         
+class Pixels:
+    def __init__(self, pixels) -> None:
+        self.pixels = pixels
         
-        
-    
+    def drawMatrixOnPixelMatrix(self, matrix: list[list]):
+        ledCounter = 0
+        reverse = False
+        for row in matrix:
+            if reverse:
+                for column in reversed(row):
+                    self.pixels[ledCounter] = fieldColors[column]                 
+                    ledCounter += 1
+            else:
+                for column in row:
+                    self.pixels[ledCounter] = fieldColors[column]
+                    ledCounter += 1
+            reverse = True
+ 
     
 RGBmatrix = Matrix(16, 16)
-
 colorButtons = ColorButtons(10)
+pixelMatrix = Pixels(pixels) # TODO change name
+
 
     
 while True:
@@ -164,6 +187,7 @@ while True:
     
     if APP.firstFrame() or APP.updateAvalible:
         RGBmatrix.drawMatrix((0, 0), ScreenUnit.vh(100)) 
+        pixelMatrix.drawMatrixOnPixelMatrix(RGBmatrix.getMatrix)
     
     
 def main():
