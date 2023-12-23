@@ -134,16 +134,16 @@ class ColorButtons:
     def placeButtons(self):
         global currentColor
         self.buttonSize = (ScreenUnit.vw(10), ScreenUnit.vh(7))
-        counter = 0
+        # counter = 0
         for index, button in enumerate(self.buttonList):
             button.updateButtonSize(self.buttonSize[0], self.buttonSize[1])
-            button.place(ScreenUnit.vw(80), ScreenUnit.vh(1 + 9 * counter))
+            button.place(ScreenUnit.vw(80), ScreenUnit.vh(1 + 9 * index))
             if button.onMouseClick():
                 currentColor = index         
-            counter+=1
-            if index == currentColor and self.previousHighlightedButton != currentColor or APP.updateAvalible:
-                self.highlightActiveColor(index)
-                self.previousHighlightedButton = currentColor
+            # counter+=1
+            # if index == currentColor and self.previousHighlightedButton != currentColor:
+            self.highlightActiveColor(currentColor)
+                # self.previousHighlightedButton = currentColor
             
     def highlightActiveColor(self, index):
         buttonRect = self.buttonList[index].getButtonAndBorderRect
