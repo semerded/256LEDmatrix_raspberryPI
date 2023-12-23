@@ -8,11 +8,11 @@ import sys
 sys.path.append("../256LEDmatrix_raspberryPI/pygameAddons")
 from pygameaddons import *
 
-pixels = neopixel.NeoPixel(board.D18, 256, brightness = 0.3)
+pixels = neopixel.NeoPixel(board.D18, 256, brightness = 0.1)
 
 
 
-APP = AppConstructor(100, 100, pygame.RESIZABLE, manualUpdating=True)
+APP = AppConstructor(100, 100, pygame.FULLSCREEN, manualUpdating=True)
 APP.centerApp()
 # APP.setRelativeFullscreen
 clock = pygame.time.Clock()
@@ -161,7 +161,7 @@ class Pixels:
         
     def drawMatrixOnPixelMatrix(self, matrix: list[list]):
         ledCounter = 0
-        reverse = False
+        reverse = True
         for row in matrix:
             if reverse:
                 for column in reversed(row):
@@ -171,7 +171,7 @@ class Pixels:
                 for column in row:
                     self.pixels[ledCounter] = fieldColors[column]
                     ledCounter += 1
-            reverse = True
+            reverse = not reverse
  
     
 RGBmatrix = Matrix(16, 16)
