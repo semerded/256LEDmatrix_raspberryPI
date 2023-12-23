@@ -138,7 +138,7 @@ class ColorButtons:
         for index, button in enumerate(self.buttonList):
             button.updateButtonSize(self.buttonSize[0], self.buttonSize[1])
             
-            button.text(self.buttonText[index], Color.GREY, overFlow.show)
+            button.text(self.buttonText[index], textColor= Color.GREY)
             button.place(ScreenUnit.vw(70), ScreenUnit.vh(1 + 9 * index))
             if button.onMouseClick():
                 currentColor = index         
@@ -179,7 +179,7 @@ LED_MATRIX = Pixels(pixels) # TODO change name
 
 drawPixelOnLEDMatrixButton = Button((ScreenUnit.vw(10), ScreenUnit.vh(7)), Color.WHITE, 5)
 drawPixelOnLEDMatrixButton.border(4, Color.GRAY)
-clearLEDMatrixButton = Button((ScreenUnit.vw(10)))
+# clearLEDMatrixButton = Button((ScreenUnit.vw(10)))
 
 
     
