@@ -6,7 +6,7 @@ from enum import Enum
 #temp voor pg lib te verkrijgen
 import sys
 sys.path.append("../256LEDmatrix_raspberryPI/pygameAddons")
-from pygameAddons.pygameaddons import *
+from pygameaddons import *
 
 pixels = neopixel.NeoPixel(board.D18, 256, brightness = 0.3)
 
