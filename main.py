@@ -141,7 +141,7 @@ class ColorButtons:
             if button.onMouseClick():
                 currentColor = index         
             counter+=1
-            if index == currentColor and self.previousHighlightedButton != currentColor:
+            if index == currentColor and self.previousHighlightedButton != currentColor or APP.updateAvalible:
                 self.highlightActiveColor(index)
                 self.previousHighlightedButton = currentColor
             
