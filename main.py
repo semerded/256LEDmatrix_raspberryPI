@@ -159,7 +159,7 @@ class Pixels:
     def __init__(self, pixels) -> None:
         self.pixels = pixels
         
-    def drawMatrixOnPixelMatrix(self, matrix: list[list]):
+    def drawMatrixOnPhysicalMatrix(self, matrix: list[list]):
         ledCounter = 0
         reverse = True
         for row in matrix:
@@ -174,9 +174,9 @@ class Pixels:
             reverse = not reverse
  
     
-RGBmatrix = Matrix(16, 16)
-colorButtons = ColorButtons(10)
-pixelMatrix = Pixels(pixels) # TODO change name
+MATRIX = Matrix(16, 16)
+COLOR_PICKER_BUTTONS = ColorButtons(10)
+LED_MATRIX = Pixels(pixels) # TODO change name
 
 drawPixelOnMatrixButton = Button((ScreenUnit.vw(10), ScreenUnit.vh(7)), Color.WHITE, 5)
 drawPixelOnMatrixButton.border(4, Color.GRAY)
@@ -189,16 +189,19 @@ while True:
     APP.maindisplay.fill(Color.BLACK) 
    
     
-    colorButtons.placeButtons()
-    RGBmatrix.checkForTouchInGrid()
-    drawPixelOnMatrixButton.place(ScreenUnit.vw(75), colorButtons.getButtonHeight)
+    COLOR_PICKER_BUTTONS.placeButtons()
+    MATRIX.checkForTouchInGrid()
+    drawPixelOnMatrixButton.place(ScreenUnit.vw(75), COLOR_PICKER_BUTTONS.getButtonHeight)
     
     if drawPixelOnMatrixButton.onMouseClick():
-        pixelMatrix.drawMatrixOnPixelMatrix(RGBmatrix.getMatrix)
+        LED_MATRIX.drawMatrixOnPhysicalMatrix(MATRIX.getMatrix)
         
     
     if APP.firstFrame() or APP.updateAvalible:
-        RGBmatrix.drawMatrix((0, 0), ScreenUnit.vh(100)) 
+        MATRIX.drawMatrix((0, 0), ScreenUnit.vh(100)) 
+        COLOR_PICKER_BUTTONS.placeButtons()
+        
+        
     
     
 def main():
