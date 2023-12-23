@@ -122,9 +122,10 @@ class Matrix:
 currentColor = 0
 
 class ColorButtons:
-    def __init__(self, buttonAmount) -> None:
-        self.buttonSize = (ScreenUnit.vw(10), ScreenUnit.vh(7))
+    def __init__(self, buttonAmount, buttonText) -> None:
+        self.buttonSize = (ScreenUnit.vw(20), ScreenUnit.vh(7))
         self.previousHighlightedButton = currentColor
+        self.buttonText = buttonText
         self.buttonList = []
         for index in range(buttonAmount):
             self.buttonList.append(Button(self.buttonSize, fieldColors[index], 5)),
@@ -133,17 +134,15 @@ class ColorButtons:
     
     def placeButtons(self):
         global currentColor
-        self.buttonSize = (ScreenUnit.vw(10), ScreenUnit.vh(7))
-        # counter = 0
+        self.buttonSize = (ScreenUnit.vw(20), ScreenUnit.vh(7))
         for index, button in enumerate(self.buttonList):
             button.updateButtonSize(self.buttonSize[0], self.buttonSize[1])
-            button.place(ScreenUnit.vw(80), ScreenUnit.vh(1 + 9 * index))
+            
+            button.text(self.buttonText[index], Color.GREY, overFlow.show)
+            button.place(ScreenUnit.vw(70), ScreenUnit.vh(1 + 9 * index))
             if button.onMouseClick():
                 currentColor = index         
-            # counter+=1
-            # if index == currentColor and self.previousHighlightedButton != currentColor:
-            self.highlightActiveColor(currentColor)
-                # self.previousHighlightedButton = currentColor
+        self.highlightActiveColor(currentColor)
             
     def highlightActiveColor(self, index):
         buttonRect = self.buttonList[index].getButtonAndBorderRect
@@ -173,13 +172,14 @@ class Pixels:
                     ledCounter += 1
             reverse = not reverse
  
-    
+COLOR_BUTTON_TEXT = ["zwart", "rood", "oranje", "geel", "groen", "lichtblauw", "donkerblauw", "paars", "roze", "wit"]
 MATRIX = Matrix(16, 16)
-COLOR_PICKER_BUTTONS = ColorButtons(10)
+COLOR_PICKER_BUTTONS = ColorButtons(len(fieldColors), COLOR_BUTTON_TEXT)
 LED_MATRIX = Pixels(pixels) # TODO change name
 
-drawPixelOnMatrixButton = Button((ScreenUnit.vw(10), ScreenUnit.vh(7)), Color.WHITE, 5)
-drawPixelOnMatrixButton.border(4, Color.GRAY)
+drawPixelOnLEDMatrixButton = Button((ScreenUnit.vw(10), ScreenUnit.vh(7)), Color.WHITE, 5)
+drawPixelOnLEDMatrixButton.border(4, Color.GRAY)
+clearLEDMatrixButton = Button((ScreenUnit.vw(10)))
 
 
     
@@ -191,9 +191,9 @@ while True:
     
     COLOR_PICKER_BUTTONS.placeButtons()
     MATRIX.checkForTouchInGrid()
-    drawPixelOnMatrixButton.place(ScreenUnit.vw(75), COLOR_PICKER_BUTTONS.getButtonHeight)
+    drawPixelOnLEDMatrixButton.place(ScreenUnit.vw(75), COLOR_PICKER_BUTTONS.getButtonHeight)
     
-    if drawPixelOnMatrixButton.onMouseClick():
+    if drawPixelOnLEDMatrixButton.onMouseClick():
         LED_MATRIX.drawMatrixOnPhysicalMatrix(MATRIX.getMatrix)
         
     
