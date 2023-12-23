@@ -175,11 +175,14 @@ class Pixels:
 COLOR_BUTTON_TEXT = ["zwart", "rood", "oranje", "geel", "groen", "lichtblauw", "donkerblauw", "paars", "roze", "wit"]
 MATRIX = Matrix(16, 16)
 COLOR_PICKER_BUTTONS = ColorButtons(len(fieldColors), COLOR_BUTTON_TEXT)
-LED_MATRIX = Pixels(pixels) # TODO change name
+LED_MATRIX = Pixels(pixels)
 
-drawPixelOnLEDMatrixButton = Button((ScreenUnit.vw(10), ScreenUnit.vh(7)), Color.WHITE, 5)
-drawPixelOnLEDMatrixButton.border(4, Color.GRAY)
-# clearLEDMatrixButton = Button((ScreenUnit.vw(10)))
+drawPixelOnLEDMatrixButton = Button((ScreenUnit.vw(15), ScreenUnit.vh(7)), Color.WHITE, 5)
+drawPixelOnLEDMatrixButton.border(4, Color.GREEN)
+drawPixelOnLEDMatrixButton.text("Teken!", Font.H1, overFlow=overFlow.show)
+clearLEDMatrixButton = Button((ScreenUnit.vw(15), ScreenUnit.vh(7)), Color.WHITE)
+clearLEDMatrixButton.border(4, Color.RED)
+clearLEDMatrixButton.text("Verwijder", Font.H1, overFlow=overFlow.show)
 
 
     
@@ -191,8 +194,8 @@ while True:
     
     COLOR_PICKER_BUTTONS.placeButtons()
     MATRIX.checkForTouchInGrid()
-    drawPixelOnLEDMatrixButton.place(ScreenUnit.vw(75), COLOR_PICKER_BUTTONS.getButtonHeight)
-    
+    drawPixelOnLEDMatrixButton.place(ScreenUnit.vw(65), COLOR_PICKER_BUTTONS.getButtonHeight)
+    clearLEDMatrixButton.place(ScreenUnit.vw(80), COLOR_PICKER_BUTTONS.getButtonHeight)
     if drawPixelOnLEDMatrixButton.onMouseClick():
         LED_MATRIX.drawMatrixOnPhysicalMatrix(MATRIX.getMatrix)
         
