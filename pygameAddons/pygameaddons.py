@@ -9,6 +9,9 @@ except ImportError:
 else:
     pygame__textinputImported = True
     
+import sys
+sys.path.append("../256LEDmatrix_raspberryPI/pygameAddons")
+    
 import random, logging
 from multipledispatch import dispatch
 
@@ -16,9 +19,9 @@ import sys, os
 from typing_extensions import TypeAlias, Literal
 
 
-from enums import *
-from colors import Color
-from fonts import Font
+from pygameAddons.enums import *
+from pygameAddons.colors import Color
+from pygameAddons.fonts import Font
 
 pygame.init()
 

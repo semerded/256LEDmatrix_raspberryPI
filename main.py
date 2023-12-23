@@ -17,7 +17,7 @@ APP.centerApp()
 # APP.setRelativeFullscreen
 clock = pygame.time.Clock()
 
-APP.setAspectratio(ScreenUnit.aspectRatio(aspectRatios.ratio4to3), height=ScreenUnit.dh(90))
+APP.setAspectratio(ScreenUnit.aspectRatio(aspectRatios.ratio16to9), height=ScreenUnit.dh(90))
 
 
     
