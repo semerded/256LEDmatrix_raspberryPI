@@ -138,7 +138,7 @@ class ColorButtons:
         for index, button in enumerate(self.buttonList):
             button.updateButtonSize(self.buttonSize[0], self.buttonSize[1])
             
-            button.text(self.buttonText[index], textColor= Color.GREY)
+            button.text(self.buttonText[index], Font.H1, Color.GREY)
             button.place(ScreenUnit.vw(70), ScreenUnit.vh(1 + 9 * index))
             if button.onMouseClick():
                 currentColor = index         
@@ -194,8 +194,8 @@ while True:
     
     COLOR_PICKER_BUTTONS.placeButtons()
     MATRIX.checkForTouchInGrid()
-    drawPixelOnLEDMatrixButton.place(ScreenUnit.vw(65), COLOR_PICKER_BUTTONS.getButtonHeight)
-    clearLEDMatrixButton.place(ScreenUnit.vw(80), COLOR_PICKER_BUTTONS.getButtonHeight)
+    drawPixelOnLEDMatrixButton.place(ScreenUnit.vw(63), COLOR_PICKER_BUTTONS.getButtonHeight)
+    clearLEDMatrixButton.place(ScreenUnit.vw(82), COLOR_PICKER_BUTTONS.getButtonHeight)
     if drawPixelOnLEDMatrixButton.onMouseClick():
         LED_MATRIX.drawMatrixOnPhysicalMatrix(MATRIX.getMatrix)
         
