@@ -213,12 +213,12 @@ while True:
         MATRIX.drawMatrix((0, 0), ScreenUnit.vh(100)) 
         COLOR_PICKER_BUTTONS.placeButtons()
         
-    for event in APP.getEvents:
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_ESCAPE:
-                LED_MATRIX.erasePhysicalMatrix()
-                pygame.quit()
-                sys.exit()
+    if APP.keyboardRelease(pygame.K_ESCAPE):
+        LED_MATRIX.erasePhysicalMatrix()
+        pygame.quit()
+        sys.exit()
+        
+                
         
     
         

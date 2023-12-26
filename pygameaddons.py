@@ -130,8 +130,22 @@ class AppConstructor():
         self.APPdisplay = pygame.display.set_mode(
             (screenWidth, screenHeight), *flags)
         self.__updateMainDisplay()
+        
+    def keyboardClick(self, key: int): # TODO find more optimal method to do this
+        for event in self.getEvents:
+            if event.type == pygame.KEYDOWN:
+                if event.key == key:
+                    return True
+        return False
+        
+    def keyboardRelease(self, key: int): # same as above
+        for event in self.getEvents:
+            if event.type == pygame.KEYDOWN:
+                if event.key == key:
+                    return True
+        return False
 
-    def setModifiableFunctions(self, **kwargs: modifiableFunctions):  # TODO
+    def setModifiableFunctions(self, **kwargs: modifiableFunctions):  # TODO finish this function
         for modifiedFunction, newFunction in kwargs.items():
             self.modifiedFunctions[modifiedFunction] = newFunction
 
