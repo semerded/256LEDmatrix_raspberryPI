@@ -81,8 +81,8 @@ class Matrix:
         self.sideMeasurement = sideMeasurement
         matrixWidth, matrixHeight = self.getMatrixDimensions # TODO! not reproducable
         self.gridUnitSide = self.sideMeasurement / matrixHeight
-        self.drawMatrixGrid()
         self.drawMatrixItems()
+        self.drawMatrixGrid()
         
     def checkForTouchInGrid(self):
         if Interactions.isHoldingInRect(self.matrixRect, mouseButton.leftMouseButton.value):
@@ -171,6 +171,12 @@ class Pixels:
                     self.pixels[ledCounter] = fieldColors[column]
                     ledCounter += 1
             reverse = not reverse
+            
+    def erasePhysicalMatrix(self):
+        MATRIX.eraseMatrix()
+        APP.updateDisplay()
+        self.pixels.fill(Color.BLACK)
+        
  
 COLOR_BUTTON_TEXT = ["zwart", "rood", "oranje", "geel", "groen", "lichtblauw", "donkerblauw", "paars", "roze", "wit"]
 MATRIX = Matrix(16, 16)
@@ -207,6 +213,7 @@ while True:
     for event in APP.getEvents:
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_ESCAPE:
+                LED_MATRIX.erasePhysicalMatrix()
                 pygame.quit()
                 sys.exit()
         
