@@ -204,6 +204,14 @@ while True:
         MATRIX.drawMatrix((0, 0), ScreenUnit.vh(100)) 
         COLOR_PICKER_BUTTONS.placeButtons()
         
+    for event in APP.getEvents:
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_ESCAPE:
+                pygame.quit()
+                sys.exit()
+        
+    
+        
         
     
     

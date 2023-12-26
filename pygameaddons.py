@@ -90,9 +90,8 @@ class AppConstructor():
         elif self.updatePending:
             Updating.updateDisplay()
             self.updatePending = False
-        else:
-            if self.frameCounter < 2:
-                Updating.updateDisplay()
+        elif self.frameCounter < 2:
+            Updating.updateDisplay()
                 
         if self.resetFlank:
             Interactions.resetPreviousMouseButtonStatus()
@@ -256,6 +255,10 @@ class AppConstructor():
     @property
     def updateAvalible(self):
         return self.updatePending
+    
+    @property
+    def getEvents(self):
+        return self.appEvents
         
 
 
