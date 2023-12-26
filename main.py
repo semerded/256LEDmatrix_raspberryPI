@@ -201,9 +201,12 @@ while True:
     COLOR_PICKER_BUTTONS.placeButtons()
     MATRIX.checkForTouchInGrid()
     drawPixelOnLEDMatrixButton.place(ScreenUnit.vw(63), COLOR_PICKER_BUTTONS.getButtonHeight)
-    clearLEDMatrixButton.place(ScreenUnit.vw(82), COLOR_PICKER_BUTTONS.getButtonHeight)
     if drawPixelOnLEDMatrixButton.onMouseClick():
         LED_MATRIX.drawMatrixOnPhysicalMatrix(MATRIX.getMatrix)
+        
+    clearLEDMatrixButton.place(ScreenUnit.vw(82), COLOR_PICKER_BUTTONS.getButtonHeight)
+    if clearLEDMatrixButton.onMouseClick():
+        LED_MATRIX.erasePhysicalMatrix()
         
     
     if APP.firstFrame() or APP.updateAvalible:
