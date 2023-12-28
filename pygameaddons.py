@@ -263,7 +263,7 @@ class AppConstructor():
         return self.APPdisplay
     
     @property
-    def setUpdatePending(self):
+    def requestUpdate(self):
         self.updatePending = True
         
     @property

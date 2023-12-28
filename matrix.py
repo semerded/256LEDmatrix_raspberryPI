@@ -3,8 +3,7 @@ from globals import *
 import math
 
 class Matrix:
-    def __init__(self, APP: AppConstructor, matrixLength: int, matrixHeight: int) -> None:
-        self.APP = APP
+    def __init__(self, matrixLength: int, matrixHeight: int) -> None:
         self.matrix = Matrix.makeEmptyMatrix(matrixLength, matrixHeight)
         self.sideMeasurement = 0
         self.matrixPosition = (0, 0)
@@ -63,18 +62,19 @@ class Matrix:
         self.drawMatrixItems()
         self.drawMatrixGrid()
         
-    def checkForTouchInGrid(self):
+    def checkForTouchInGrid(self) -> bool:
         if Interactions.isHoldingInRect(self.matrixRect, mouseButton.leftMouseButton.value):
-            self.findClickedGridUnit()
+            return self.findClickedGridUnit()
         else:
             self.previousMouseGridPos[0] = self.mouseGridpos[0]
             self.previousMouseGridPos[1] = self.mouseGridpos[1]
+            return False
             
     def eraseMatrix(self):
         self.matrix = Matrix.makeEmptyMatrix(self.getMatrixDimensions[0], self.getMatrixDimensions[1])
             
             
-    def findClickedGridUnit(self):
+    def findClickedGridUnit(self) -> bool: # return value for screen updating
         mousePos = pygame.mouse.get_pos()
         mousePos = (mousePos[0] - self.matrixPosition[0], mousePos[1] - self.matrixPosition[1])
         self.mouseGridpos[0] = math.ceil(mousePos[0] / self.gridUnitSide)
@@ -84,7 +84,8 @@ class Matrix:
             self.drawMatrix(self.matrixPosition, self.sideMeasurement)
             self.previousMouseGridPos[0] = self.mouseGridpos[0]
             self.previousMouseGridPos[1] = self.mouseGridpos[1]
-            self.APP.setUpdatePending
+            return True
+        return False
                 
     @property
     def getMatrixDimensions(self):

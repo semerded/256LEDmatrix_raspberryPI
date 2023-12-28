@@ -50,7 +50,7 @@ class ColorButtons:
     def highlightActiveColor(self, index):
         buttonRect = self.buttonList[index].getButtonAndBorderRect
         Drawing.border(5, buttonRect, Color.GREEN, 10)
-        APP.setUpdatePending
+        APP.requestUpdate
         
     @property
     def getButtonHeight(self):
@@ -102,7 +102,8 @@ while True:
    
     
     COLOR_PICKER_BUTTONS.placeButtons()
-    MATRIX.checkForTouchInGrid()
+    if MATRIX.checkForTouchInGrid():
+        APP.requestUpdate
     drawPixelOnLEDMatrixButton.place(ScreenUnit.vw(63), COLOR_PICKER_BUTTONS.getButtonHeight)
     if drawPixelOnLEDMatrixButton.onMouseClick():
         LED_MATRIX.drawMatrixOnPhysicalMatrix(MATRIX.getMatrix)
