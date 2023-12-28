@@ -2,7 +2,7 @@ import threading, math
 import board, neopixel
 from enum import Enum
 from pygameaddons import *
-from globals import *
+import globals
 from matrix import Matrix
 
 pixels = neopixel.NeoPixel(board.D18, 256, brightness = 0.1)
@@ -27,7 +27,7 @@ fieldColors = [Color.BLACK, Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, 
 class ColorButtons:
     def __init__(self, buttonAmount, buttonText) -> None:
         self.buttonSize = (ScreenUnit.vw(20), ScreenUnit.vh(7))
-        self.previousHighlightedButton = currentColor
+        self.previousHighlightedButton = globals.currentColor
         self.buttonText = buttonText
         self.buttonList = []
         for index in range(buttonAmount):
@@ -36,7 +36,6 @@ class ColorButtons:
     
     
     def placeButtons(self):
-        global currentColor
         self.buttonSize = (ScreenUnit.vw(20), ScreenUnit.vh(7))
         for index, button in enumerate(self.buttonList):
             button.updateButtonSize(self.buttonSize[0], self.buttonSize[1])
@@ -44,8 +43,8 @@ class ColorButtons:
             button.text(self.buttonText[index], Font.H1, Color.GREY)
             button.place(ScreenUnit.vw(70), ScreenUnit.vh(1 + 9 * index))
             if button.onMouseClick():
-                currentColor = index         
-        self.highlightActiveColor(currentColor)
+                globals.currentColor = index         
+        self.highlightActiveColor(globals.currentColor)
             
     def highlightActiveColor(self, index):
         buttonRect = self.buttonList[index].getButtonAndBorderRect

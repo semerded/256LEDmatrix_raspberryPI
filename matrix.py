@@ -1,5 +1,5 @@
 from pygameaddons import *
-from globals import *
+import globals
 import math
 
 class Matrix:
@@ -48,7 +48,7 @@ class Matrix:
             for column in row:
                 if column != 0:
                     matrixUnitRect = pygame.Rect(self.matrixPosition[0] + self.gridUnitSide * currentGridPosition[0], self.matrixPosition[1] + self.gridUnitSide * currentGridPosition[1], self.gridUnitSide, self.gridUnitSide)
-                    Drawing.rectangleFromRect(matrixUnitRect, fieldColors[column])
+                    Drawing.rectangleFromRect(matrixUnitRect, globals.fieldColors[column])
                 currentGridPosition[0] += 1
             currentGridPosition[1] += 1
             currentGridPosition[0] = 0
@@ -80,10 +80,11 @@ class Matrix:
         self.mouseGridpos[0] = math.ceil(mousePos[0] / self.gridUnitSide)
         self.mouseGridpos[1] = math.ceil(mousePos[1] / self.gridUnitSide)
         if self.mouseGridpos[0] != self.previousMouseGridPos[0] or self.mouseGridpos[1] != self.previousMouseGridPos[1]:
-            self.matrix[self.mouseGridpos[1] - 1][self.mouseGridpos[0] - 1] = currentColor
+            self.matrix[self.mouseGridpos[1] - 1][self.mouseGridpos[0] - 1] = globals.currentColor
             self.drawMatrix(self.matrixPosition, self.sideMeasurement)
             self.previousMouseGridPos[0] = self.mouseGridpos[0]
             self.previousMouseGridPos[1] = self.mouseGridpos[1]
+            print(globals.currentColor)
             return True
         return False
                 
