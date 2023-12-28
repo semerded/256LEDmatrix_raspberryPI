@@ -11,18 +11,9 @@ pixels = neopixel.NeoPixel(board.D18, 256, brightness = 0.1)
 
 APP = AppConstructor(100, 100, pygame.FULLSCREEN, manualUpdating=True)
 APP.centerApp()
-# APP.setRelativeFullscreen
 clock = pygame.time.Clock()
 
-APP.setAspectratio(ScreenUnit.aspectRatio(aspectRatios.ratio16to9), height=ScreenUnit.dh(90))
-
-
-    
-fieldColors = [Color.BLACK, Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.LIGHTBLUE, Color.BLUE, Color.PURPLE, Color.PINK, Color.WHITE]
-    
-
-
-        
+# APP.setAspectratio(ScreenUnit.aspectRatio(aspectRatios.ratio16to9), height=ScreenUnit.dh(90))
 
 class ColorButtons:
     def __init__(self, buttonAmount, buttonText) -> None:
@@ -31,7 +22,7 @@ class ColorButtons:
         self.buttonText = buttonText
         self.buttonList = []
         for index in range(buttonAmount):
-            self.buttonList.append(Button(self.buttonSize, fieldColors[index], 5)),
+            self.buttonList.append(Button(self.buttonSize, globals.fieldColors[index], 5)),
             self.buttonList[index].border(6, Color.GRAY)
     
     
@@ -66,11 +57,11 @@ class Pixels:
         for row in matrix:
             if reverse:
                 for column in reversed(row):
-                    self.pixels[ledCounter] = fieldColors[column]                 
+                    self.pixels[ledCounter] = globals.fieldColors[column]                 
                     ledCounter += 1
             else:
                 for column in row:
-                    self.pixels[ledCounter] = fieldColors[column]
+                    self.pixels[ledCounter] = globals.fieldColors[column]
                     ledCounter += 1
             reverse = not reverse
             
@@ -82,7 +73,7 @@ class Pixels:
  
 COLOR_BUTTON_TEXT = ["zwart", "rood", "oranje", "geel", "groen", "lichtblauw", "donkerblauw", "paars", "roze", "wit"]
 MATRIX = Matrix(16, 16)
-COLOR_PICKER_BUTTONS = ColorButtons(len(fieldColors), COLOR_BUTTON_TEXT)
+COLOR_PICKER_BUTTONS = ColorButtons(len(globals.fieldColors), COLOR_BUTTON_TEXT)
 LED_MATRIX = Pixels(pixels)
 
 drawPixelOnLEDMatrixButton = Button((ScreenUnit.vw(15), ScreenUnit.vh(7)), Color.WHITE, 5)
@@ -96,7 +87,7 @@ clearLEDMatrixButton.text("Verwijder", Font.H1, overFlow=overFlow.show)
     
 while True:
     APP.eventHandler(pygame.event.get())
-    clock.tick(60)
+    clock.tick(60) # refresh rate of monitor
     APP.maindisplay.fill(Color.BLACK) 
    
     

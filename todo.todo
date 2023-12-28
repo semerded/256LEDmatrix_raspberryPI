@@ -3,3 +3,5 @@ met kleur van achtergrond bepalen welke kleur text krijgt
 undo button (opslaan van vorige matrixen)
 
 voeg een laad knop toe terwijl led matrix aan het tekenen is 
+
+BUG: als over de absolute rand van het scherm getekent wordt kleurt hij de blokjes aan de andere kant van de matrix
