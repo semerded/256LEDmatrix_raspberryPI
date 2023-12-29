@@ -3,9 +3,9 @@ from matrix import Matrix
 
 
 class DrawingHistory:
-    def __init__(self) -> None:
+    def __init__(self, matrixDimensions: tuple[int, int]) -> None:
         self.drawingHistory = []
-        self.drawingHistory.append(Matrix.makeEmptyMatrix())
+        self.drawingHistory.append(Matrix.makeEmptyMatrix(*matrixDimensions))
     
     def undo(self):
         pass
