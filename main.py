@@ -3,6 +3,7 @@ import board, neopixel
 from enum import Enum
 from pygameaddons import *
 import globals
+from undo_redo import DrawingHistory
 from matrix import Matrix
 
 pixels = neopixel.NeoPixel(board.D18, 256, brightness = 0.1)
@@ -75,6 +76,7 @@ COLOR_BUTTON_TEXT = ["zwart", "rood", "oranje", "geel", "groen", "lichtblauw", "
 MATRIX = Matrix(16, 16)
 COLOR_PICKER_BUTTONS = ColorButtons(len(globals.fieldColors), COLOR_BUTTON_TEXT)
 LED_MATRIX = Pixels(pixels)
+DRAWING_HISTORY = DrawingHistory()
 
 drawPixelOnLEDMatrixButton = Button((ScreenUnit.vw(15), ScreenUnit.vh(7)), Color.WHITE, 5)
 drawPixelOnLEDMatrixButton.border(4, Color.GREEN)
@@ -101,7 +103,8 @@ while True:
     clearLEDMatrixButton.place(ScreenUnit.vw(82), COLOR_PICKER_BUTTONS.getButtonHeight)
     if clearLEDMatrixButton.onMouseClick():
         LED_MATRIX.erasePhysicalMatrix()
-        
+    
+    DRAWING_HISTORY.checkForChanges(MATRIX.getMatrix) 
     
     if APP.firstFrame() or APP.updateAvalible:
         MATRIX.drawMatrix((0, 0), ScreenUnit.vh(100)) 
