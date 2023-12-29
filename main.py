@@ -76,7 +76,7 @@ COLOR_BUTTON_TEXT = ["zwart", "rood", "oranje", "geel", "groen", "lichtblauw", "
 MATRIX = Matrix(16, 16)
 COLOR_PICKER_BUTTONS = ColorButtons(len(globals.fieldColors), COLOR_BUTTON_TEXT)
 LED_MATRIX = Pixels(pixels)
-DRAWING_HISTORY = DrawingHistory()
+DRAWING_HISTORY = DrawingHistory(MATRIX.getMatrixDimensions)
 
 drawPixelOnLEDMatrixButton = Button((ScreenUnit.vw(15), ScreenUnit.vh(7)), Color.WHITE, 5)
 drawPixelOnLEDMatrixButton.border(4, Color.GREEN)
