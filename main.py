@@ -14,7 +14,7 @@ APP = AppConstructor(100, 100, pygame.FULLSCREEN, manualUpdating=True)
 APP.centerApp()
 clock = pygame.time.Clock()
 
-# APP.setAspectratio(ScreenUnit.aspectRatio(aspectRatios.ratio16to9), height=ScreenUnit.dh(90))
+APP.setAspectratio(ScreenUnit.aspectRatio(aspectRatios.ratio16to9), height=ScreenUnit.dh(100))
 
 class ColorButtons:
     def __init__(self, buttonAmount, buttonText) -> None:
