@@ -14,14 +14,17 @@ class DrawingHistory:
         pass
     
     def checkForChanges(self, currentMatrix: list[list[int]]):
-        if self._checkForDifferenceInNewMatrix:
+        if self._checkForDifferenceInNewMatrix(currentMatrix):
+            
             self.drawingHistory.append(currentMatrix)
         self._checkForHistoryOverflow()
         print(len(self.drawingHistory))
     
     def _checkForDifferenceInNewMatrix(self, currentMatrix: list[list[int]]):
         if self.drawingHistory[-1] != currentMatrix:
+            # print(True)
             return True
+        # print(False)
         return False
     
     def _checkForHistoryOverflow(self):
