@@ -233,7 +233,7 @@ class AppConstructor():
     def updateDisplay(self):
         Updating.updateDisplay()
         
-    def firstFrame(self):
+    def firstFrame(self): # TODO get rid of this func and make a general updating func
         if self.getFrameCounter < 2:
             return True
         return False

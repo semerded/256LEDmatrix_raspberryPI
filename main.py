@@ -10,11 +10,12 @@ pixels = neopixel.NeoPixel(board.D18, 256, brightness = 0.1)
 
 
 
-APP = AppConstructor(100, 100, pygame.FULLSCREEN, manualUpdating=True)
+# APP = AppConstructor(100, 100, pygame.FULLSCREEN, manualUpdating=True)
+APP = AppConstructor(100, 100, manualUpdating=True)
 APP.centerApp()
 clock = pygame.time.Clock()
 
-APP.setAspectratio(ScreenUnit.aspectRatio(aspectRatios.ratio16to9), height=ScreenUnit.dh(100))
+APP.setAspectratio(ScreenUnit.aspectRatio(aspectRatios.ratio16to9), height=ScreenUnit.dh(50))
 
 class ColorButtons:
     def __init__(self, buttonAmount, buttonText) -> None:
@@ -92,7 +93,6 @@ while True:
     clock.tick(60) # refresh rate of monitor
     APP.maindisplay.fill(Color.BLACK) 
    
-    
     COLOR_PICKER_BUTTONS.placeButtons()
     if MATRIX.checkForTouchInGrid():
         APP.requestUpdate
@@ -104,7 +104,7 @@ while True:
     if clearLEDMatrixButton.onMouseClick():
         LED_MATRIX.erasePhysicalMatrix()
     
-    DRAWING_HISTORY.checkForChanges(MATRIX.getMatrix) 
+    DRAWING_HISTORY.checkForChanges(MATRIX.getMatrix, pygame.Rect(0, 0, ScreenUnit.vh(100), ScreenUnit.vh(100))) 
     
     if APP.firstFrame() or APP.updateAvalible:
         MATRIX.drawMatrix((0, 0), ScreenUnit.vh(100)) 
@@ -114,13 +114,3 @@ while True:
         LED_MATRIX.erasePhysicalMatrix()
         pygame.quit()
         sys.exit()
-        
-                
-        
-    
-        
-        
-    
-    
-def main():
-    pass
