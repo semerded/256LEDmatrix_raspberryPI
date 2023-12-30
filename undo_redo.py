@@ -14,18 +14,18 @@ class DrawingHistory:
         pass
     
     def checkForChanges(self, currentMatrix: list[list[int]], matrixRect):
-        if self._checkForDifferenceInNewMatrix(currentMatrix) and not Interactions.isHoldingInRect(mouseButton.leftMouseButton, matrixRect): #TODO only add matrix when mouse is not pressed
+        if self._checkForDifferenceInNewMatrix(currentMatrix) and not Interactions.isReleased(mouseButton.leftMouseButton.value): #TODO only add matrix when mouse is not pressed
             self.drawingHistory.append(currentMatrix)
             
         self._checkForHistoryOverflow()
         print(len(self.drawingHistory))
     
     def _checkForDifferenceInNewMatrix(self, currentMatrix: list[list[int]]):
-        if self.drawingHistory[-1] != currentMatrix:
+        if self.drawingHistory[-1] == currentMatrix:
             # print(True)
-            return True
+            return False
         # print(False)
-        return False
+        return True
     
     def _checkForHistoryOverflow(self):
         while len(self.drawingHistory) > 50:
