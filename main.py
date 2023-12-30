@@ -86,7 +86,7 @@ clearLEDMatrixButton = Button((ScreenUnit.vw(15), ScreenUnit.vh(7)), Color.WHITE
 clearLEDMatrixButton.border(4, Color.RED)
 clearLEDMatrixButton.text("Verwijder", Font.H1, overFlow=overFlow.show)
 
-smallButtonTemplate = (ScreenUnit.vh(7), ScreenUnit.vh(7), Color.LIGHTGRAY)
+smallButtonTemplate = ((ScreenUnit.vh(7), ScreenUnit.vh(7)), Color.LIGHTGRAY)
 
 # TODO add icons
 menuButton = Button(*smallButtonTemplate) # TODO add menu
@@ -115,7 +115,7 @@ while True:
         APP.requestUpdate
 
     DRAWING_HISTORY.checkForChanges(MATRIX.getMatrix, pygame.Rect(0, 0, ScreenUnit.vh(100), ScreenUnit.vh(100))) 
-    
+    APP.requestUpdate
     # only draw when needed
     if APP.firstFrame() or APP.updateAvalible:
         APP.maindisplay.fill(Color.BLACK) 
