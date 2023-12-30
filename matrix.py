@@ -72,7 +72,9 @@ class Matrix:
             
     def eraseMatrix(self):
         self.matrix = Matrix.makeEmptyMatrix(self.getMatrixDimensions[0], self.getMatrixDimensions[1])
-            
+        
+    def overWriteMatrix(self, newMatrix):
+        self.matrix = newMatrix            
             
     def findClickedGridUnit(self) -> bool: # return value for screen updating
         mousePos = pygame.mouse.get_pos()

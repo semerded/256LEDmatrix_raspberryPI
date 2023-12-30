@@ -86,30 +86,50 @@ clearLEDMatrixButton = Button((ScreenUnit.vw(15), ScreenUnit.vh(7)), Color.WHITE
 clearLEDMatrixButton.border(4, Color.RED)
 clearLEDMatrixButton.text("Verwijder", Font.H1, overFlow=overFlow.show)
 
+smallButtonTemplate = (ScreenUnit.vh(7), ScreenUnit.vh(7), Color.LIGHTGRAY)
+
+# TODO add icons
+menuButton = Button(*smallButtonTemplate) # TODO add menu
+
+undoButton = Button(*smallButtonTemplate)
+
+redoButton = Button(*smallButtonTemplate)
+
 
     
 while True:
     APP.eventHandler(pygame.event.get())
     clock.tick(60) # refresh rate of monitor
-    APP.maindisplay.fill(Color.BLACK) 
    
-    COLOR_PICKER_BUTTONS.placeButtons()
     if MATRIX.checkForTouchInGrid():
         APP.requestUpdate
-    drawPixelOnLEDMatrixButton.place(ScreenUnit.vw(63), COLOR_PICKER_BUTTONS.getButtonHeight)
+        
     if drawPixelOnLEDMatrixButton.onMouseClick():
         LED_MATRIX.drawMatrixOnPhysicalMatrix(MATRIX.getMatrix)
         
-    clearLEDMatrixButton.place(ScreenUnit.vw(82), COLOR_PICKER_BUTTONS.getButtonHeight)
     if clearLEDMatrixButton.onMouseClick():
         LED_MATRIX.erasePhysicalMatrix()
-    
+        
+    if undoButton.onMouseClick():
+        MATRIX.overWriteMatrix(DRAWING_HISTORY.undo())
+        APP.requestUpdate
+
     DRAWING_HISTORY.checkForChanges(MATRIX.getMatrix, pygame.Rect(0, 0, ScreenUnit.vh(100), ScreenUnit.vh(100))) 
     
+    # only draw when needed
     if APP.firstFrame() or APP.updateAvalible:
+        APP.maindisplay.fill(Color.BLACK) 
+        drawPixelOnLEDMatrixButton.place(ScreenUnit.vw(63), COLOR_PICKER_BUTTONS.getButtonHeight)
+        clearLEDMatrixButton.place(ScreenUnit.vw(82), COLOR_PICKER_BUTTONS.getButtonHeight)
+        
+        menuButton.place(ScreenUnit.vw(90), ScreenUnit.vh(2))
+        undoButton.place(ScreenUnit.vw(90), ScreenUnit.vh(11))
+        redoButton.place(ScreenUnit.vw(90), ScreenUnit.vh(20))
+        
         MATRIX.drawMatrix((0, 0), ScreenUnit.vh(100)) 
         COLOR_PICKER_BUTTONS.placeButtons()
-        
+      
+    # app quit protocol  
     if APP.keyboardRelease(pygame.K_ESCAPE):
         LED_MATRIX.erasePhysicalMatrix()
         pygame.quit()

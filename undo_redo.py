@@ -6,10 +6,13 @@ from copy import deepcopy
 class DrawingHistory:
     def __init__(self, matrixDimensions: tuple[int, int]) -> None:
         self.drawingHistory = []
+        self.currentHistoryIndex = 0
         self.drawingHistory.append(Matrix.makeEmptyMatrix(*matrixDimensions))
     
     def undo(self):
-        pass
+        if self.currentHistoryIndex > 0:
+            self.currentHistoryIndex -= 1
+        return self.drawingHistory[self.currentHistoryIndex]
     
     def redo(self):
         pass
@@ -31,3 +34,7 @@ class DrawingHistory:
     def _checkForHistoryOverflow(self):
         while len(self.drawingHistory) > 50:
             self.drawingHistory.pop(0)
+            
+    @property
+    def getCurrentHistoryIndex(self):
+        return self.currentHistoryIndex
