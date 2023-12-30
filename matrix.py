@@ -84,7 +84,6 @@ class Matrix:
             self.drawMatrix(self.matrixPosition, self.sideMeasurement)
             self.previousMouseGridPos[0] = self.mouseGridpos[0]
             self.previousMouseGridPos[1] = self.mouseGridpos[1]
-            print(globals.currentColor)
             return True
         return False
                 
