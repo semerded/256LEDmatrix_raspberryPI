@@ -1,6 +1,10 @@
 met kleur van achtergrond bepalen welke kleur text krijgt
 
 undo button (opslaan van vorige matrixen)
+- knop werkt niet naar verhoort
+- voeg redo button toe
+
+BUG: scherm update niet meer
 
 voeg een laad knop toe terwijl led matrix aan het tekenen is 
 
