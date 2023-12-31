@@ -109,6 +109,7 @@ while True:
         
     if clearLEDMatrixButton.onMouseClick():
         LED_MATRIX.erasePhysicalMatrix()
+        DRAWING_HISTORY.resetDrawingHistory()
         
     if undoButton.onMouseClick():
         MATRIX.overWriteMatrix(DRAWING_HISTORY.undo())
