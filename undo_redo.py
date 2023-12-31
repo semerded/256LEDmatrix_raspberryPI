@@ -32,9 +32,7 @@ class DrawingHistory:
     
     def _checkForDifferenceInNewMatrix(self, currentMatrix: list[list[int]]):
         if self.drawingHistory[self.currentHistoryIndex] == currentMatrix:
-            # print(True)
             return False
-        # print(False)
         return True
     
     def _checkForHistoryOverflow(self):
@@ -42,7 +40,6 @@ class DrawingHistory:
             self.drawingHistory.pop(0)
     
     def _checkIfCurrentHistoryIndexIs(self): # TODO fix name
-        if self.currentHistoryIndex != len(self.drawingHistory) - 1:
             self.drawingHistory = self.drawingHistory[:self.currentHistoryIndex]
             
     @property
