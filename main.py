@@ -114,6 +114,10 @@ while True:
     if undoButton.onMouseClick():
         MATRIX.overWriteMatrix(DRAWING_HISTORY.undo())
         APP.requestUpdate
+    
+    if redoButton.onMouseClick():
+        MATRIX.overWriteMatrix(DRAWING_HISTORY.redo())
+        APP.requestUpdate
 
     DRAWING_HISTORY.checkForChanges(MATRIX.getMatrix, pygame.Rect(0, 0, ScreenUnit.vh(100), ScreenUnit.vh(100))) 
     APP.requestUpdate
