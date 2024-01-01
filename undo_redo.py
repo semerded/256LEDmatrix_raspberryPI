@@ -25,7 +25,7 @@ class DrawingHistory:
         return deepcopy(self.drawingHistory[self.currentHistoryIndex])
     
     def checkForChanges(self, currentMatrix: list[list[int]], matrixRect):
-        if self._checkForDifferenceInNewMatrix(currentMatrix) and not Interactions.isHoldingInRect(matrixRect, mouseButton.leftMouseButton.value): #TODO only add matrix when mouse is not pressed
+        if self._checkForDifferenceInNewMatrix(currentMatrix) and not Interactions.isHoldingInRect(matrixRect, mouseButton.leftMouseButton.value): 
             self._checkIfHistoryNeedsOverwrite(currentMatrix)
                 
             self.currentHistoryIndex += 1
@@ -41,7 +41,7 @@ class DrawingHistory:
         while len(self.drawingHistory) > 50:
             self.drawingHistory.pop(0)
     
-    def _checkIfHistoryNeedsOverwrite(self, currentMatrix: list[list[int]]): # TODO fix name
+    def _checkIfHistoryNeedsOverwrite(self, currentMatrix: list[list[int]]): 
         if indexedLen(self.drawingHistory) != self.currentHistoryIndex and currentMatrix not in self.drawingHistory:
             self.drawingHistory = self.drawingHistory[:self.currentHistoryIndex + 1]
             
