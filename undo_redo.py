@@ -29,11 +29,10 @@ class DrawingHistory:
                 
             self.currentHistoryIndex += 1
             self.drawingHistory.append(deepcopy(currentMatrix))
-            self._checkIfHistoryNeedsOverwrite()
             
         self._checkForHistoryOverflow()
         # print(len(self.drawingHistory), self.currentHistoryIndex)
-        print(self.drawingHistory[-1][0], currentMatrix[0])
+        print(self.drawingHistory[-1][0], currentMatrix[0], len(self.drawingHistory), self.currentHistoryIndex)
     
     def _checkForDifferenceInNewMatrix(self, currentMatrix: list[list[int]]):
         if self.drawingHistory[-1] != currentMatrix:
