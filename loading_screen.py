@@ -12,7 +12,7 @@ class LoadingScreen:
             self.APP.eventHandler(pygame.event.get())
             if self.APP.everyAmountOfTicks(10):
                 self.loadingWidget.text(self._loadingText(), Font.customFont(int(ScreenUnit.vw(8))), Color.GREEN, overFlow.show)
-                pygame.display.update(self.loadingWidget.getRect)     
+                pygame.display.flip()   
 
             self.loadingWidget.updateButtonSize(ScreenUnit.vw(50), ScreenUnit.vh(50))
             self.loadingWidget.border(10, Color.GREEN)
