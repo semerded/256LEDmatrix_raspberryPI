@@ -1,12 +1,13 @@
-import threading, math
+# import threading, math
 import board, neopixel
-from enum import Enum
 from pygameaddons import *
 import globals
+from loading_screen import LoadingScreen
 from undo_redo import DrawingHistory
 from matrix import Matrix
 
 pixels = neopixel.NeoPixel(board.D18, 256, brightness = 0.1)
+
 
 
 
@@ -52,10 +53,12 @@ class ColorButtons:
 class Pixels:
     def __init__(self, pixels) -> None:
         self.pixels = pixels
+        self.LOADING_SCREEN = LoadingScreen(APP, "Aan het tekenen")
         
     def drawMatrixOnPhysicalMatrix(self, matrix: list[list]):
         ledCounter = 0
         reverse = True
+        self.LOADING_SCREEN.startLoading()
         for row in matrix:
             if reverse:
                 for column in reversed(row):
@@ -66,6 +69,7 @@ class Pixels:
                     self.pixels[ledCounter] = globals.fieldColors[column]
                     ledCounter += 1
             reverse = not reverse
+        self.LOADING_SCREEN.stopLoading()
             
     def erasePhysicalMatrix(self):
         MATRIX.eraseMatrix()

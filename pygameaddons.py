@@ -69,6 +69,8 @@ class AppConstructor():
         self.manualUpdating = manualUpdating
         self.frameCounter = 0
         self.updatePending = True
+        self.clock = pygame.time.Clock()
+        
 
         self.minimumScreenWidth = None
         self.minimumScreenHeight = None
@@ -83,8 +85,11 @@ class AppConstructor():
         self.aspectRatioActive = False
         Interactions.resetPreviousMouseButtonStatus()
 
-    def eventHandler(self, appEvents: pygame.event):
+    def eventHandler(self, appEvents: pygame.event, fps: float = 60):
         global appScreenWidth, appScreenHeight
+        self.fps = fps
+        self.clock.tick(fps)
+        
         if not self.manualUpdating:
             Updating.updateDisplay()
         elif self.updatePending:
@@ -125,6 +130,17 @@ class AppConstructor():
                 Interactions.mouseButtonNegativeFlank(event.button)
                 self.resetFlank = True
         self.frameCounter += 1
+        
+    def everySecond(self):
+        if self.frameCounter % self.fps == 0:
+            return True
+        return False
+    
+    def everyAmountOfTicks(self, everyAmountOfFrames: int):
+        if self.frameCounter % everyAmountOfFrames == 0:
+            return True
+        return False
+    
     def resizeAppscreen(self, screenWidth, screenHeight, *flags):
         self.APPdisplayFlags = flags
         self.APPdisplay = pygame.display.set_mode(
