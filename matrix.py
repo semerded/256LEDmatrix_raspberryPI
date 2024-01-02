@@ -30,7 +30,7 @@ class Matrix:
         return isMatrix
      
     # instance               
-    def drawMatrixGrid(self):
+    def _drawMatrixGrid(self):
         currentGridPosition = [0,0]
         
         for row in self.matrix:
@@ -42,7 +42,7 @@ class Matrix:
             currentGridPosition[0] = 0
         self.matrixRect = pygame.Rect(self.matrixPosition[0], self.matrixPosition[1], self.gridUnitSide * self.getMatrixDimensions[0], self.gridUnitSide * self.getMatrixDimensions[1])
                 
-    def drawMatrixItems(self):
+    def _drawMatrixItems(self):
         currentGridPosition = [0,0]
         for row in self.matrix:
             for column in row:
@@ -59,12 +59,12 @@ class Matrix:
         self.sideMeasurement = sideMeasurement
         matrixWidth, matrixHeight = self.getMatrixDimensions # TODO! not reproducable
         self.gridUnitSide = self.sideMeasurement / matrixHeight
-        self.drawMatrixItems()
-        self.drawMatrixGrid()
+        self._drawMatrixItems()
+        self._drawMatrixGrid()
         
     def checkForTouchInGrid(self) -> bool:
         if Interactions.isHoldingInRect(self.matrixRect, mouseButton.leftMouseButton.value):
-            return self.findClickedGridUnit()
+            return self._findClickedGridUnit()
         else:
             self.previousMouseGridPos[0] = self.mouseGridpos[0]
             self.previousMouseGridPos[1] = self.mouseGridpos[1]
@@ -76,11 +76,12 @@ class Matrix:
     def overWriteMatrix(self, newMatrix):
         self.matrix = newMatrix            
             
-    def findClickedGridUnit(self) -> bool: # return value for screen updating
+    def _findClickedGridUnit(self) -> bool: # return value for screen updating
         mousePos = pygame.mouse.get_pos()
         mousePos = (mousePos[0] - self.matrixPosition[0], mousePos[1] - self.matrixPosition[1])
         self.mouseGridpos[0] = math.ceil(mousePos[0] / self.gridUnitSide)
         self.mouseGridpos[1] = math.ceil(mousePos[1] / self.gridUnitSide)
+        print(self.mouseGridpos)
         if self.mouseGridpos[0] != self.previousMouseGridPos[0] or self.mouseGridpos[1] != self.previousMouseGridPos[1]:
             self.matrix[self.mouseGridpos[1] - 1][self.mouseGridpos[0] - 1] = globals.currentColor
             self.drawMatrix(self.matrixPosition, self.sideMeasurement)
