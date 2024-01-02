@@ -544,13 +544,13 @@ class Button:
     def onMouseOver(self):
         return Interactions.isMouseOver(self.buttonRect)
 
-    def onMouseClick(self, mouseButton: mouseButton = mouseButton.leftMouseButton):
+    def onMouseClick(self, mouseButton: mouseButton = mouseButton.leftMouseButton) -> bool:
         return Interactions.isClickedInRect(self.buttonRect, mouseButton.value)
     
-    def onMouseRelease(self, mouseButton: mouseButton = mouseButton.leftMouseButton):
+    def onMouseRelease(self, mouseButton: mouseButton = mouseButton.leftMouseButton) -> bool:
         return Interactions.isReleasedInRect(self.buttonRect, mouseButton.value)
 
-    def onMouseHold(self, mouseButton: mouseButton = mouseButton.leftMouseButton):
+    def onMouseHold(self, mouseButton: mouseButton = mouseButton.leftMouseButton) -> bool:
         return Interactions.isHoldingInRect(self.buttonRect, mouseButton.value)
 
     def changeColorOnHover(self, hoverColor: RGBvalue):
@@ -564,6 +564,12 @@ class Button:
             self.buttonColor = clickColor
         else:
             self.buttonColor = self.defaultButtonColor
+            
+    def addBorderOnHover(self, borderWidth: int, borderColor: RGBvalue):
+        if self.onMouseOver():
+            self.border(borderWidth, borderColor)
+        else:
+            self.border(0, borderColor)
             
     def __placeButtonRect(self):
         Drawing.rectangleFromRect(self.buttonRect, self.buttonColor, Drawing.calculateInnerBorderRadius(self.borderRadius, self.borderWidth))

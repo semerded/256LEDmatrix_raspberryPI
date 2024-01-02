@@ -30,3 +30,8 @@ class axis(Enum):
     x = 0
     y = 1
     z = 2
+    
+class screens(Enum):
+    menu = 0
+    preset = 1
+    drawing = 2

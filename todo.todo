@@ -3,8 +3,6 @@ met kleur van achtergrond bepalen welke kleur text krijgt
 
 BUG: scherm update niet meer
 
-BUG: als over de absolute rand van het scherm getekent wordt kleurt hij de blokjes aan de andere kant van de matrix
-
 menu knop toevoegen met menu
  - keuzen tussen zelf tekenen of preset
  - moet presets van gezichten hebben
