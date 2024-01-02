@@ -17,7 +17,7 @@ APP = AppConstructor(100, 100, pygame.FULLSCREEN, manualUpdating=True)
 # APP.centerApp()
 clock = pygame.time.Clock()
 
-# APP.setAspectratio(ScreenUnit.aspectRatio(aspectRatios.ratio16to9), height=ScreenUnit.dh(50))
+APP.setAspectratio(ScreenUnit.aspectRatio(aspectRatios.ratio16to9), height=ScreenUnit.dh(100))
 
 class ColorButtons:
     def __init__(self, buttonAmount, buttonText) -> None:
@@ -152,7 +152,7 @@ class Screens:
             COLOR_PICKER_BUTTONS.placeButtons()
         
     def presets():
-        pass
+        print(True)
     
     def menu():
         MENU.place()
@@ -166,8 +166,7 @@ while True:
     APP.eventHandler(pygame.event.get())
     clock.tick(60) # refresh rate of monitor
     
-    SCREENS[globals.currentScreen] # show current screen
-    
+    SCREENS[globals.currentScreen.value]() # show current screen
     # app quit protocol  
     if APP.keyboardRelease(pygame.K_ESCAPE):
         LED_MATRIX.erasePhysicalMatrix()
