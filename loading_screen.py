@@ -12,16 +12,15 @@ class LoadingScreen:
             self.APP.eventHandler(pygame.event.get())
             if self.APP.everyAmountOfTicks(10):
                 self.loadingWidget.text(self._loadingText(), Font.customFont(int(ScreenUnit.vw(8))), Color.GREEN, overFlow.show)
+                pygame.display.update(self.loadingWidget.getRect)     
+
             self.loadingWidget.updateButtonSize(ScreenUnit.vw(50), ScreenUnit.vh(50))
             self.loadingWidget.border(10, Color.GREEN)
             self.loadingWidget.place(ScreenUnit.vw(25), ScreenUnit.vh(25))            
-            pygame.display.update(self.loadingWidget.getRect)     
         
     def _loadingText(self):
         self.loadingEllipses += 1
         if self.loadingEllipses > 3:
             self.loadingEllipses = 1
-        test = self.text + ("." * self.loadingEllipses)
-        # print(test)
-        return test
+        return self.text + ("." * self.loadingEllipses)
         
