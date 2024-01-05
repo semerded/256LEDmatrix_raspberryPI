@@ -10,17 +10,11 @@ class Menu:
         self.choiceDrawButton.text("Tekenen", Font.FONT50, Color.WHITE)
         
     def place(self):
-        if self.APP.isScreenResized():
-            self.choicePresetButton.updateButtonSize(ScreenUnit.vw(45), ScreenUnit.vh(90))
-            self.choiceDrawButton.updateButtonSize(ScreenUnit.vw(45), ScreenUnit.vh(90))
-            self.APP.requestUpdate
-            
         self.choicePresetButton.addBorderOnHover(5, Color.WHITE)
         if self.choicePresetButton.onMouseClick():
             globals.currentScreen = screens.preset
             return self.APP.requestUpdate
          
-    
         self.choiceDrawButton.addBorderOnHover(5, Color.WHITE)
         if self.choiceDrawButton.onMouseClick():
             globals.currentScreen = screens.drawing

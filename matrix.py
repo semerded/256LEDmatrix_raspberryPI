@@ -63,17 +63,21 @@ class Matrix:
         self._drawMatrixGrid()
         
     def checkForTouchInGrid(self) -> bool:
-        if Interactions.isHoldingInRect(self.matrixRect, mouseButton.leftMouseButton.value):
+        if self.IsMatrixClicked():
             return self._findClickedGridUnit()
         else:
             self.previousMouseGridPos[0] = self.mouseGridpos[0]
             self.previousMouseGridPos[1] = self.mouseGridpos[1]
             return False
+        
+    def IsMatrixClicked(self):
+        return Interactions.isHoldingInRect(self.matrixRect, mouseButton.leftMouseButton.value)
+            
             
     def eraseMatrix(self):
         self.matrix = Matrix.makeEmptyMatrix(self.getMatrixDimensions[0], self.getMatrixDimensions[1])
         
-    def overWriteMatrix(self, newMatrix):
+    def setMatrix(self, newMatrix):
         self.matrix = newMatrix            
             
     def _findClickedGridUnit(self) -> bool: # return value for screen updating

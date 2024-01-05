@@ -6,6 +6,7 @@ from loading_screen import LoadingScreen
 from undo_redo import DrawingHistory
 from matrix import Matrix
 from menu import Menu
+from presets import Presets
 
 pixels = neopixel.NeoPixel(board.D18, 256, brightness = 0.1)
 
@@ -94,6 +95,7 @@ COLOR_PICKER_BUTTONS = ColorButtons(len(globals.fieldColors), COLOR_BUTTON_TEXT)
 LED_MATRIX = Pixels(pixels)
 DRAWING_HISTORY = DrawingHistory(MATRIX.getMatrixDimensions)
 MENU = Menu(APP)
+PRESETS = Presets(APP)
 
 drawPixelOnLEDMatrixButton = Button((ScreenUnit.vw(15), ScreenUnit.vh(7)), Color.WHITE, 5)
 drawPixelOnLEDMatrixButton.border(4, Color.GREEN)
@@ -125,11 +127,11 @@ class Screens:
             DRAWING_HISTORY.resetDrawingHistory()
             
         if undoButton.onMouseClick():
-            MATRIX.overWriteMatrix(DRAWING_HISTORY.undo())
+            MATRIX.setMatrix(DRAWING_HISTORY.undo())
             APP.requestUpdate
         
         if redoButton.onMouseClick():
-            MATRIX.overWriteMatrix(DRAWING_HISTORY.redo())
+            MATRIX.setMatrix(DRAWING_HISTORY.redo())
             APP.requestUpdate
             
         if menuButton.onMouseClick():
@@ -153,7 +155,7 @@ class Screens:
             COLOR_PICKER_BUTTONS.placeButtons()
         
     def presets():
-        print(True)
+        PRESETS.place()
     
     def menu():
         MENU.place()
