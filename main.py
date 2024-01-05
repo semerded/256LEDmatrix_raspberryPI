@@ -170,6 +170,10 @@ while True:
     clock.tick(60) # refresh rate of monitor
     
     SCREENS[globals.currentScreen.value]() # show current screen
+
+    for row in MATRIX.getMatrix:
+        print(row)
+    print("-------------------------------")
     
     # app quit protocol  
     if APP.keyboardRelease(pygame.K_ESCAPE):

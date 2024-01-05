@@ -15,7 +15,7 @@ class Presets:
         self.buttonPrevious.text("<", Font.FONT50)
         
         self.buttonNext = Button((ScreenUnit.vh(10), ScreenUnit.vh(10)), Color.WHITE, 5)
-        self.buttonNext.text(">", Font.FONT100)
+        self.buttonNext.text(">", Font.FONT50)
         
     
     def createMatrixPresetList(self, presets):
@@ -45,7 +45,7 @@ class Presets:
         if self.APP.firstFrame() or self.APP.updateAvalible:
             self.APP.maindisplay.fill(Color.BLACK)
             self.buttonPrevious.place(ScreenUnit.vw(5), ScreenUnit.vh(45))
-            self.buttonNext.place(ScreenUnit.vw(5), ScreenUnit.vh(45))
+            self.buttonNext.place(ScreenUnit.vw(95) - ScreenUnit.vh(10), ScreenUnit.vh(45))
             self.matrixList[self.currentMatrixIndex].drawMatrix((ScreenUnit.vw(50) - (ScreenUnit.vh(95) / 2), ScreenUnit.vh(2.5)), ScreenUnit.vh(95))
             
             pygame.display.update()

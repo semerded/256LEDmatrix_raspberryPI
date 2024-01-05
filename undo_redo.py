@@ -40,6 +40,7 @@ class DrawingHistory:
     def _checkForHistoryOverflow(self):
         while len(self.drawingHistory) > 50:
             self.drawingHistory.pop(0)
+            self.currentHistoryIndex -= 1
     
     def _checkIfHistoryNeedsOverwrite(self, currentMatrix: list[list[int]]): 
         if indexedLen(self.drawingHistory) != self.currentHistoryIndex and currentMatrix not in self.drawingHistory:
