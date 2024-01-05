@@ -302,17 +302,24 @@ class AppConstructor():
 
 
 class Scroll():
-    def __init__(self, maxScrollPixel: int) -> None:
+    def __init__(self, maxScrollPixel: int, speed: scrollSpeed) -> None:
         self.maxScroll = maxScrollPixel
+        self.scrollPosition = 0
+        self.scrollSpeed = speed
 
     def setMaxScroll(self, maxScrollPixel: int):
         self.maxScroll = maxScrollPixel
         
-    def scrolController(self):
+    def setSpeed(self, speed: scrollSpeed):
+        self.scrollSpeed = speed
         
-        
-        return scrollValue
-
+    def scrollController(self) -> int:
+        self.scrollPosition += scrollValue * self.scrollSpeed
+        if self.scrollPosition < 0:
+            self.scrollPosition = 0
+        if self.scrollPosition > self.maxScroll:
+            self.scrollPosition = self.maxScroll        
+        return self.scrollPosition
 
 class ScreenUnit:
     def convert():
