@@ -650,7 +650,13 @@ class Text:
             if value >= 125:
                 lightColor = True
         return Color.BLACK if lightColor else Color.WHITE
-                
+    
+    def textColorFromColor(color: RGBvalue):
+        lightColor = False
+        for value in color:
+            if value >= 125:
+                lightColor = True
+        return Color.BLACK if lightColor else Color.WHITE
 
     def centerd(self):
         ...
