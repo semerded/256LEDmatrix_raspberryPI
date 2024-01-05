@@ -29,7 +29,7 @@ class ColorButtons:
         for index in range(buttonAmount):
             self.buttonList.append(Button(self.buttonSize, globals.fieldColors[index], 5)),
             self.buttonList[index].border(6, Color.GRAY)
-            self.buttonList[index].text(self.buttonText[index], Font.H1, Text.textColorFromColor(self.buttonList[index].getRect))
+            self.buttonList[index].text(self.buttonText[index], Font.H1, Text.textColorFromColor(globals.fieldColors[index]))
 
     
     
