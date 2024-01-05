@@ -1,12 +1,12 @@
 from enum import Enum
 class mouseButton(Enum):
     leftMouseButton = 1
-    rightMouseButton = 2
-    middleMouseButton = 3
-    unknownbutton1 = 4
-    unknownbutton2 = 5
-    mouseButton4 = 6
-    mouseButton5 = 7
+    middleMouseButton = 2
+    rightMouseButton = 3
+    scrollUp = 4
+    scrollDown = 5
+    bottomSideMouseButton = 6
+    topSideMouseButton = 7
     
 class interactionType(Enum):
     mouseOver = 1

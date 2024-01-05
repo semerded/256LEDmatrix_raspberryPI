@@ -49,8 +49,11 @@ appScreenHeight = 0
 mainDisplay = None
 screenUpdate = False
 
-mouseButtonsStatus = [False, False, False, False, False]
+# LMB, MMB, RMB, SCRLup, SCRLdown, SMBbottom, SMBtop
+mouseButtonsStatus = [False, False, False, False, False, False, False]
 previousMouseButtonStatus = []
+
+scrollValue = 0
 
 class logger():
     def __init__(self, logger: bool = True, endReport: bool = False) -> None:
@@ -86,7 +89,7 @@ class AppConstructor():
         Interactions.resetPreviousMouseButtonStatus()
 
     def eventHandler(self, appEvents: pygame.event, fps: float = 60):
-        global appScreenWidth, appScreenHeight
+        global appScreenWidth, appScreenHeight, scrollValue
         self.fps = fps
         self.clock.tick(fps)
         
@@ -111,7 +114,7 @@ class AppConstructor():
                 else:
                     self.modifiedFunctions["quit"]()
 
-            if event.type == pygame.WINDOWRESIZED:
+            elif event.type == pygame.WINDOWRESIZED:
                 appScreenWidth, appScreenHeight = self.getAppScreenDimensions
                 if self.minimumScreenWidth != None and self.minimumScreenHeight != None:
                     self.checkForMinimumScreenSizeBreaches()
@@ -120,15 +123,21 @@ class AppConstructor():
                 self.updatePending = True
                 
 
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouseButtonsStatus[event.button] = True
                 Interactions.mouseButtonPositiveFlank(event.button)
                 self.resetFlank = True
 
-            if event.type == pygame.MOUSEBUTTONUP:
+            elif event.type == pygame.MOUSEBUTTONUP:
                 mouseButtonsStatus[event.button] = False
                 Interactions.mouseButtonNegativeFlank(event.button)
                 self.resetFlank = True
+            
+            if event.type == pygame.MOUSEWHEEL:
+                scrollValue = event.y
+            else:
+                scrollValue = 0
+            
         self.frameCounter += 1
         
     def everySecond(self):
@@ -293,16 +302,16 @@ class AppConstructor():
 
 
 class Scroll():
-    def __init__(self) -> None:
-        pass
+    def __init__(self, maxScrollPixel: int) -> None:
+        self.maxScroll = maxScrollPixel
 
-    @property
-    def set_scroll(self):
-        self.__scrollActivated = True
-
-    @property
-    def get_scroll(self):
-        return self.__scrollActivated
+    def setMaxScroll(self, maxScrollPixel: int):
+        self.maxScroll = maxScrollPixel
+        
+    def scrolController(self):
+        
+        
+        return scrollValue
 
 
 class ScreenUnit:
@@ -405,32 +414,37 @@ class Image:
     def getImage(self):
         return self.image
 
-class Interactions:
-    def __init__(self) -> None:
-        pass
-            
+class Interactions:          
     def resetPreviousMouseButtonStatus():
         global previousMouseButtonStatus
         previousMouseButtonStatus = []
-        for i in range(len(mouseButton)):
+        for _ in range(len(mouseButton)):
             previousMouseButtonStatus.append(False)
 
     def isMouseButtonPressed(mouseButton: mouseButton):
+        mouseButton = Interactions._checkIfInt(mouseButton)
         if mouseButtonsStatus[mouseButton]:
             return True
         return False
 
     def mouseButtonPositiveFlank(mouseButton: mouseButton):
+        mouseButton = Interactions._checkIfInt(mouseButton)
         if mouseButtonsStatus[mouseButton] and not previousMouseButtonStatus[mouseButton]:
             previousMouseButtonStatus[mouseButton] = True
             return True
         return False
 
     def mouseButtonNegativeFlank(mouseButton: mouseButton):
+        mouseButton = Interactions._checkIfInt(mouseButton)
         if not mouseButtonsStatus[mouseButton] and previousMouseButtonStatus[mouseButton]:
             previousMouseButtonStatus[mouseButton] = True
             return True
         return False
+    
+    def _checkIfInt(mouseButton: int | mouseButton):
+        if type(mouseButton) == int:
+            return mouseButton
+        return mouseButton.value
 
     def isMouseOver(rect: pygame.Rect):
         mousePos = pygame.mouse.get_pos()
@@ -469,6 +483,21 @@ class Interactions:
     
     def isHoldingInRect(rect: pygame.Rect, mouseButton: mouseButton):
         if Interactions.isMouseOver(rect) and Interactions.isMouseButtonPressed(mouseButton):
+            return True
+        return False
+    
+    def isScrolledUp():
+        if Interactions.isMouseButtonPressed(mouseButton.scrollUp):
+            return True
+        return False
+    
+    def isScrolledDown():
+        if Interactions.isMouseButtonPressed(mouseButton.scrollDown):
+            return True
+        return False
+    
+    def isScrolled():
+        if Interactions.isMouseButtonPressed(mouseButton.scrollUp) or Interactions.isMouseButtonPressed(mouseButton.scrollDown):
             return True
         return False
     
