@@ -19,7 +19,7 @@ class Presets:
             tempMatrix.setMatrix(matrix)
             self.matrixList.append(deepcopy(tempMatrix))
         self.maxScrollValue = ScreenUnit.vw(50) * ceil(len(self.matrixList) / 2)
-        self.scroller = Scroll(self.maxScrollValue, scrollSpeed.medium)
+        self.scroller = Scroll(self.maxScrollValue, scrollSpeed.medium.value)
         self.scrollValue = 0
         
 
@@ -30,7 +30,7 @@ class Presets:
         if Interactions.isScrolled():
             self.APP.requestUpdate
             
-        # self.APP.requestUpdate # TEMP
+        self.APP.requestUpdate # TEMP
         
         if self.APP.firstFrame() or self.APP.updateAvalible:
             self.APP.maindisplay.fill(Color.BLACK)
@@ -39,7 +39,7 @@ class Presets:
             for index, matrix in enumerate(self.matrixList):
                 xPos = ScreenUnit.vw(3) if not secondPosition else ScreenUnit.vw(52)
                 yPos = ScreenUnit.vw(50) + ceil(index / 2)
-                matrix.draw((xPos, yPos), ScreenUnit.vw(45))
+                matrix.drawMatrix((xPos, yPos), ScreenUnit.vw(45))
                 secondPosition = not secondPosition
             
             pygame.display.update()
