@@ -35,7 +35,7 @@ class ColorButtons:
         for index, button in enumerate(self.buttonList):
             button.updateButtonSize(self.buttonSize[0], self.buttonSize[1])
             
-            button.text(self.buttonText[index], Font.H1, Color.GREY)
+            button.text(self.buttonText[index], Font.H1, Text.textColorFromBackground(button.getRect))
             button.place(ScreenUnit.vw(70), ScreenUnit.vh(1 + 9 * index))
             if button.onMouseClick():
                 globals.currentColor = index         
@@ -167,6 +167,7 @@ while True:
     clock.tick(60) # refresh rate of monitor
     
     SCREENS[globals.currentScreen.value]() # show current screen
+    
     # app quit protocol  
     if APP.keyboardRelease(pygame.K_ESCAPE):
         LED_MATRIX.erasePhysicalMatrix()

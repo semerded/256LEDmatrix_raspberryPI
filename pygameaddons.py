@@ -10,7 +10,7 @@ else:
     pygame__textinputImported = True
 
     
-import random, logging
+import random, logging, PIL.Image
 from multipledispatch import dispatch
 
 import sys, os
@@ -471,13 +471,6 @@ class Interactions:
         if Interactions.isMouseOver(rect) and Interactions.isMouseButtonPressed(mouseButton):
             return True
         return False
-
-class Text:
-
-    pass
-
-    def place(self):
-        pass
     
 class Updating:
     def updateDisplay():
@@ -645,7 +638,19 @@ class Text:
         xPos = rect.x + (rect.width / 2) - (textSurface.get_width() / 2)
         yPos = rect.y + (rect.height / 2) - (textSurface.get_height() / 2)
         return xPos, yPos
-        
+    
+    def textColorFromBackground(textRect: pygame.Rect):
+        """
+        calculates the textcolor based on the center pixel of the rect\n
+        a dark color will return white and a light color will return black
+        """
+        pixelColor = Display.getPixelColorFromBackground(*textRect.center)
+        lightColor = False
+        for value in pixelColor:
+            if value >= 125:
+                lightColor = True
+        return Color.BLACK if lightColor else Color.WHITE
+                
 
     def centerd(self):
         ...
@@ -673,6 +678,12 @@ class Drawing:
     
     def calculateInnerBorderRadius(outerBorderRadius, borderWidth):
         return notBelowZero(outerBorderRadius - borderWidth)
+    
+class Display:
+    def getPixelColorFromBackground(left: int, top: int) -> RGBvalue:
+        displayString = pygame.image.tostring(mainDisplay, 'RGB')
+        displayByte = PIL.Image.frombytes('RGB', (appScreenWidth, appScreenHeight), displayString)
+        return displayByte.getpixel((left, top))
         
     
 class Animate:
