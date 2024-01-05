@@ -28,6 +28,8 @@ class ColorButtons:
         for index in range(buttonAmount):
             self.buttonList.append(Button(self.buttonSize, globals.fieldColors[index], 5)),
             self.buttonList[index].border(6, Color.GRAY)
+            self.buttonList[index].text(self.buttonText[index], Font.H1, Text.textColorFromBackground(self.buttonList[index].getRect))
+
     
     
     def placeButtons(self):
@@ -35,7 +37,6 @@ class ColorButtons:
         for index, button in enumerate(self.buttonList):
             button.updateButtonSize(self.buttonSize[0], self.buttonSize[1])
             
-            button.text(self.buttonText[index], Font.H1, Text.textColorFromBackground(button.getRect))
             button.place(ScreenUnit.vw(70), ScreenUnit.vh(1 + 9 * index))
             if button.onMouseClick():
                 globals.currentColor = index         
