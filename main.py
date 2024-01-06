@@ -139,9 +139,9 @@ while True:
     
     SCREENS[globals.currentScreen.value]() # show current screen
 
-    # for row in MATRIX.getMatrix:
-    #     print(row)
-    # print("-------------------------------")
+    for row in MATRIX.getMatrix:
+        print(row)
+    print("-------------------------------")
     
     # app quit protocol  
     if APP.keyboardRelease(app.pygame.K_ESCAPE):
