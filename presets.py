@@ -46,7 +46,7 @@ class Presets:
                 self.currentMatrixIndex = 0
             
         if self.drawPixelOnLEDMatrixButton.onMouseClick():
-            self.PIXELS.drawMatrixOnPhysicalMatrix(self.matrixList[self.currentMatrixIndex])
+            self.PIXELS.drawMatrixOnPhysicalMatrix(self.matrixList[self.currentMatrixIndex].getMatrix)
         
         self.APP.requestUpdate # TEMP
         
