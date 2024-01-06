@@ -79,7 +79,7 @@ undoIcon = app.Image("button_images/undo.png")
 undoIcon.resize(*globals.smallButtonTemplate[0])
 redoButton = app.Button(*globals.smallButtonTemplate)
 redoIcon = app.Image("button_images/redo.png")
-redoButton.resize(*globals.smallButtonTemplate[0])
+redoIcon.resize(*globals.smallButtonTemplate[0])
 
 
 class Screens:
@@ -144,9 +144,9 @@ while True:
     
     SCREENS[globals.currentScreen.value]() # show current screen
 
-    # for row in MATRIX.getMatrix:
-    #     print(row)
-    # print("-------------------------------")
+    for row in MATRIX.getMatrix:
+        print(row)
+    print("-------------------------------")
     
     # app quit protocol  
     if APP.keyboardRelease(app.pygame.K_ESCAPE):
