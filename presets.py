@@ -1,4 +1,4 @@
-from pygameaddons import *
+import pygameaddons as app
 from matrix import Matrix
 from pixels import Pixels
 from menu_button import MenuButton
@@ -7,7 +7,7 @@ from functions import indexedLen
 import json, globals
 
 class Presets:
-    def __init__(self, APP: AppConstructor) -> None:
+    def __init__(self, APP: app.AppConstructor) -> None:
         self.APP = APP
         self.APP.requestUpdate
         with open("presets.json") as presetsSaveFile:
@@ -15,13 +15,13 @@ class Presets:
         self.createMatrixPresetList(PRESETS)
         self.currentMatrixIndex = 0
         
-        self.buttonPrevious = Button((ScreenUnit.vh(10), ScreenUnit.vh(10)), Color.WHITE, 5)
-        self.buttonPrevious.text("<", Font.FONT50)
-        self.buttonNext = Button((ScreenUnit.vh(10), ScreenUnit.vh(10)), Color.WHITE, 5)
-        self.buttonNext.text(">", Font.FONT50)
+        self.buttonPrevious = app.Button((app.ScreenUnit.vh(10), app.ScreenUnit.vh(10)), app.Color.WHITE, 5)
+        self.buttonPrevious.text("<", app.Font.FONT50)
+        self.buttonNext = app.Button((app.ScreenUnit.vh(10), app.ScreenUnit.vh(10)), app.Color.WHITE, 5)
+        self.buttonNext.text(">", app.Font.FONT50)
         
-        self.drawPixelOnLEDMatrixButton = Button((ScreenUnit.vw(18), ScreenUnit.vh(10)), Color.GREEN, 5)
-        self.drawPixelOnLEDMatrixButton.text("Tekenen!", Font.H1)
+        self.drawPixelOnLEDMatrixButton = app.Button((app.ScreenUnit.vw(18), app.ScreenUnit.vh(10)), app.Color.GREEN, 5)
+        self.drawPixelOnLEDMatrixButton.text("Tekenen!", app.Font.H1)
         
         self.menuButton = MenuButton(*globals.smallButtonTemplate)
         
@@ -49,7 +49,7 @@ class Presets:
                     self.currentMatrixIndex = 0
                     
             if self.menuButton.onMouseClick():
-                globals.currentScreen = screens.menu
+                globals.currentScreen = app.screens.menu
                 self.APP.requestUpdate
                 return
                 
@@ -59,12 +59,12 @@ class Presets:
         self.APP.requestUpdate # TEMP
         
         if self.APP.firstFrame() or self.APP.updateAvalible:
-            self.APP.maindisplay.fill(Color.BLACK)
-            self.buttonPrevious.place(ScreenUnit.vw(5), ScreenUnit.vh(45))
-            self.buttonNext.place(ScreenUnit.vw(95) - ScreenUnit.vh(10), ScreenUnit.vh(45))
-            self.menuButton.place(ScreenUnit.vw(93), ScreenUnit.vh(2))
-            self.drawPixelOnLEDMatrixButton.place(ScreenUnit.vw(80), ScreenUnit.vh(80))
-            self.matrixList[self.currentMatrixIndex].drawMatrix((ScreenUnit.vw(50) - (ScreenUnit.vh(95) / 2), ScreenUnit.vh(2.5)), ScreenUnit.vh(95))
+            self.APP.maindisplay.fill(app.Color.BLACK)
+            self.buttonPrevious.place(app.ScreenUnit.vw(5), app.ScreenUnit.vh(45))
+            self.buttonNext.place(app.ScreenUnit.vw(95) - app.ScreenUnit.vh(10), app.ScreenUnit.vh(45))
+            self.menuButton.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(2))
+            self.drawPixelOnLEDMatrixButton.place(app.ScreenUnit.vw(80), app.ScreenUnit.vh(80))
+            self.matrixList[self.currentMatrixIndex].drawMatrix((app.ScreenUnit.vw(50) - (app.ScreenUnit.vh(95) / 2), app.ScreenUnit.vh(2.5)), app.ScreenUnit.vh(95))
             
-            pygame.display.update()
+            app.pygame.display.update()
             

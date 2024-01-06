@@ -1,4 +1,4 @@
-from pygameaddons import *
+import pygameaddons as app
 import globals
 import math
 
@@ -9,7 +9,7 @@ class Matrix:
         self.matrixPosition = (0, 0)
         self.mouseGridpos = [0, 0]
         self.previousMouseGridPos = [0, 0]
-        self.matrixRect = pygame.Rect(0, 0, 0, 0)
+        self.matrixRect = app.pygame.Rect(0, 0, 0, 0)
     # static
     def makeEmptyMatrix(length, height):
         matrix = []
@@ -35,20 +35,20 @@ class Matrix:
         
         for row in self.matrix:
             for column in row:
-                gridUnitRect = pygame.Rect(self.matrixPosition[0] + self.gridUnitSide * currentGridPosition[0], self.matrixPosition[1] + self.gridUnitSide * currentGridPosition[1], self.gridUnitSide, self.gridUnitSide)
+                gridUnitRect = app.pygame.Rect(self.matrixPosition[0] + self.gridUnitSide * currentGridPosition[0], self.matrixPosition[1] + self.gridUnitSide * currentGridPosition[1], self.gridUnitSide, self.gridUnitSide)
                 currentGridPosition[0] += 1
-                Drawing.border(1, gridUnitRect, Color.LIGHTGRAY)
+                app.Drawing.border(1, gridUnitRect, app.Color.LIGHTGRAY)
             currentGridPosition[1] += 1
             currentGridPosition[0] = 0
-        self.matrixRect = pygame.Rect(self.matrixPosition[0], self.matrixPosition[1], self.gridUnitSide * self.getMatrixDimensions[0], self.gridUnitSide * self.getMatrixDimensions[1])
+        self.matrixRect = app.pygame.Rect(self.matrixPosition[0], self.matrixPosition[1], self.gridUnitSide * self.getMatrixDimensions[0], self.gridUnitSide * self.getMatrixDimensions[1])
                 
     def _drawMatrixItems(self):
         currentGridPosition = [0,0]
         for row in self.matrix:
             for column in row:
                 if column != 0:
-                    matrixUnitRect = pygame.Rect(self.matrixPosition[0] + self.gridUnitSide * currentGridPosition[0], self.matrixPosition[1] + self.gridUnitSide * currentGridPosition[1], self.gridUnitSide, self.gridUnitSide)
-                    Drawing.rectangleFromRect(matrixUnitRect, globals.fieldColors[column])
+                    matrixUnitRect = app.pygame.Rect(self.matrixPosition[0] + self.gridUnitSide * currentGridPosition[0], self.matrixPosition[1] + self.gridUnitSide * currentGridPosition[1], self.gridUnitSide, self.gridUnitSide)
+                    app.Drawing.rectangleFromRect(matrixUnitRect, globals.fieldColors[column])
                 currentGridPosition[0] += 1
             currentGridPosition[1] += 1
             currentGridPosition[0] = 0
@@ -71,7 +71,7 @@ class Matrix:
             return False
         
     def IsMatrixClicked(self):
-        return Interactions.isHoldingInRect(self.matrixRect, mouseButton.leftMouseButton.value)
+        return app.Interactions.isHoldingInRect(self.matrixRect, app.mouseButton.leftMouseButton.value)
             
             
     def eraseMatrix(self):
@@ -81,7 +81,7 @@ class Matrix:
         self.matrix = newMatrix            
             
     def _findClickedGridUnit(self) -> bool: # return value for screen updating
-        mousePos = pygame.mouse.get_pos()
+        mousePos = app.pygame.mouse.get_pos()
         mousePos = (mousePos[0] - self.matrixPosition[0], mousePos[1] - self.matrixPosition[1])
         self.mouseGridpos[0] = math.ceil(mousePos[0] / self.gridUnitSide)
         self.mouseGridpos[1] = math.ceil(mousePos[1] / self.gridUnitSide)

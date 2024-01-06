@@ -1,4 +1,4 @@
-from pygameaddons import *
+import pygameaddons as app
 from matrix import Matrix
 from copy import deepcopy
 from functions import indexedLen
@@ -25,7 +25,7 @@ class DrawingHistory:
         return deepcopy(self.drawingHistory[self.currentHistoryIndex])
     
     def checkForChanges(self, currentMatrix: list[list[int]], matrixRect):
-        if self._checkForDifferenceInNewMatrix(currentMatrix) and not Interactions.isHoldingInRect(matrixRect, mouseButton.leftMouseButton.value): 
+        if self._checkForDifferenceInNewMatrix(currentMatrix) and not app.Interactions.isHoldingInRect(matrixRect, app.mouseButton.leftMouseButton.value): 
             self._checkIfHistoryNeedsOverwrite(currentMatrix)
                 
             self.currentHistoryIndex += 1

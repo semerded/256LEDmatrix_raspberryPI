@@ -1,22 +1,22 @@
-from pygameaddons import *
+import pygameaddons as app
 
 class LoadingScreen:
-    def __init__(self, APP: AppConstructor, text: str) -> None:
+    def __init__(self, APP: app.AppConstructor, text: str) -> None:
         self.APP = APP
         self.text = text
         self.loadingEllipses = 0
-        self.loadingWidget = Button((ScreenUnit.vw(50), ScreenUnit.vh(50)), Color.LIGHTGRAY, 20)
-        self.loadingWidget.text(text, Font.customFont(int(ScreenUnit.vw(8))), Color.GREEN, overFlow.show)
+        self.loadingWidget = app.Button((app.ScreenUnit.vw(50), app.ScreenUnit.vh(50)), app.Color.LIGHTGRAY, 20)
+        self.loadingWidget.text(text, app.Font.customFont(int(app.ScreenUnit.vw(8))), app.Color.GREEN, app.overFlow.show)
   
     def place(self):
-            self.APP.eventHandler(pygame.event.get())
+            self.APP.eventHandler(app.pygame.event.get())
             if self.APP.everyAmountOfTicks(10):
-                self.loadingWidget.text(self._loadingText(), Font.customFont(int(ScreenUnit.vw(8))), Color.GREEN, overFlow.show)
-                pygame.display.flip()   
+                self.loadingWidget.text(self._loadingText(), app.Font.customFont(int(app.ScreenUnit.vw(8))), app.Color.GREEN, app.overFlow.show)
+                app.pygame.display.flip()   
 
-            self.loadingWidget.updateButtonSize(ScreenUnit.vw(50), ScreenUnit.vh(50))
-            self.loadingWidget.border(10, Color.GREEN)
-            self.loadingWidget.place(ScreenUnit.vw(25), ScreenUnit.vh(25))            
+            self.loadingWidget.updateButtonSize(app.ScreenUnit.vw(50), app.ScreenUnit.vh(50))
+            self.loadingWidget.border(10, app.Color.GREEN)
+            self.loadingWidget.place(app.ScreenUnit.vw(25), app.ScreenUnit.vh(25))            
         
     def _loadingText(self):
         self.loadingEllipses += 1

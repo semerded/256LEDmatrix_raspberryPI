@@ -404,7 +404,7 @@ class Image:
 
     def place(self, xPosition: float, yPosition: float):
         self.imagePosition = (xPosition, yPosition)
-        self.image.blit(mainDisplay, self.imagePosition)
+        mainDisplay.blit(self.image, self.imagePosition)
 
     @property
     def getAspectRatio(self):

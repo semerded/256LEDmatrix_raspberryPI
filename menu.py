@@ -1,4 +1,4 @@
-from pygameaddons import *
+from pygameaddons import AppConstructor, ScreenUnit, Button, Color, Font, screens, pygame
 import globals
 
 class Menu:

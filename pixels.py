@@ -1,11 +1,11 @@
-from pygameaddons import *
+import pygameaddons as app
 from matrix import Matrix
 from threading import Thread
 from loading_screen import LoadingScreen
 import globals
 
 class Pixels:
-    def __init__(self, pixels, APP: AppConstructor, MATRIX: Matrix) -> None:
+    def __init__(self, pixels, APP: app.AppConstructor, MATRIX: Matrix) -> None:
         self.pixels = pixels
         self.MATRIX = MATRIX
         self.drawingBusy = False
@@ -36,5 +36,5 @@ class Pixels:
     def erasePhysicalMatrix(self):
         self.MATRIX.eraseMatrix()
         self.APP.updateDisplay()
-        self.pixels.fill(Color.BLACK)
+        self.pixels.fill(app.Color.BLACK)
         

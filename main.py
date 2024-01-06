@@ -1,5 +1,5 @@
 import globals
-from pygameaddons import *
+import pygameaddons as app
 from undo_redo import DrawingHistory
 from matrix import Matrix
 from menu import Menu
@@ -7,44 +7,44 @@ from presets import Presets
 from pixels import Pixels
 from menu_button import MenuButton
 
-APP = AppConstructor(100, 100, pygame.FULLSCREEN, manualUpdating=True)
+APP = app.AppConstructor(100, 100, app.pygame.FULLSCREEN, manualUpdating=True)
 # APP = AppConstructor(100, 100, manualUpdating=True)
 # APP.centerApp()
-clock = pygame.time.Clock()
+clock = app.pygame.time.Clock()
 
-APP.setAspectratio(ScreenUnit.aspectRatio(aspectRatios.ratio16to9), height=ScreenUnit.dh(100))
+APP.setAspectratio(app.ScreenUnit.aspectRatio(app.aspectRatios.ratio16to9), height=app.ScreenUnit.dh(100))
 
 class ColorButtons:
     def __init__(self, buttonAmount, buttonText) -> None:
-        self.buttonSize = (ScreenUnit.vw(20), ScreenUnit.vh(7))
+        self.buttonSize = (app.ScreenUnit.vw(20), app.ScreenUnit.vh(7))
         self.previousHighlightedButton = globals.currentColor
         self.buttonText = buttonText
         self.buttonList = []
         for index in range(buttonAmount):
-            self.buttonList.append(Button(self.buttonSize, globals.fieldColors[index], 5)),
-            self.buttonList[index].border(6, Color.GRAY)
-            self.buttonList[index].text(self.buttonText[index], Font.H1, Text.textColorFromColor(globals.fieldColors[index]))
+            self.buttonList.append(app.Button(self.buttonSize, globals.fieldColors[index], 5)),
+            self.buttonList[index].border(6, app.Color.GRAY)
+            self.buttonList[index].text(self.buttonText[index], app.Font.H1, app.Text.textColorFromColor(globals.fieldColors[index]))
 
     
     
     def placeButtons(self):
-        self.buttonSize = (ScreenUnit.vw(20), ScreenUnit.vh(7))
+        self.buttonSize = (app.ScreenUnit.vw(20), app.ScreenUnit.vh(7))
         for index, button in enumerate(self.buttonList):
             button.updateButtonSize(self.buttonSize[0], self.buttonSize[1])
             
-            button.place(ScreenUnit.vw(70), ScreenUnit.vh(1 + 9 * index))
+            button.place(app.ScreenUnit.vw(70), app.ScreenUnit.vh(1 + 9 * index))
             if button.onMouseClick():
                 globals.currentColor = index         
         self.highlightActiveColor(globals.currentColor)
             
     def highlightActiveColor(self, index):
         buttonRect = self.buttonList[index].getButtonAndBorderRect
-        Drawing.border(5, buttonRect, Color.GREEN, 10)
+        app.Drawing.border(5, buttonRect, app.Color.GREEN, 10)
         APP.requestUpdate
         
     @property
     def getButtonHeight(self):
-        return ScreenUnit.vh(2 + 9 * len(self.buttonList))
+        return app.ScreenUnit.vh(2 + 9 * len(self.buttonList))
         
         
 
@@ -60,19 +60,19 @@ DRAWING_HISTORY = DrawingHistory(MATRIX.getMatrixDimensions)
 MENU = Menu(APP)
 PRESETS = Presets(APP)
 
-drawPixelOnLEDMatrixButton = Button((ScreenUnit.vw(15), ScreenUnit.vh(7)), Color.WHITE, 5)
-drawPixelOnLEDMatrixButton.border(4, Color.GREEN)
-drawPixelOnLEDMatrixButton.text("Teken!", Font.H1, overFlow=overFlow.show)
-clearLEDMatrixButton = Button((ScreenUnit.vw(15), ScreenUnit.vh(7)), Color.WHITE)
-clearLEDMatrixButton.border(4, Color.RED)
-clearLEDMatrixButton.text("Verwijder", Font.H1, overFlow=overFlow.show)
+drawPixelOnLEDMatrixButton = app.Button((app.ScreenUnit.vw(15), app.ScreenUnit.vh(7)), app.Color.WHITE, 5)
+drawPixelOnLEDMatrixButton.border(4, app.Color.GREEN)
+drawPixelOnLEDMatrixButton.text("Teken!", app.Font.H1, overFlow=app.overFlow.show)
+clearLEDMatrixButton = app.Button((app.ScreenUnit.vw(15), app.ScreenUnit.vh(7)), app.Color.WHITE)
+clearLEDMatrixButton.border(4, app.Color.RED)
+clearLEDMatrixButton.text("Verwijder", app.Font.H1, overFlow=app.overFlow.show)
 
 
 
 # TODO add icons
 menuButton = MenuButton()
-undoButton = Button(*globals.smallButtonTemplate)
-redoButton = Button(*globals.smallButtonTemplate)
+undoButton = app.Button(*globals.smallButtonTemplate)
+redoButton = app.Button(*globals.smallButtonTemplate)
 
 class Screens:
     def drawing():
@@ -96,23 +96,23 @@ class Screens:
                 APP.requestUpdate
                 
             if menuButton.onMouseClick():
-                globals.currentScreen = screens.menu
+                globals.currentScreen = app.screens.menu
                 APP.requestUpdate
                 return
 
-            DRAWING_HISTORY.checkForChanges(MATRIX.getMatrix, pygame.Rect(0, 0, ScreenUnit.vh(100), ScreenUnit.vh(100))) 
+            DRAWING_HISTORY.checkForChanges(MATRIX.getMatrix, app.pygame.Rect(0, 0, app.ScreenUnit.vh(100), app.ScreenUnit.vh(100))) 
         APP.requestUpdate
         # only draw when needed
         if APP.firstFrame() or APP.updateAvalible:
-            APP.maindisplay.fill(Color.BLACK) 
-            drawPixelOnLEDMatrixButton.place(ScreenUnit.vw(63), COLOR_PICKER_BUTTONS.getButtonHeight)
-            clearLEDMatrixButton.place(ScreenUnit.vw(82), COLOR_PICKER_BUTTONS.getButtonHeight)
+            APP.maindisplay.fill(app.Color.BLACK) 
+            drawPixelOnLEDMatrixButton.place(app.ScreenUnit.vw(63), COLOR_PICKER_BUTTONS.getButtonHeight)
+            clearLEDMatrixButton.place(app.ScreenUnit.vw(82), COLOR_PICKER_BUTTONS.getButtonHeight)
             
-            menuButton.place(ScreenUnit.vw(93), ScreenUnit.vh(2))
-            undoButton.place(ScreenUnit.vw(93), ScreenUnit.vh(11))
-            redoButton.place(ScreenUnit.vw(93), ScreenUnit.vh(20))
+            menuButton.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(2))
+            undoButton.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(11))
+            redoButton.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(20))
             
-            MATRIX.drawMatrix((0, 0), ScreenUnit.vh(100)) 
+            MATRIX.drawMatrix((0, 0), app.ScreenUnit.vh(100)) 
             COLOR_PICKER_BUTTONS.placeButtons()
         
     def presets():
@@ -127,7 +127,7 @@ SCREENS = [Screens.menu, Screens.presets, Screens.drawing]
 
     
 while True:
-    APP.eventHandler(pygame.event.get())
+    APP.eventHandler(app.pygame.event.get())
     clock.tick(60) # refresh rate of monitor
     
     SCREENS[globals.currentScreen.value]() # show current screen
@@ -137,7 +137,7 @@ while True:
     print("-------------------------------")
     
     # app quit protocol  
-    if APP.keyboardRelease(pygame.K_ESCAPE):
+    if APP.keyboardRelease(app.pygame.K_ESCAPE):
         LED_MATRIX.erasePhysicalMatrix()
-        pygame.quit()
-        sys.exit()
+        app.pygame.quit()
+        app.sys.exit()
