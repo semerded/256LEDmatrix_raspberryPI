@@ -14,6 +14,9 @@ clock = app.pygame.time.Clock()
 
 APP.setAspectratio(app.ScreenUnit.aspectRatio(app.aspectRatios.ratio16to9), height=app.ScreenUnit.dh(100))
 
+globals.smallButtonTemplate = smallButtonTemplate = ((app.ScreenUnit.vh(7), app.ScreenUnit.vh(7)), app.Color.BLACK)
+
+
 class ColorButtons:
     def __init__(self, buttonAmount, buttonText) -> None:
         self.buttonSize = (app.ScreenUnit.vw(20), app.ScreenUnit.vh(7))
@@ -72,7 +75,12 @@ clearLEDMatrixButton.text("Verwijder", app.Font.H1, overFlow=app.overFlow.show)
 # TODO add icons
 menuButton = MenuButton(*globals.smallButtonTemplate)
 undoButton = app.Button(*globals.smallButtonTemplate)
+undoIcon = app.Image("button_images/undo.png")
+undoIcon.resize(*globals.smallButtonTemplate[0])
 redoButton = app.Button(*globals.smallButtonTemplate)
+redoIcon = app.Image("button_images/redo.png")
+redoButton.resize(*globals.smallButtonTemplate[0])
+
 
 class Screens:
     def drawing():
@@ -109,8 +117,12 @@ class Screens:
             clearLEDMatrixButton.place(app.ScreenUnit.vw(82), COLOR_PICKER_BUTTONS.getButtonHeight)
             
             menuButton.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(2))
-            undoButton.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(10))
-            redoButton.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(18))
+            undoButtonPosition = (app.ScreenUnit.vw(93), app.ScreenUnit.vh(10))
+            undoButton.place(*undoButtonPosition)
+            undoIcon.place(*undoButtonPosition)
+            redoButtonPosition = (app.ScreenUnit.vw(93), app.ScreenUnit.vh(18))
+            redoButton.place(*redoButtonPosition)
+            redoIcon.place(*redoButtonPosition)
             
             MATRIX.drawMatrix((0, 0), app.ScreenUnit.vh(100)) 
             COLOR_PICKER_BUTTONS.placeButtons()

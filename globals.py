@@ -11,4 +11,4 @@ currentScreen = screens.menu
 
 pixels = neopixel.NeoPixel(board.D18, 256, brightness = 0.1)
 
-smallButtonTemplate = ((app.ScreenUnit.vh(7), app.ScreenUnit.vh(7)), Color.LIGHTGRAY)
+smallButtonTemplate = ((app.ScreenUnit.vh(7), app.ScreenUnit.vh(7)), Color.BLACK)
