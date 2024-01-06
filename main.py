@@ -109,8 +109,8 @@ class Screens:
             clearLEDMatrixButton.place(app.ScreenUnit.vw(82), COLOR_PICKER_BUTTONS.getButtonHeight)
             
             menuButton.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(2))
-            undoButton.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(11))
-            redoButton.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(20))
+            undoButton.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(10))
+            redoButton.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(18))
             
             MATRIX.drawMatrix((0, 0), app.ScreenUnit.vh(100)) 
             COLOR_PICKER_BUTTONS.placeButtons()
@@ -132,9 +132,9 @@ while True:
     
     SCREENS[globals.currentScreen.value]() # show current screen
 
-    for row in MATRIX.getMatrix:
-        print(row)
-    print("-------------------------------")
+    # for row in MATRIX.getMatrix:
+    #     print(row)
+    # print("-------------------------------")
     
     # app quit protocol  
     if APP.keyboardRelease(app.pygame.K_ESCAPE):
