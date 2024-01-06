@@ -70,7 +70,7 @@ clearLEDMatrixButton.text("Verwijder", app.Font.H1, overFlow=app.overFlow.show)
 
 
 # TODO add icons
-menuButton = MenuButton()
+menuButton = MenuButton(*globals.smallButtonTemplate)
 undoButton = app.Button(*globals.smallButtonTemplate)
 redoButton = app.Button(*globals.smallButtonTemplate)
 
