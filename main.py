@@ -75,11 +75,10 @@ clearLEDMatrixButton.text("Verwijder", app.Font.H1, overFlow=app.overFlow.show)
 # TODO add icons
 menuButton = MenuButton(*globals.smallButtonTemplate)
 undoButton = app.Button(*globals.smallButtonTemplate)
-undoIcon = app.Image("button_images/undo.png")
-undoIcon.resize(*globals.smallButtonTemplate[0])
+undoButton.icon("button_images/undo.png")
 redoButton = app.Button(*globals.smallButtonTemplate)
-redoIcon = app.Image("button_images/redo.png")
-redoButton.resize(*globals.smallButtonTemplate[0])
+redoButton.icon("button_images/redo.png")
+
 
 
 class Screens:
@@ -117,12 +116,8 @@ class Screens:
             clearLEDMatrixButton.place(app.ScreenUnit.vw(82), COLOR_PICKER_BUTTONS.getButtonHeight)
             
             menuButton.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(2))
-            undoButtonPosition = (app.ScreenUnit.vw(93), app.ScreenUnit.vh(10))
-            undoButton.place(*undoButtonPosition)
-            undoIcon.place(*undoButtonPosition)
-            redoButtonPosition = (app.ScreenUnit.vw(93), app.ScreenUnit.vh(18))
-            redoButton.place(*redoButtonPosition)
-            redoIcon.place(*redoButtonPosition)
+            undoButton.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(10))
+            redoButton.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(18))
             
             MATRIX.drawMatrix((0, 0), app.ScreenUnit.vh(100)) 
             COLOR_PICKER_BUTTONS.placeButtons()

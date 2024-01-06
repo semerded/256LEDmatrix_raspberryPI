@@ -537,6 +537,7 @@ class Button:
         self.defaultButtonColor = color
         self.borderRadius = borderRadius
         self.__text = None
+        self.__icon = None
         # self.buttonAtributes = Updating(__text=False, __border=False)
         self.borderWidth = 0
         self.buttonRect = pygame.Rect(0, 0, 0, 0)
@@ -575,6 +576,13 @@ class Button:
 
     def radius(self, borderRadius):
         self.borderRadius = borderRadius
+        
+    def icon(self, iconPath: str):
+        self.__icon = Image(iconPath)
+        self.__resizeIcon()
+                
+    def __resizeIcon(self):
+        self.__icon.resize(self.buttonSize[0], self.buttonSize[1])    
 
     def onMouseOver(self):
         return Interactions.isMouseOver(self.buttonRect)
@@ -609,6 +617,11 @@ class Button:
     def __placeButtonRect(self):
         Drawing.rectangleFromRect(self.buttonRect, self.buttonColor, Drawing.calculateInnerBorderRadius(self.borderRadius, self.borderWidth))
         
+    def __placeIcon(self, left, top):
+        if self.__icon != None:
+            mainDisplay.blit(self.__icon, (left, top))
+            
+        
     def __placeText(self):
         if self.__text != None:
             self.textSurface = self.__textFont.render(self.__text, True, self.__textColor)
@@ -624,6 +637,9 @@ class Button:
         self.buttonRect = pygame.Rect(left, top, self.buttonSize[0], self.buttonSize[1])
         self.fullRect = pygame.Rect(left - self.borderWidth / 2, top - self.borderWidth / 2, self.buttonSize[0] + self.borderWidth, self.buttonSize[1] + self.borderWidth)
         self.__placeButtonRect()
+        if screenUpdate:
+            self.__resizeIcon()
+        self.__placeIcon(left, top)
         self.__placeText()
         self.__placeBorder()
         
