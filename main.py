@@ -1,14 +1,12 @@
-import board, neopixel
-from threading import Thread
 import globals
 from pygameaddons import *
-from loading_screen import LoadingScreen
 from undo_redo import DrawingHistory
 from matrix import Matrix
 from menu import Menu
 from presets import Presets
+from pixels import Pixels
 
-pixels = neopixel.NeoPixel(board.D18, 256, brightness = 0.1)
+
 
 
 
@@ -53,38 +51,7 @@ class ColorButtons:
         return ScreenUnit.vh(2 + 9 * len(self.buttonList))
         
         
-class Pixels:
-    def __init__(self, pixels) -> None:
-        self.pixels = pixels
-        self.drawingBusy = False
-        self.LOADING_SCREEN = LoadingScreen(APP, "Aan het tekenen")
-        
-    def drawMatrixOnPhysicalMatrix(self, matrix: list[list[int]]):
-        self.drawingBusy = True
-        Thread(target=self._threadedDrawingOnMatrix, args=(matrix,)).start()
-        while self.drawingBusy:
-            self.LOADING_SCREEN.place()        
-        
-    def _threadedDrawingOnMatrix(self, matrix: list[list[int]]):
-        ledCounter = 0
-        reverse = True
-        for row in matrix:
-            if reverse:
-                for column in reversed(row):
-                    self.pixels[ledCounter] = globals.fieldColors[column]                 
-                    ledCounter += 1
-            else:
-                for column in row:
-                    self.pixels[ledCounter] = globals.fieldColors[column]
-                    ledCounter += 1
-            reverse = not reverse
-        self.drawingBusy = False
-            
-    def erasePhysicalMatrix(self):
-        MATRIX.eraseMatrix()
-        APP.updateDisplay()
-        self.pixels.fill(Color.BLACK)
-        
+
 
         
         
@@ -92,7 +59,7 @@ class Pixels:
 COLOR_BUTTON_TEXT = ["zwart", "rood", "oranje", "geel", "groen", "lichtblauw", "donkerblauw", "paars", "roze", "wit"]
 MATRIX = Matrix(16, 16)
 COLOR_PICKER_BUTTONS = ColorButtons(len(globals.fieldColors), COLOR_BUTTON_TEXT)
-LED_MATRIX = Pixels(pixels)
+LED_MATRIX = Pixels(globals.pixels)
 DRAWING_HISTORY = DrawingHistory(MATRIX.getMatrixDimensions)
 MENU = Menu(APP)
 PRESETS = Presets(APP)
