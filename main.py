@@ -59,7 +59,7 @@ class ColorButtons:
 COLOR_BUTTON_TEXT = ["zwart", "rood", "oranje", "geel", "groen", "lichtblauw", "donkerblauw", "paars", "roze", "wit"]
 MATRIX = Matrix(16, 16)
 COLOR_PICKER_BUTTONS = ColorButtons(len(globals.fieldColors), COLOR_BUTTON_TEXT)
-LED_MATRIX = Pixels(globals.pixels)
+LED_MATRIX = Pixels(globals.pixels, APP, MATRIX)
 DRAWING_HISTORY = DrawingHistory(MATRIX.getMatrixDimensions)
 MENU = Menu(APP)
 PRESETS = Presets(APP)
