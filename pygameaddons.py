@@ -619,7 +619,7 @@ class Button:
         
     def __placeIcon(self, left, top):
         if self.__icon != None:
-            mainDisplay.blit(self.__icon, (left, top))
+            mainDisplay.blit(self.__icon.getImage, (left, top))
             
         
     def __placeText(self):
