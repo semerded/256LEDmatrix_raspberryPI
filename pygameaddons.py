@@ -384,9 +384,9 @@ class Image:
             width = int(imageWidth * aspectRatio)
         else:
             height = int(imageHeight / aspectRatio)
-        self.scale(width, height)
+        self.resize(width, height)
 
-    def scale(self, width, height):
+    def resize(self, width, height):
         self.image = pygame.transform.scale(self.image, (width, height))
         self.imageSize = self.getSize
 

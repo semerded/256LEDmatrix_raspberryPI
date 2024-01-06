@@ -5,11 +5,7 @@ from matrix import Matrix
 from menu import Menu
 from presets import Presets
 from pixels import Pixels
-
-
-
-
-
+from menu_button import MenuButton
 
 APP = AppConstructor(100, 100, pygame.FULLSCREEN, manualUpdating=True)
 # APP = AppConstructor(100, 100, manualUpdating=True)
@@ -71,42 +67,40 @@ clearLEDMatrixButton = Button((ScreenUnit.vw(15), ScreenUnit.vh(7)), Color.WHITE
 clearLEDMatrixButton.border(4, Color.RED)
 clearLEDMatrixButton.text("Verwijder", Font.H1, overFlow=overFlow.show)
 
-smallButtonTemplate = ((ScreenUnit.vh(7), ScreenUnit.vh(7)), Color.LIGHTGRAY)
 
 
 # TODO add icons
-menuButton = Button(*smallButtonTemplate) # TODO add menu
-
-undoButton = Button(*smallButtonTemplate)
-
-redoButton = Button(*smallButtonTemplate)
+menuButton = MenuButton()
+undoButton = Button(*globals.smallButtonTemplate)
+redoButton = Button(*globals.smallButtonTemplate)
 
 class Screens:
     def drawing():
-        if MATRIX.checkForTouchInGrid():
-            APP.requestUpdate
-        
-        if drawPixelOnLEDMatrixButton.onMouseClick():
-            LED_MATRIX.drawMatrixOnPhysicalMatrix(MATRIX.getMatrix)
+        if not APP.firstFrame():
+            if MATRIX.checkForTouchInGrid():
+                APP.requestUpdate
             
-        if clearLEDMatrixButton.onMouseClick():
-            LED_MATRIX.erasePhysicalMatrix()
-            DRAWING_HISTORY.resetDrawingHistory()
+            if drawPixelOnLEDMatrixButton.onMouseClick():
+                LED_MATRIX.drawMatrixOnPhysicalMatrix(MATRIX.getMatrix)
+                
+            if clearLEDMatrixButton.onMouseClick():
+                LED_MATRIX.erasePhysicalMatrix()
+                DRAWING_HISTORY.resetDrawingHistory()
+                
+            if undoButton.onMouseClick():
+                MATRIX.setMatrix(DRAWING_HISTORY.undo())
+                APP.requestUpdate
             
-        if undoButton.onMouseClick():
-            MATRIX.setMatrix(DRAWING_HISTORY.undo())
-            APP.requestUpdate
-        
-        if redoButton.onMouseClick():
-            MATRIX.setMatrix(DRAWING_HISTORY.redo())
-            APP.requestUpdate
-            
-        if menuButton.onMouseClick():
-            globals.currentScreen = screens.menu
-            APP.requestUpdate
-            return
+            if redoButton.onMouseClick():
+                MATRIX.setMatrix(DRAWING_HISTORY.redo())
+                APP.requestUpdate
+                
+            if menuButton.onMouseClick():
+                globals.currentScreen = screens.menu
+                APP.requestUpdate
+                return
 
-        DRAWING_HISTORY.checkForChanges(MATRIX.getMatrix, pygame.Rect(0, 0, ScreenUnit.vh(100), ScreenUnit.vh(100))) 
+            DRAWING_HISTORY.checkForChanges(MATRIX.getMatrix, pygame.Rect(0, 0, ScreenUnit.vh(100), ScreenUnit.vh(100))) 
         APP.requestUpdate
         # only draw when needed
         if APP.firstFrame() or APP.updateAvalible:
@@ -114,9 +108,9 @@ class Screens:
             drawPixelOnLEDMatrixButton.place(ScreenUnit.vw(63), COLOR_PICKER_BUTTONS.getButtonHeight)
             clearLEDMatrixButton.place(ScreenUnit.vw(82), COLOR_PICKER_BUTTONS.getButtonHeight)
             
-            menuButton.place(ScreenUnit.vw(90), ScreenUnit.vh(2))
-            undoButton.place(ScreenUnit.vw(90), ScreenUnit.vh(11))
-            redoButton.place(ScreenUnit.vw(90), ScreenUnit.vh(20))
+            menuButton.place(ScreenUnit.vw(93), ScreenUnit.vh(2))
+            undoButton.place(ScreenUnit.vw(93), ScreenUnit.vh(11))
+            redoButton.place(ScreenUnit.vw(93), ScreenUnit.vh(20))
             
             MATRIX.drawMatrix((0, 0), ScreenUnit.vh(100)) 
             COLOR_PICKER_BUTTONS.placeButtons()

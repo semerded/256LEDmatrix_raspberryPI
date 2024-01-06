@@ -1,6 +1,7 @@
 from pygameaddons import *
 from matrix import Matrix
 from pixels import Pixels
+from menu_button import MenuButton
 from copy import deepcopy
 from functions import indexedLen
 import json, globals
@@ -22,6 +23,8 @@ class Presets:
         self.drawPixelOnLEDMatrixButton = Button((ScreenUnit.vw(18), ScreenUnit.vh(10)), Color.GREEN, 5)
         self.drawPixelOnLEDMatrixButton.text("Tekenen!", Font.H1)
         
+        self.menuButton = MenuButton(*globals.smallButtonTemplate)
+        
         self.PIXELS = Pixels(globals.pixels, self.APP, self.matrixList[0])
 
     
@@ -34,26 +37,32 @@ class Presets:
         
 
     def place(self):
-        
-        if self.buttonPrevious.onMouseClick():
-            self.currentMatrixIndex -= 1
-            if self.currentMatrixIndex < 0:
-                self.currentMatrixIndex = indexedLen(self.matrixList)
+        if not self.APP.firstFrame():
+            if self.buttonPrevious.onMouseClick():
+                self.currentMatrixIndex -= 1
+                if self.currentMatrixIndex < 0:
+                    self.currentMatrixIndex = indexedLen(self.matrixList)
+                
+            if self.buttonNext.onMouseClick():
+                self.currentMatrixIndex += 1
+                if self.currentMatrixIndex > indexedLen(self.matrixList):
+                    self.currentMatrixIndex = 0
+                    
+            if self.menuButton.onMouseClick():
+                globals.currentScreen = screens.menu
+                self.APP.requestUpdate
+                return
+                
+            if self.drawPixelOnLEDMatrixButton.onMouseClick():
+                self.PIXELS.drawMatrixOnPhysicalMatrix(self.matrixList[self.currentMatrixIndex].getMatrix)
             
-        if self.buttonNext.onMouseClick():
-            self.currentMatrixIndex += 1
-            if self.currentMatrixIndex > indexedLen(self.matrixList):
-                self.currentMatrixIndex = 0
-            
-        if self.drawPixelOnLEDMatrixButton.onMouseClick():
-            self.PIXELS.drawMatrixOnPhysicalMatrix(self.matrixList[self.currentMatrixIndex].getMatrix)
-        
         self.APP.requestUpdate # TEMP
         
         if self.APP.firstFrame() or self.APP.updateAvalible:
             self.APP.maindisplay.fill(Color.BLACK)
             self.buttonPrevious.place(ScreenUnit.vw(5), ScreenUnit.vh(45))
             self.buttonNext.place(ScreenUnit.vw(95) - ScreenUnit.vh(10), ScreenUnit.vh(45))
+            self.menuButton.place(ScreenUnit.vw(93), ScreenUnit.vh(2))
             self.drawPixelOnLEDMatrixButton.place(ScreenUnit.vw(80), ScreenUnit.vh(80))
             self.matrixList[self.currentMatrixIndex].drawMatrix((ScreenUnit.vw(50) - (ScreenUnit.vh(95) / 2), ScreenUnit.vh(2.5)), ScreenUnit.vh(95))
             
