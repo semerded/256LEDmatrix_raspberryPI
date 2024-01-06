@@ -13,6 +13,7 @@ APP = AppConstructor(100, 100, pygame.FULLSCREEN, manualUpdating=True)
 clock = pygame.time.Clock()
 
 APP.setAspectratio(ScreenUnit.aspectRatio(aspectRatios.ratio16to9), height=ScreenUnit.dh(100))
+globals.smallButtonTemplate = ((ScreenUnit.vh(7), ScreenUnit.vh(7)), Color.LIGHTGRAY) # update global value with new screen size
 
 class ColorButtons:
     def __init__(self, buttonAmount, buttonText) -> None:
@@ -70,9 +71,10 @@ clearLEDMatrixButton.text("Verwijder", Font.H1, overFlow=overFlow.show)
 
 
 # TODO add icons
-menuButton = MenuButton()
+menuButton = MenuButton(*globals.smallButtonTemplate)
 undoButton = Button(*globals.smallButtonTemplate)
 redoButton = Button(*globals.smallButtonTemplate)
+print(*globals.smallButtonTemplate)
 
 class Screens:
     def drawing():
@@ -109,8 +111,8 @@ class Screens:
             clearLEDMatrixButton.place(ScreenUnit.vw(82), COLOR_PICKER_BUTTONS.getButtonHeight)
             
             menuButton.place(ScreenUnit.vw(93), ScreenUnit.vh(2))
-            undoButton.place(ScreenUnit.vw(93), ScreenUnit.vh(11))
-            redoButton.place(ScreenUnit.vw(93), ScreenUnit.vh(20))
+            undoButton.place(ScreenUnit.vw(93), ScreenUnit.vh(10))
+            redoButton.place(ScreenUnit.vw(93), ScreenUnit.vh(18))
             
             MATRIX.drawMatrix((0, 0), ScreenUnit.vh(100)) 
             COLOR_PICKER_BUTTONS.placeButtons()
@@ -132,9 +134,9 @@ while True:
     
     SCREENS[globals.currentScreen.value]() # show current screen
 
-    for row in MATRIX.getMatrix:
-        print(row)
-    print("-------------------------------")
+    # for row in MATRIX.getMatrix:
+    #     print(row)
+    # print("-------------------------------")
     
     # app quit protocol  
     if APP.keyboardRelease(pygame.K_ESCAPE):
