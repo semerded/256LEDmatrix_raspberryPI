@@ -41,9 +41,12 @@ class ColorButtons:
         self.highlightActiveColor(globals.currentColor)
             
     def highlightActiveColor(self, index):
-        buttonRect = self.buttonList[index].getButtonAndBorderRect
-        app.Drawing.border(5, buttonRect, app.Color.GREEN, 10)
-        APP.requestUpdate
+        try:
+            buttonRect = self.buttonList[index].getButtonAndBorderRect
+            app.Drawing.border(5, buttonRect, app.Color.GREEN, 10)
+            APP.requestUpdate
+        except:
+            pass
         
     @property
     def getButtonHeight(self):
@@ -116,7 +119,7 @@ class Screens:
             menuButton.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(2))
             undoButton.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(10))
             redoButton.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(18))
-            colorWheel.place(app.ScreenUnit.vh(93), app.ScreenUnit.vh(26))
+            colorWheel.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(26))
             
             MATRIX.drawMatrix((0, 0), app.ScreenUnit.vh(100)) 
             COLOR_PICKER_BUTTONS.placeButtons()

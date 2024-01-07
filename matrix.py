@@ -37,7 +37,7 @@ class Matrix:
             for column in row:
                 gridUnitRect = app.pygame.Rect(self.matrixPosition[0] + self.gridUnitSide * currentGridPosition[0], self.matrixPosition[1] + self.gridUnitSide * currentGridPosition[1], self.gridUnitSide, self.gridUnitSide)
                 currentGridPosition[0] += 1
-                app.Drawing.border(1, gridUnitRect, app.Color.LIGHTGRAY)
+                app.Drawing.border(1, gridUnitRect, app.Color.LIGHT_GRAY)
             currentGridPosition[1] += 1
             currentGridPosition[0] = 0
         self.matrixRect = app.pygame.Rect(self.matrixPosition[0], self.matrixPosition[1], self.gridUnitSide * self.getMatrixDimensions[0], self.gridUnitSide * self.getMatrixDimensions[1])
