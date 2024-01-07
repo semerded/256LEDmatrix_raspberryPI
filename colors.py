@@ -31,7 +31,7 @@ class Color:
     # blue
     BLUE = (0, 0, 255)
     LESS_BLUE = (0, 0, 200)
-    LIGHTBLUE = (0, 120, 255)
+    LIGHT_BLUE = (0, 120, 255)
     MOONSTONE = (70, 177, 201)
     PURPLE = (255, 0, 255)
     RUSSIAN_VIOLET = (50, 14, 59)

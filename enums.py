@@ -35,6 +35,7 @@ class screens(Enum):
     menu = 0
     preset = 1
     drawing = 2
+    colorMenu = 3
     
 class scrollSpeed(Enum):
     slow = 20

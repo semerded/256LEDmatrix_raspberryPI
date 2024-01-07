@@ -6,6 +6,7 @@ from menu import Menu
 from presets import Presets
 from pixels import Pixels
 from menu_button import MenuButton
+from color_menu import ColorMenu
 
 APP = app.AppConstructor(100, 100, app.pygame.FULLSCREEN, manualUpdating=True)
 # APP = AppConstructor(100, 100, manualUpdating=True)
@@ -20,7 +21,6 @@ globals.smallButtonTemplate = smallButtonTemplate = ((app.ScreenUnit.vh(7), app.
 class ColorButtons:
     def __init__(self, buttonAmount, buttonText) -> None:
         self.buttonSize = (app.ScreenUnit.vw(20), app.ScreenUnit.vh(7))
-        self.previousHighlightedButton = globals.currentColor
         self.buttonText = buttonText
         self.buttonList = []
         for index in range(buttonAmount):
@@ -31,7 +31,7 @@ class ColorButtons:
     
     
     def placeButtons(self):
-        self.buttonSize = (app.ScreenUnit.vw(20), app.ScreenUnit.vh(7))
+        # self.buttonSize = (app.ScreenUnit.vw(20), app.ScreenUnit.vh(7))
         for index, button in enumerate(self.buttonList):
             button.updateButtonSize(self.buttonSize[0], self.buttonSize[1])
             
@@ -49,19 +49,14 @@ class ColorButtons:
     def getButtonHeight(self):
         return app.ScreenUnit.vh(2 + 9 * len(self.buttonList))
         
-        
 
-
-        
-        
- 
-COLOR_BUTTON_TEXT = ["zwart", "rood", "oranje", "geel", "groen", "lichtblauw", "donkerblauw", "paars", "roze", "wit"]
 MATRIX = Matrix(16, 16)
-COLOR_PICKER_BUTTONS = ColorButtons(len(globals.fieldColors), COLOR_BUTTON_TEXT)
+COLOR_PICKER_BUTTONS = ColorButtons(10, globals.COLOR_BUTTON_TEXT)
 LED_MATRIX = Pixels(globals.pixels, APP, MATRIX)
 DRAWING_HISTORY = DrawingHistory(MATRIX.getMatrixDimensions)
 MENU = Menu(APP)
 PRESETS = Presets(APP)
+COLOR_MENU = ColorMenu(APP)
 
 drawPixelOnLEDMatrixButton = app.Button((app.ScreenUnit.vw(15), app.ScreenUnit.vh(7)), app.Color.WHITE, 5)
 drawPixelOnLEDMatrixButton.border(4, app.Color.GREEN)
@@ -70,14 +65,13 @@ clearLEDMatrixButton = app.Button((app.ScreenUnit.vw(15), app.ScreenUnit.vh(7)),
 clearLEDMatrixButton.border(4, app.Color.RED)
 clearLEDMatrixButton.text("Verwijder", app.Font.H1, overFlow=app.overFlow.show)
 
-
-
-# TODO add icons
 menuButton = MenuButton(*globals.smallButtonTemplate)
 undoButton = app.Button(*globals.smallButtonTemplate)
 undoButton.icon("button_images/undo.png")
 redoButton = app.Button(*globals.smallButtonTemplate)
 redoButton.icon("button_images/redo.png")
+colorWheel = app.Button(*globals.smallButtonTemplate)
+colorWheel.icon("button_images/color_wheel.png")
 
 
 
@@ -104,9 +98,13 @@ class Screens:
                 
             if menuButton.onMouseClick():
                 globals.currentScreen = app.screens.menu
-                APP.requestUpdate
-                return
-
+                return APP.requestUpdate
+                
+            
+            if colorWheel.onMouseClick():
+                globals.currentScreen = app.screens.colorMenu
+                return APP.requestUpdate
+                
             DRAWING_HISTORY.checkForChanges(MATRIX.getMatrix, app.pygame.Rect(0, 0, app.ScreenUnit.vh(100), app.ScreenUnit.vh(100))) 
         APP.requestUpdate
         # only draw when needed
@@ -118,6 +116,7 @@ class Screens:
             menuButton.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(2))
             undoButton.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(10))
             redoButton.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(18))
+            colorWheel.place(app.ScreenUnit.vh(93), app.ScreenUnit.vh(26))
             
             MATRIX.drawMatrix((0, 0), app.ScreenUnit.vh(100)) 
             COLOR_PICKER_BUTTONS.placeButtons()
@@ -128,8 +127,11 @@ class Screens:
     def menu():
         MENU.place()
         
+    def colorMenu():
+        COLOR_MENU.place()
         
-SCREENS = [Screens.menu, Screens.presets, Screens.drawing]   
+        
+SCREENS = [Screens.menu, Screens.presets, Screens.drawing, Screens.colorMenu]   
         
 
     

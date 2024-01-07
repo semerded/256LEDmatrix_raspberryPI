@@ -546,7 +546,7 @@ class Button:
     # static
     def simpleButton(size,
                      position, 
-                     backgroundColor: RGBvalue = Color.LIGHTGRAY, 
+                     backgroundColor: RGBvalue = Color.LIGHT_GRAY, 
                      text: str = "", 
                      font: font = Font.H3,
                      textColor: RGBvalue = Color.BLACK, 
@@ -721,10 +721,10 @@ class Text:
 
 
 class Drawing:
-    def rectangle(xPosition: float, yPosition: float, width: float, height: float, color: RGBvalue = Color.LIGHTGRAY, cornerRadius: int = -1):
+    def rectangle(xPosition: float, yPosition: float, width: float, height: float, color: RGBvalue = Color.LIGHT_GRAY, cornerRadius: int = -1):
         return pygame.draw.rect(mainDisplay, color, pygame.Rect(xPosition, yPosition, width, height), border_radius=cornerRadius)
     
-    def rectangleFromRect(rect: pygame.Rect, color: RGBvalue = Color.LIGHTGRAY, cornerRadius: int = -1):
+    def rectangleFromRect(rect: pygame.Rect, color: RGBvalue = Color.LIGHT_GRAY, cornerRadius: int = -1):
         return pygame.draw.rect(mainDisplay, color, rect, border_radius=cornerRadius)
         
     def border(borderWidth: int, rectValue: pygame.Rect | tuple[float, float, float, float], color: RGBvalue = Color.BLACK, cornerRadius: int = -1) -> pygame.Rect:
