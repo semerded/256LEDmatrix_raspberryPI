@@ -5,7 +5,7 @@ class LoadingScreen:
         self.APP = APP
         self.text = text
         self.loadingEllipses = 0
-        self.loadingWidget = app.Button((app.ScreenUnit.vw(50), app.ScreenUnit.vh(50)), app.Color.LIGHTGRAY, 20)
+        self.loadingWidget = app.Button((app.ScreenUnit.vw(50), app.ScreenUnit.vh(50)), app.Color.LIGHT_GRAY, 20)
         self.loadingWidget.text(text, app.Font.customFont(int(app.ScreenUnit.vw(8))), app.Color.GREEN, app.overFlow.show)
   
     def place(self):

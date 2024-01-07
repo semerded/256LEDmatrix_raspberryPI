@@ -4,9 +4,9 @@ import globals
 class Menu:
     def __init__(self, APP: AppConstructor) -> None:
         self.APP = APP
-        self.choicePresetButton = Button((ScreenUnit.vw(45), ScreenUnit.vh(90)), Color.LIGHTGRAY, 10)
+        self.choicePresetButton = Button((ScreenUnit.vw(45), ScreenUnit.vh(90)), Color.LIGHT_GRAY, 10)
         self.choicePresetButton.text("Presets", Font.FONT50, Color.WHITE)
-        self.choiceDrawButton = Button((ScreenUnit.vw(45), ScreenUnit.vh(90)), Color.LIGHTGRAY, 10)
+        self.choiceDrawButton = Button((ScreenUnit.vw(45), ScreenUnit.vh(90)), Color.LIGHT_GRAY, 10)
         self.choiceDrawButton.text("Tekenen", Font.FONT50, Color.WHITE)
         
     def place(self):
