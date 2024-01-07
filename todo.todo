@@ -8,3 +8,7 @@ kleuren scherm toevoegen
 kleuren:
     - bruin, grijs, varianten van andere kleuren
     - verander kleuren langs veld naar laatst gebruikte kleuren (reset bij app sluiting)
+    - text toevoegen aan kleur menu
+    - border fixen bij kies kleur
+    - current kleur indicator
+    - colorpicker toevoegen
