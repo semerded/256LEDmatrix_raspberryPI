@@ -24,8 +24,8 @@ class Presets:
         self.drawPixelOnLEDMatrixButton.text("Tekenen!", app.Font.H1)
         
         self.menuButton = MenuButton(*globals.smallButtonTemplate)
-        
-        self.PIXELS = Pixels(globals.pixels, self.APP, self.matrixList[0])
+        if globals.RPIconnected:
+            self.PIXELS = Pixels(globals.pixels, self.APP, self.matrixList[0])
 
     
     def createMatrixPresetList(self, presets):
@@ -53,7 +53,7 @@ class Presets:
                 self.APP.requestUpdate
                 return
                 
-            if self.drawPixelOnLEDMatrixButton.onMouseClick():
+            if globals.RPIconnected and self.drawPixelOnLEDMatrixButton.onMouseClick():
                 self.PIXELS.drawMatrixOnPhysicalMatrix(self.matrixList[self.currentMatrixIndex].getMatrix)
             
         self.APP.requestUpdate # TEMP

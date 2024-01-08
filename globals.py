@@ -1,6 +1,11 @@
 from colors import Color
 from enums import screens
-import board, neopixel
+try:
+    import board, neopixel
+except ImportError:
+    RPIconnected = False
+else:
+    RPIconnected = True
 import pygameaddons as app
 
             
@@ -74,6 +79,7 @@ COLOR_BUTTON_TEXT = [
 
 currentScreen = screens.menu
 
-pixels = neopixel.NeoPixel(board.D18, 256, brightness = 0.1)
+if RPIconnected:
+    pixels = neopixel.NeoPixel(board.D18, 256, brightness = 0.1)
 
 smallButtonTemplate = ((app.ScreenUnit.vh(7), app.ScreenUnit.vh(7)), Color.BLACK)

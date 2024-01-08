@@ -8,7 +8,7 @@ from pixels import Pixels
 from menu_button import MenuButton
 from color_menu import ColorMenu
 
-APP = app.AppConstructor(100, 100, app.pygame.FULLSCREEN, manualUpdating=True)
+APP = app.AppConstructor(app.userScreenWidth, app.userScreenHeight, app.pygame.FULLSCREEN, manualUpdating=True)
 # APP = AppConstructor(100, 100, manualUpdating=True)
 # APP.centerApp()
 clock = app.pygame.time.Clock()
@@ -55,7 +55,9 @@ class ColorButtons:
 
 MATRIX = Matrix(16, 16)
 COLOR_PICKER_BUTTONS = ColorButtons(10, globals.COLOR_BUTTON_TEXT)
-LED_MATRIX = Pixels(globals.pixels, APP, MATRIX)
+
+if globals.RPIconnected:
+    LED_MATRIX = Pixels(globals.pixels, APP, MATRIX)
 DRAWING_HISTORY = DrawingHistory(MATRIX.getMatrixDimensions)
 MENU = Menu(APP)
 PRESETS = Presets(APP)
@@ -84,11 +86,14 @@ class Screens:
             if MATRIX.checkForTouchInGrid():
                 APP.requestUpdate
             
-            if drawPixelOnLEDMatrixButton.onMouseClick():
+            if globals.RPIconnected and drawPixelOnLEDMatrixButton.onMouseClick():
                 LED_MATRIX.drawMatrixOnPhysicalMatrix(MATRIX.getMatrix)
                 
             if clearLEDMatrixButton.onMouseClick():
-                LED_MATRIX.erasePhysicalMatrix()
+                if globals.RPIconnected:
+                    LED_MATRIX.erasePhysicalMatrix()
+                else:
+                    MATRIX.eraseMatrix()
                 DRAWING_HISTORY.resetDrawingHistory()
                 
             if undoButton.onMouseClick():
@@ -150,6 +155,7 @@ while True:
     
     # app quit protocol  
     if APP.keyboardRelease(app.pygame.K_ESCAPE):
-        LED_MATRIX.erasePhysicalMatrix()
+        if globals.RPIconnected:
+            LED_MATRIX.erasePhysicalMatrix()
         app.pygame.quit()
         app.sys.exit()
