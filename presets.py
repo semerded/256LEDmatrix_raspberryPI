@@ -42,11 +42,13 @@ class Presets:
                 self.currentMatrixIndex -= 1
                 if self.currentMatrixIndex < 0:
                     self.currentMatrixIndex = indexedLen(self.matrixList)
+                self.APP.requestUpdate
                 
             if self.buttonNext.onMouseClick():
                 self.currentMatrixIndex += 1
                 if self.currentMatrixIndex > indexedLen(self.matrixList):
                     self.currentMatrixIndex = 0
+                self.APP.requestUpdate
                     
             if self.menuButton.onMouseClick():
                 globals.currentScreen = app.screens.menu
@@ -54,9 +56,7 @@ class Presets:
                 
             if globals.RPIconnected and self.drawPixelOnLEDMatrixButton.onMouseClick():
                 self.PIXELS.drawMatrixOnPhysicalMatrix(self.matrixList[self.currentMatrixIndex].getMatrix)
-            
-            self.APP.requestUpdate # TEMP
-        
+                    
         if self.APP.firstFrame() or self.APP.updateAvalible:
             self.APP.maindisplay.fill(app.Color.BLACK)
             self.buttonPrevious.place(app.ScreenUnit.vw(5), app.ScreenUnit.vh(45))

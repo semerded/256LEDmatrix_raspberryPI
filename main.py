@@ -80,6 +80,8 @@ redoButton = app.Button(*globals.smallButtonTemplate)
 redoButton.icon("button_images/redo.png")
 colorWheel = app.Button(*globals.smallButtonTemplate)
 colorWheel.icon("button_images/color_wheel.png")
+colorPicker = app.Button(*globals.smallButtonTemplate)
+colorPicker.icon("button_images/color_picker.png")
 
 falseMatrixTouch = False # to make shure nothing is drawn when switching screens
 
@@ -115,10 +117,14 @@ class Screens:
                 globals.currentScreen = app.screens.menu
                 return APP.switchScreen()
                 
-            
             if colorWheel.onMouseClick():
                 globals.currentScreen = app.screens.colorMenu
                 return APP.switchScreen()
+                
+            if colorPicker.onMouseClick():
+                globals.colorPickerEnabled = not globals.colorPickerEnabled
+                APP.requestUpdate
+                
                 
             DRAWING_HISTORY.checkForChanges(MATRIX.getMatrix, app.pygame.Rect(0, 0, app.ScreenUnit.vh(100), app.ScreenUnit.vh(100))) 
         else:
@@ -136,6 +142,12 @@ class Screens:
             undoButton.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(10))
             redoButton.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(18))
             colorWheel.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(26))
+            colorPicker.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(34))
+            
+            if globals.colorPickerEnabled:
+                colorPicker.border(3, app.Color.GREEN)
+            else:
+                colorPicker.border(0, app.Color.BLACK)
             
             MATRIX.drawMatrix((0, 0), app.ScreenUnit.vh(100)) 
             COLOR_PICKER_BUTTONS.placeButtons()

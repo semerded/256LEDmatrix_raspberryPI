@@ -64,7 +64,11 @@ class Matrix:
         
     def checkForTouchInGrid(self) -> bool:
         if self.IsMatrixClicked():
-            return self._findClickedGridUnit()
+            if globals.colorPickerEnabled:
+                self._pickColor()
+                return True
+            else:
+                return self._findClickedGridUnit()
         else:
             self.previousMouseGridPos[0] = self.mouseGridpos[0]
             self.previousMouseGridPos[1] = self.mouseGridpos[1]
@@ -87,13 +91,25 @@ class Matrix:
         self.mouseGridpos[1] = math.ceil(mousePos[1] / self.gridUnitSide)
         if self.mouseGridpos[0] != 0 and self.mouseGridpos[1] != 0:
             # To counter a strange bug where it would draw the bottom most square when you are drawing out of bounds above the screen
-            if self.mouseGridpos[0] != self.previousMouseGridPos[0] or self.mouseGridpos[1] != self.previousMouseGridPos[1]:
-                self.matrix[self.mouseGridpos[1] - 1][self.mouseGridpos[0] - 1] = globals.currentColor
-                self.drawMatrix(self.matrixPosition, self.sideMeasurement)
-                self.previousMouseGridPos[0] = self.mouseGridpos[0]
-                self.previousMouseGridPos[1] = self.mouseGridpos[1]
+            if globals.colorPickerEnabled:
+                self._pickColor()
                 return True
+            else:
+                return self._updateMatrixWithClick()
         return False
+    
+    def _pickColor(self):
+        globals.currentColor = self.matrix[self.mouseGridpos[1] - 1][self.mouseGridpos[0] - 1]
+        
+    def _updateMatrixWithClick(self):
+        if self.mouseGridpos[0] != self.previousMouseGridPos[0] or self.mouseGridpos[1] != self.previousMouseGridPos[1]:
+            self.matrix[self.mouseGridpos[1] - 1][self.mouseGridpos[0] - 1] = globals.currentColor
+            self.drawMatrix(self.matrixPosition, self.sideMeasurement)
+            self.previousMouseGridPos[0] = self.mouseGridpos[0]
+            self.previousMouseGridPos[1] = self.mouseGridpos[1]
+            return True
+        return False
+        
                 
     @property
     def getMatrixDimensions(self):

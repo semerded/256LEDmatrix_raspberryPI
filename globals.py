@@ -77,6 +77,9 @@ COLOR_BUTTON_TEXT = [
 
 currentScreen = screens.menu
 
+colorPickerEnabled = False
+
+
 if RPIconnected:
     pixels = neopixel.NeoPixel(board.D18, 256, brightness = 0.1)
 

@@ -14,7 +14,7 @@ class Menu:
             self.choicePresetButton.addBorderOnHover(5, Color.WHITE)
             if self.choicePresetButton.onMouseClick():
                 globals.currentScreen = screens.preset
-                return self.APP.requestUpdate
+                return self.APP.switchScreen()
             
             self.choiceDrawButton.addBorderOnHover(5, Color.WHITE)
             if self.choiceDrawButton.onMouseClick():
