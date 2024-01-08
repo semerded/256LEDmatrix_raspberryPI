@@ -50,13 +50,12 @@ class Presets:
                     
             if self.menuButton.onMouseClick():
                 globals.currentScreen = app.screens.menu
-                self.APP.requestUpdate
-                return
+                return self.APP.switchScreen()
                 
             if globals.RPIconnected and self.drawPixelOnLEDMatrixButton.onMouseClick():
                 self.PIXELS.drawMatrixOnPhysicalMatrix(self.matrixList[self.currentMatrixIndex].getMatrix)
             
-        self.APP.requestUpdate # TEMP
+            self.APP.requestUpdate # TEMP
         
         if self.APP.firstFrame() or self.APP.updateAvalible:
             self.APP.maindisplay.fill(app.Color.BLACK)

@@ -28,7 +28,11 @@ class ColorButtons:
             self.buttonList[index].border(6, app.Color.GRAY)
             self.buttonList[index].text(self.buttonText[index], app.Font.H1, app.Text.textColorFromColor(globals.fieldColors[index]))
 
-    
+    def checkForButtonClick(self):
+        for index, button in enumerate(self.buttonList):
+            if button.onMouseClick():
+                globals.currentColor = index 
+                APP.requestUpdate
     
     def placeButtons(self):
         # self.buttonSize = (app.ScreenUnit.vw(20), app.ScreenUnit.vh(7))
@@ -36,8 +40,7 @@ class ColorButtons:
             button.updateButtonSize(self.buttonSize[0], self.buttonSize[1])
             
             button.place(app.ScreenUnit.vw(70), app.ScreenUnit.vh(1 + 9 * index))
-            if button.onMouseClick():
-                globals.currentColor = index         
+                    
         self.highlightActiveColor(globals.currentColor)
             
     def highlightActiveColor(self, index):
@@ -78,13 +81,16 @@ redoButton.icon("button_images/redo.png")
 colorWheel = app.Button(*globals.smallButtonTemplate)
 colorWheel.icon("button_images/color_wheel.png")
 
-
+falseMatrixTouch = False # to make shure nothing is drawn when switching screens
 
 class Screens:
     def drawing():
+        global falseMatrixTouch
         if not APP.firstFrame():
-            if MATRIX.checkForTouchInGrid():
+            if not falseMatrixTouch and MATRIX.checkForTouchInGrid():
                 APP.requestUpdate
+                
+            COLOR_PICKER_BUTTONS.checkForButtonClick()
             
             if globals.RPIconnected and drawPixelOnLEDMatrixButton.onMouseClick():
                 LED_MATRIX.drawMatrixOnPhysicalMatrix(MATRIX.getMatrix)
@@ -95,6 +101,7 @@ class Screens:
                 else:
                     MATRIX.eraseMatrix()
                 DRAWING_HISTORY.resetDrawingHistory()
+                APP.requestUpdate
                 
             if undoButton.onMouseClick():
                 MATRIX.setMatrix(DRAWING_HISTORY.undo())
@@ -106,15 +113,19 @@ class Screens:
                 
             if menuButton.onMouseClick():
                 globals.currentScreen = app.screens.menu
-                return APP.requestUpdate
+                return APP.switchScreen()
                 
             
             if colorWheel.onMouseClick():
                 globals.currentScreen = app.screens.colorMenu
-                return APP.requestUpdate
+                return APP.switchScreen()
                 
             DRAWING_HISTORY.checkForChanges(MATRIX.getMatrix, app.pygame.Rect(0, 0, app.ScreenUnit.vh(100), app.ScreenUnit.vh(100))) 
-        APP.requestUpdate
+        else:
+            falseMatrixTouch = True
+
+        if falseMatrixTouch and app.Interactions.isReleased(app.mouseButton.leftMouseButton):
+            falseMatrixTouch = False
         # only draw when needed
         if APP.firstFrame() or APP.updateAvalible:
             APP.maindisplay.fill(app.Color.BLACK) 

@@ -17,6 +17,12 @@ class ColorMenu:
         self.confirmButton.text("kies kleur!", app.Font.H1)
         self.confirmButton.border(4, app.Color.WHITE)
         
+    def checkForButtonClick(self):
+        for index, button in enumerate(self.buttonList):
+            if button.onMouseClick():
+                globals.currentColor = index 
+                self.APP.requestUpdate
+        
     def _placeButtons(self):
         for index, button in enumerate(self.buttonList):
             button.place(app.ScreenUnit.vw(1 + 20 * self.buttonPosition[0]), app.ScreenUnit.vh(1 + 9 * self.buttonPosition[1]))
@@ -25,8 +31,7 @@ class ColorMenu:
                 self.buttonPosition[1] = 0
                 self.buttonPosition[0] += 1
             
-            if button.onMouseClick():
-                globals.currentColor = index 
+            
         self.highlightActiveColor(globals.currentColor)
         self.buttonPosition = [0, 0]
         
@@ -36,11 +41,14 @@ class ColorMenu:
         # self.APP.requestUpdate
         
     def place(self):
-        if self.confirmButton.onMouseClick():
-            globals.currentScreen = app.screens.drawing
-            return self.APP.requestUpdate
+        if not self.APP.firstFrame():
+            self.checkForButtonClick()
+            
+            if self.confirmButton.onMouseClick():
+                globals.currentScreen = app.screens.drawing
+                return self.APP.switchScreen()
 
-        self.APP.requestUpdate
+        # self.APP.requestUpdate
         if self.APP.firstFrame() or self.APP.updateAvalible:
             self.APP.maindisplay.fill(app.Color.BLACK)
             self._placeButtons()

@@ -239,6 +239,10 @@ class AppConstructor():
             self.screenSizeUpdated = False
             return True
         return False
+    
+    def switchScreen(self):
+        self.frameCounter = 0
+        self.requestUpdate
         
     def centerApp(self):
         os.environ['SDL_VIDEO_CENTERED'] = '1'
