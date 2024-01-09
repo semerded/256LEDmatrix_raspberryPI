@@ -46,6 +46,7 @@ class ColorMenu:
             
             if self.confirmButton.onMouseClick():
                 globals.currentScreen = app.screens.drawing
+                globals.colorPickerEnabled = False
                 return self.APP.switchScreen()
 
         # self.APP.requestUpdate

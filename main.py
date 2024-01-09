@@ -31,6 +31,7 @@ class ColorButtons:
     def checkForButtonClick(self):
         for index, button in enumerate(self.buttonList):
             if button.onMouseClick():
+                globals.colorPickerEnabled = False
                 globals.currentColor = index 
                 APP.requestUpdate
     
