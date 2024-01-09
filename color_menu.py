@@ -15,7 +15,7 @@ class ColorMenu:
         
         self.confirmButton = app.Button((app.ScreenUnit.vw(90), app.ScreenUnit.vh(7)), app.Color.WHITE, 5)
         self.confirmButton.text("kies kleur!", app.Font.H1)
-        self.confirmButton.border(4, app.Color.WHITE)
+        self.confirmButton.border(4, app.Color.GREEN)
         
     def checkForButtonClick(self):
         for index, button in enumerate(self.buttonList):
