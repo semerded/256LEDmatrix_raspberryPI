@@ -64,11 +64,7 @@ class Matrix:
         
     def checkForTouchInGrid(self) -> bool:
         if self.IsMatrixClicked():
-            if globals.colorPickerEnabled:
-                self._pickColor()
-                return True
-            else:
-                return self._findClickedGridUnit()
+            return self._findClickedGridUnit()
         else:
             self.previousMouseGridPos[0] = self.mouseGridpos[0]
             self.previousMouseGridPos[1] = self.mouseGridpos[1]

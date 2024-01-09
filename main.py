@@ -124,19 +124,25 @@ class Screens:
             if colorPicker.onMouseClick():
                 globals.colorPickerEnabled = not globals.colorPickerEnabled
                 APP.requestUpdate
-                
-                
+              
+              
             DRAWING_HISTORY.checkForChanges(MATRIX.getMatrix, app.pygame.Rect(0, 0, app.ScreenUnit.vh(100), app.ScreenUnit.vh(100))) 
         else:
             falseMatrixTouch = True
 
         if falseMatrixTouch and app.Interactions.isReleased(app.mouseButton.leftMouseButton):
             falseMatrixTouch = False
+        
         # only draw when needed
         if APP.firstFrame() or APP.updateAvalible:
             APP.maindisplay.fill(app.Color.BLACK) 
             drawPixelOnLEDMatrixButton.place(app.ScreenUnit.vw(63), COLOR_PICKER_BUTTONS.getButtonHeight)
             clearLEDMatrixButton.place(app.ScreenUnit.vw(82), COLOR_PICKER_BUTTONS.getButtonHeight)
+            
+            if globals.colorPickerEnabled:
+                colorPicker.border(3, app.Color.GREEN)
+            else:
+                colorPicker.border(0, app.Color.BLACK)
             
             menuButton.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(2))
             undoButton.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(10))
@@ -144,10 +150,7 @@ class Screens:
             colorWheel.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(26))
             colorPicker.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(34))
             
-            if globals.colorPickerEnabled:
-                colorPicker.border(3, app.Color.GREEN)
-            else:
-                colorPicker.border(0, app.Color.BLACK)
+            
             
             MATRIX.drawMatrix((0, 0), app.ScreenUnit.vh(100)) 
             COLOR_PICKER_BUTTONS.placeButtons()
@@ -172,9 +175,9 @@ while True:
     
     SCREENS[globals.currentScreen.value]() # show current screen
 
-    for row in MATRIX.getMatrix:
-        print(row)
-    print("-------------------------------")
+    # for row in MATRIX.getMatrix:
+    #     print(row)
+    # print("-------------------------------")
     
     # app quit protocol  
     if APP.keyboardRelease(app.pygame.K_ESCAPE):

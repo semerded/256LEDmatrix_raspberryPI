@@ -16,7 +16,8 @@ class Pixels:
         self.drawingBusy = True
         Thread(target=self._threadedDrawingOnMatrix, args=(matrix,)).start()
         while self.drawingBusy:
-            self.LOADING_SCREEN.place()        
+            self.LOADING_SCREEN.place()  
+        return self.APP.switchScreen()      
         
     def _threadedDrawingOnMatrix(self, matrix: list[list[int]]):
         ledCounter = 0
