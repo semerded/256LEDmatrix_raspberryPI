@@ -7,6 +7,7 @@ from presets import Presets
 from pixels import Pixels
 from menu_button import MenuButton
 from color_menu import ColorMenu
+from current_color_indicator import CurrentColorIndicator
 
 APP = app.AppConstructor(app.userScreenWidth, app.userScreenHeight, app.pygame.FULLSCREEN, manualUpdating=True)
 # APP = AppConstructor(100, 100, manualUpdating=True)
@@ -66,6 +67,7 @@ DRAWING_HISTORY = DrawingHistory(MATRIX.getMatrixDimensions)
 MENU = Menu(APP)
 PRESETS = Presets(APP)
 COLOR_MENU = ColorMenu(APP)
+COLOR_INDICATOR = CurrentColorIndicator(APP)
 
 drawPixelOnLEDMatrixButton = app.Button((app.ScreenUnit.vw(15), app.ScreenUnit.vh(7)), app.Color.WHITE, 5)
 drawPixelOnLEDMatrixButton.border(4, app.Color.GREEN)
@@ -84,7 +86,7 @@ colorWheel.icon("button_images/color_wheel.png")
 colorPicker = app.Button(*globals.smallButtonTemplate)
 colorPicker.icon("button_images/color_picker.png")
 
-falseMatrixTouch = False # to make shure nothing is drawn when switching screens
+falseMatrixTouch = False # to make sure nothing is drawn when switching screens
 
 class Screens:
     def drawing():
@@ -150,6 +152,8 @@ class Screens:
             redoButton.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(18))
             colorWheel.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(26))
             colorPicker.place(app.ScreenUnit.vw(93), app.ScreenUnit.vh(34))
+            
+            COLOR_INDICATOR.place(app.ScreenUnit.vw(60), app.ScreenUnit.vh(10))
             
             
             

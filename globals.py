@@ -84,3 +84,6 @@ if RPIconnected:
     pixels = neopixel.NeoPixel(board.D18, 256, brightness = 0.1)
 
 smallButtonTemplate = ((app.ScreenUnit.vh(7), app.ScreenUnit.vh(7)), Color.BLACK)
+
+def getCurrentColor():
+    return fieldColors[currentColor]
