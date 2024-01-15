@@ -665,9 +665,14 @@ class Button:
     
 
 class Text:
-    def __init__(self) -> None:
-        pass
+    def __init__(self, font: pygame.font, color: RGBvalue) -> None:
+        self.font = font
+        self.textColor = color
+        self.hoveringUp = True
+        self.hoverDistance = 0
+
     
+    # static
     def textOverflow(text: str, font: pygame.font, maxWidth: int | float, overFlowType: overFlow = overFlow.ellipsis) -> str:
         if font.size(text)[0] < maxWidth:
             return text
@@ -700,28 +705,43 @@ class Text:
         xPos = rect.x + (rect.width / 2) - (textSurface.get_width() / 2)
         yPos = rect.y + (rect.height / 2) - (textSurface.get_height() / 2)
         return xPos, yPos
-    
-    def textColorFromBackground(textRect: pygame.Rect):
-        """
-        calculates the textcolor based on the center pixel of the rect\n
-        a dark color will return white and a light color will return black
-        """
-        pixelColor = Display.getPixelColorFromBackground(*textRect.center)
-        lightColor = False
-        for value in pixelColor:
-            if value >= 125:
-                lightColor = True
-        return Color.BLACK if lightColor else Color.WHITE
-    
-    def textColorFromColor(color: RGBvalue):
-        lightColor = False
-        for value in color:
-            if value >= 125:
-                lightColor = True
-        return Color.BLACK if lightColor else Color.WHITE
+        
+    # instance
+    def renderText(self, text):
+        self.textSurface = self.font.render(text, True, self.textColor)
 
-    def centerd(self):
-        ...
+        
+    def color(self, textColor: RGBvalue, backgroundColor: RGBvalue, borderColor: RGBvalue):
+        self.textColor = textColor
+        self.backgroundColor = backgroundColor
+        self.borderColor = borderColor
+        
+    def place(self, text: str, position):
+        self.renderText(text)
+        mainDisplay.blit(self.textSurface, (position[0], position[1]))
+        
+    def centerTextInScreen(self, text):
+        self.renderText(text)
+        mainDisplay.blit(self.textSurface)
+    
+    def placeInRect(self, text: str, rect: pygame.Rect | tuple[float, float, float, float]):
+        self.renderText(text)
+        xCord = rect.centerx - (self.textSurface.get_width() / 2)
+        yCord = rect.centery - (self.textSurface.get_height() / 2)
+        mainDisplay.blit(self.textSurface, (xCord, yCord))
+
+    
+    def hover(self, text, rect: pygame.Rect, hoverDistance: int):
+        if self.hoveringUp:
+            self.hoverDistance += 1
+        else:
+            self.hoverDistance -= 1
+        if self.hoverDistance > hoverDistance / 2:
+            self.hoveringUp = False
+        if self.hoverDistance < -hoverDistance / 2:
+            self.hoveringUp = True
+        rect = pygame.Rect(rect.left, rect.top, rect.width, rect.height + self.hoverDistance)
+        self.placeInRect(text, rect)
 
 
 class Drawing:
