@@ -8,3 +8,10 @@ kleuren:
     - bruin, grijs, varianten van andere kleuren
     - verander kleuren langs veld naar laatst gebruikte kleuren (reset bij app sluiting)
     - text toevoegen aan kleur menu
+
+
+rekenen:
+    moeilijkheid kiezen
+    (zie mail)
+    rekenen op scherm
+    smiley laten zien op led matrix

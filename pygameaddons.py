@@ -705,6 +705,25 @@ class Text:
         xPos = rect.x + (rect.width / 2) - (textSurface.get_width() / 2)
         yPos = rect.y + (rect.height / 2) - (textSurface.get_height() / 2)
         return xPos, yPos
+    
+    def textColorFromBackground(textRect: pygame.Rect):
+        """
+        calculates the textcolor based on the center pixel of the rect\n
+        a dark color will return white and a light color will return black
+        """
+        pixelColor = Display.getPixelColorFromBackground(*textRect.center)
+        lightColor = False
+        for value in pixelColor:
+            if value >= 125:
+                lightColor = True
+        return Color.BLACK if lightColor else Color.WHITE
+
+    def textColorFromColor(color: RGBvalue):
+        lightColor = False
+        for value in color:
+            if value >= 125:
+                lightColor = True
+        return Color.BLACK if lightColor else Color.WHITE
         
     # instance
     def renderText(self, text):
