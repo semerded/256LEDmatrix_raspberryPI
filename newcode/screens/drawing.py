@@ -17,7 +17,7 @@ class ColorButtons:
             button.place(gFrame.ScreenUnit.vw(70), gFrame.ScreenUnit.vh(1 + 9 * index))
             
             if globalVars.currentColor == index:
-                gFrame.Draw.borderFromRect(button.getRect, 5, gFrame.Color.GREEN, 10)
+                gFrame.Draw.borderFromRect(button.getBorderRect, 5, gFrame.Color.GREEN, 10)
                 
     def checkForButtonClick(self):
         button: gFrame.Button
