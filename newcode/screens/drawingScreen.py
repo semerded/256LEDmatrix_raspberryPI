@@ -1,5 +1,6 @@
 import gFrame, globalVars
 from core.ledMatrix import LEDmatrix
+from widgets.menuButton import MenuButton
 
 class ColorButtons:
     def __init__(self, buttonAmount: int) -> None:
@@ -39,8 +40,7 @@ class DrawingScreen:
     clearLEDMatrixButton.setBorder(4, gFrame.Color.RED)
     clearLEDMatrixButton.text("Verwijder", gFrame.Font.H1, gFrame.Color.BLACK, overFlow=gFrame.overFlow.show)
     
-    menuButton = gFrame.Button(*globalVars.iconButtonTemplate)
-    menuButton.icon("drawingButtonsIcons/menu.png")
+    menuButton = MenuButton()
     undoButton = gFrame.Button(*globalVars.iconButtonTemplate)
     undoButton.icon("drawingButtonsIcons/undo.png")
     redoButton = gFrame.Button(*globalVars.iconButtonTemplate)
@@ -58,7 +58,7 @@ class DrawingScreen:
         # if globals.RPIconnected and drawPixelOnLEDMatrixButton.isClicked():
         #         LED_MATRIX.drawMatrixOnPhysicalMatrix(.getMatrix)
                 
-        if DrawingScreen.clearLEDMatrixButton.isClicked():
+        if self.clearLEDMatrixButton.isClicked():
             # if globals.RPIconnected:
             #     LED_MATRIX.erasePhysicalMatrix()
             # else:
@@ -66,23 +66,22 @@ class DrawingScreen:
             # DRAWING_HISTORY.resetDrawingHistory()
             globalVars.app.requestUpdate() # TODO nieuwe update van gFrame
             
-        if DrawingScreen.undoButton.isClicked():
+        if self.undoButton.isClicked():
             # MATRIX.setMatrix(DRAWING_HISTORY.undo())
             globalVars.app.requestUpdate()
         
-        if DrawingScreen.redoButton.isClicked():
+        if self.redoButton.isClicked():
             # MATRIX.setMatrix(DRAWING_HISTORY.redo())
             globalVars.app.requestUpdate()
             
-        if DrawingScreen.menuButton.isClicked():
-            globalVars.currentScreen = globalVars.screens.menu
-            return globalVars.app.switchPage()
+        self.menuButton.checkIfClicked()
             
-        if DrawingScreen.colorWheel.isClicked():
+            
+        if self.colorWheel.isClicked():
             globalVars.currentScreen = globalVars.screens.colorMenu
             return globalVars.app.switchPage()
             
-        if DrawingScreen.colorPicker.isClicked():
+        if self.colorPicker.isClicked():
             globalVars.colorPickerEnabled = not globalVars.colorPickerEnabled
             globalVars.app.requestUpdate()
         

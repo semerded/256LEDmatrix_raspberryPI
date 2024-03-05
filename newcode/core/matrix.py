@@ -1,5 +1,3 @@
-import math
-
 class Matrix:
     def __init__(self, colums: int, rows: int) -> None:
         self.matrix = Matrix.makeEmptyMatrix(colums, rows)
@@ -20,3 +18,4 @@ class Matrix:
         
     def setMatrix(self, newMatrix):
         self.matrix = newMatrix   
+    

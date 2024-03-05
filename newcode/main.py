@@ -10,7 +10,7 @@ from screens.colorMenu import ColorMenu
 from screens.calculatorScreen import CalculatorScreen
 from screens.presetScreen import PresetScreen
 
-SCREEN_LISTING = [MenuScreen(), DrawingScreen(LED_MATRIX), ColorMenu()]
+SCREEN_LISTING = [MenuScreen(), DrawingScreen(LED_MATRIX), ColorMenu(), PresetScreen(LED_MATRIX)]
 
 while True:
     globalVars.app.eventHandler()
