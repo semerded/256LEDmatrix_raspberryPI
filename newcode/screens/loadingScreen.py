@@ -7,7 +7,7 @@ class LoadingScreen:
         self.APP = globalVars.app
         self.text = text
         self.font = gFrame.Font.customFont(int(gFrame.ScreenUnit.vw(8)))
-        self.loadingWidget = gFrame.Button("50vw", "50vh", gFrame.Color.LIGHT_GRAY, borderRadius=20)
+        self.loadingWidget = gFrame.Button(("50vw", "50vh"), gFrame.Color.LIGHT_GRAY, borderRadius=20)
         self.loadingWidget.setBorder(10, gFrame.Color.GREEN)
         self.loadingWidget.text(text, self.font, gFrame.Color.GREEN, overFlow=gFrame.overFlow.show)
 

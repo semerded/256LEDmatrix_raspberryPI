@@ -31,13 +31,13 @@ class LEDmatrix(gMatrix):
             if reverse:
                 row = reversed(row)
             for column in row:
-                self.pixels[ledCounter] = globalVars.fieldColors[column]                 
+                self.pixels[ledCounter] = globalVars.fieldColors[column][1]                 
                 ledCounter += 1
         
             reverse = not reverse
         self.drawingBusy = False
         
     def erasePhysicalMatrix(self):
-        self.MATRIX.eraseMatrix()
-        self.APP.updateDisplay()
+        self.eraseMatrix()
+        globalVars.app.requestUpdate()
         self.pixels.fill(gFrame.Color.BLACK)
