@@ -59,10 +59,10 @@ class DrawingScreen:
         #         LED_MATRIX.drawMatrixOnPhysicalMatrix(.getMatrix)
                 
         if self.clearLEDMatrixButton.isClicked():
-            # if globals.RPIconnected:
-            #     LED_MATRIX.erasePhysicalMatrix()
-            # else:
-            #     MATRIX.eraseMatrix()
+            if globalVars.RPIconnected:
+                self.LED_MATRIX.erasePhysicalMatrix()
+            else:
+                self.LED_MATRIX.eraseMatrix()
             # DRAWING_HISTORY.resetDrawingHistory()
             globalVars.app.requestUpdate() # TODO nieuwe update van gFrame
             

@@ -9,12 +9,12 @@ from menu_button import MenuButton
 from color_menu import ColorMenu
 from current_color_indicator import CurrentColorIndicator
 
-APP = app.AppConstructor(app.userScreenWidth, app.userScreenHeight, app.pygame.FULLSCREEN, manualUpdating=True)
+APP = app.AppConstructor(app.userScreenWidth, app.userScreenHeight, manualUpdating=True)
 # APP = AppConstructor(100, 100, manualUpdating=True)
 # APP.centerApp()
 clock = app.pygame.time.Clock()
 
-APP.setAspectratio(app.ScreenUnit.aspectRatio(app.aspectRatios.ratio16to9), height=app.ScreenUnit.dh(100))
+APP.setAspectratio(app.ScreenUnit.aspectRatio(app.aspectRatios.ratio16to9), width=app.ScreenUnit.dw(50))
 
 globals.smallButtonTemplate = smallButtonTemplate = ((app.ScreenUnit.vh(7), app.ScreenUnit.vh(7)), app.Color.BLACK)
 
@@ -180,9 +180,9 @@ while True:
     
     SCREENS[globals.currentScreen.value]() # show current screen
 
-    for row in MATRIX.getMatrix:
-        print(row)
-    print("-------------------------------")
+    # for row in MATRIX.getMatrix:
+    #     print(row)
+    # print("-------------------------------")
     
     # app quit protocol  
     if APP.keyboardRelease(app.pygame.K_ESCAPE):

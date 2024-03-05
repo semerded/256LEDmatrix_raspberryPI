@@ -23,7 +23,6 @@ class PresetScreen:
         with open("presets.json") as fp:
             self._createMatrixPresetList(json.load(fp))
         self.LED_MATRIX = LEDmatrix
-        self.LED_MATRIX.setMatrix(deepcopy(self.matrixList[self.currentMatrixIndex].matrix))
         
     def _createMatrixPresetList(self, presets):
         self.matrixList = []
