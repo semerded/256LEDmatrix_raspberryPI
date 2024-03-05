@@ -15,7 +15,6 @@ else:
 
 
 iconButtonTemplate = (("7vh", "7vh"), gFrame.Color.BLACK)
-currentScreen = 0
 colorPickerEnabled = False
 
 fieldColors = [
@@ -67,3 +66,7 @@ fieldColors = [
 ]
 
 currentColor = 0
+
+from screens.screenEnum import screens
+
+currentScreen = screens.menu

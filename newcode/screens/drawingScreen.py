@@ -75,11 +75,11 @@ class DrawingScreen:
             globalVars.app.requestUpdate()
             
         if DrawingScreen.menuButton.isClicked():
-            globalVars.currentScreen = 1
+            globalVars.currentScreen = globalVars.screens.menu
             return globalVars.app.switchPage()
             
         if DrawingScreen.colorWheel.isClicked():
-            globalVars.currentScreen = 2
+            globalVars.currentScreen = globalVars.screens.colorMenu
             return globalVars.app.switchPage()
             
         if DrawingScreen.colorPicker.isClicked():
