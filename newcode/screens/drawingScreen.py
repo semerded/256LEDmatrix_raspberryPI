@@ -1,6 +1,7 @@
 import gFrame, globalVars
 from core.ledMatrix import LEDmatrix
 from widgets.menuButton import MenuButton
+from core.undo_redo import DrawingHistory
 
 class ColorButtons:
     def __init__(self, buttonAmount: int) -> None:
@@ -53,42 +54,46 @@ class DrawingScreen:
     def __init__(self, ledMatrix: LEDmatrix) -> None:
         self.LED_MATRIX = ledMatrix
         self.COLOR_PICKER_BUTTONS = ColorButtons(9)
+        self.DRAWING_HISTORY = DrawingHistory(self.LED_MATRIX.matrixDimensions)
     
     def place(self):
-        # if globals.RPIconnected and drawPixelOnLEDMatrixButton.isClicked():
-        #         LED_MATRIX.drawMatrixOnPhysicalMatrix(.getMatrix)
+        if gFrame.Interactions.isMousePressing(gFrame.mouseButton.leftMouseButton):
+            # if globals.RPIconnected and drawPixelOnLEDMatrixButton.isClicked():
+            #         LED_MATRIX.drawMatrixOnPhysicalMatrix(.getMatrix)
+                    
+            if self.clearLEDMatrixButton.isClicked():
+                if globalVars.RPIconnected:
+                    self.LED_MATRIX.erasePhysicalMatrix()
+                else:
+                    self.LED_MATRIX.eraseMatrix()
+                self.DRAWING_HISTORY.resetDrawingHistory()
+                globalVars.app.requestUpdate() # TODO nieuwe update van gFrame
                 
-        if self.clearLEDMatrixButton.isClicked():
-            if globalVars.RPIconnected:
-                self.LED_MATRIX.erasePhysicalMatrix()
-            else:
-                self.LED_MATRIX.eraseMatrix()
-            # DRAWING_HISTORY.resetDrawingHistory()
-            globalVars.app.requestUpdate() # TODO nieuwe update van gFrame
+            if self.undoButton.isClicked():
+                self.LED_MATRIX.setMatrix(self.DRAWING_HISTORY.undo())
+                globalVars.app.requestUpdate()
             
-        if self.undoButton.isClicked():
-            # MATRIX.setMatrix(DRAWING_HISTORY.undo())
-            globalVars.app.requestUpdate()
-        
-        if self.redoButton.isClicked():
-            # MATRIX.setMatrix(DRAWING_HISTORY.redo())
-            globalVars.app.requestUpdate()
+            if self.redoButton.isClicked():
+                self.LED_MATRIX.setMatrix(self.DRAWING_HISTORY.redo())
+                globalVars.app.requestUpdate()
+                
+            self.menuButton.checkIfClicked()
+                
+                
+            if self.colorWheel.isClicked():
+                globalVars.currentScreen = globalVars.screens.colorMenu
+                return globalVars.app.switchPage()
+                
+            if self.colorPicker.isClicked():
+                globalVars.colorPickerEnabled = not globalVars.colorPickerEnabled
+                globalVars.app.requestUpdate()
             
-        self.menuButton.checkIfClicked()
+            self.LED_MATRIX.checkForInteraction() 
             
+            self.COLOR_PICKER_BUTTONS.checkForButtonClick() 
             
-        if self.colorWheel.isClicked():
-            globalVars.currentScreen = globalVars.screens.colorMenu
-            return globalVars.app.switchPage()
+            self.DRAWING_HISTORY.checkForChanges(self.LED_MATRIX.matrix, gFrame.Rect(0, 0, "100vh", "100vh"))  
             
-        if self.colorPicker.isClicked():
-            globalVars.colorPickerEnabled = not globalVars.colorPickerEnabled
-            globalVars.app.requestUpdate()
-        
-        self.LED_MATRIX.checkForInteraction() 
-        
-        self.COLOR_PICKER_BUTTONS.checkForButtonClick()   
-        
         #* drawing
         if globalVars.app.drawElements():
         
