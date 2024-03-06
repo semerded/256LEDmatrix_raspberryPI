@@ -33,6 +33,10 @@ class gMatrix(Matrix):
                 self.mouseGridpos[0] = mouseGridX
                 self.mouseGridpos[1] = mouseGridY
                 if globalVars.colorPickerEnabled:
-                    pass
+                    globalVars.currentColor = self.matrix[self.mouseGridpos[1] - 1][self.mouseGridpos[0] - 1]
+                    globalVars.colorPickerEnabled = False   
                 else:
                     self.matrix[self.mouseGridpos[1] - 1][self.mouseGridpos[0] - 1] = globalVars.currentColor
+    
+    def fillMatrix(self, color):
+        self.matrix = Matrix.makeEmptyMatrix(self.matrixDimensions[0], self.matrixDimensions[1], color)

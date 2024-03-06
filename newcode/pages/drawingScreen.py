@@ -1,7 +1,7 @@
 import gFrame, globalVars
 from core.ledMatrix import LEDmatrix
-from widgets.menuButton import MenuButton
 from core.undo_redo import DrawingHistory
+from widgets.currentColorIndicator import CurrentColorIndicator
 
 class ColorButtons:
     def __init__(self, buttonAmount: int) -> None:
@@ -41,7 +41,6 @@ class DrawingScreen:
     clearLEDMatrixButton.setBorder(4, gFrame.Color.RED)
     clearLEDMatrixButton.text("Verwijder", gFrame.Font.H1, gFrame.Color.BLACK, overFlow=gFrame.overFlow.show)
     
-    menuButton = MenuButton()
     undoButton = gFrame.Button(*globalVars.iconButtonTemplate)
     undoButton.icon("drawingButtonsIcons/undo.png")
     redoButton = gFrame.Button(*globalVars.iconButtonTemplate)
@@ -50,11 +49,16 @@ class DrawingScreen:
     colorWheel.icon("drawingButtonsIcons/color_wheel.png")
     colorPicker = gFrame.Button(*globalVars.iconButtonTemplate)
     colorPicker.icon("drawingButtonsIcons/color_picker.png")
+    colorBucket = gFrame.Button(*globalVars.iconButtonTemplate)
+    colorBucket.icon("drawingButtonsIcons/color_bucket.png")
+    delete = gFrame.Button(*globalVars.iconButtonTemplate)
+    delete.icon("drawingButtonsIcons/delete.png")
     
     def __init__(self, ledMatrix: LEDmatrix) -> None:
         self.LED_MATRIX = ledMatrix
         self.COLOR_PICKER_BUTTONS = ColorButtons(9)
         self.DRAWING_HISTORY = DrawingHistory(self.LED_MATRIX.matrixDimensions)
+        self.CURRENT_COLOR_INDICATOR = CurrentColorIndicator()
     
     def place(self):
         if gFrame.Interactions.isMousePressing(gFrame.mouseButton.leftMouseButton):
@@ -77,7 +81,7 @@ class DrawingScreen:
                 self.LED_MATRIX.setMatrix(self.DRAWING_HISTORY.redo())
                 globalVars.app.requestUpdate()
                 
-            self.menuButton.checkIfClicked()
+            globalVars.menuButton.checkIfClicked()
                 
                 
             if self.colorWheel.isClicked():
@@ -87,12 +91,20 @@ class DrawingScreen:
             if self.colorPicker.isClicked():
                 globalVars.colorPickerEnabled = not globalVars.colorPickerEnabled
                 globalVars.app.requestUpdate()
+                
+            if self.colorBucket.isClicked():
+                self.LED_MATRIX.fillMatrix(globalVars.currentColor)
+                globalVars.app.requestUpdate()
+                
+            if self.delete.isClicked():
+                self.LED_MATRIX.fillMatrix(0)
+                globalVars.app.requestUpdate()
             
             self.LED_MATRIX.checkForInteraction() 
             
             self.COLOR_PICKER_BUTTONS.checkForButtonClick() 
             
-            self.DRAWING_HISTORY.checkForChanges(self.LED_MATRIX.matrix, gFrame.Rect(0, 0, "100vh", "100vh"))  
+        self.DRAWING_HISTORY.checkForChanges(self.LED_MATRIX.matrix, gFrame.Rect(0, 0, "100vh", "100vh"))  
             
         #* drawing
         if globalVars.app.drawElements():
@@ -100,19 +112,21 @@ class DrawingScreen:
             self.drawPixelOnLEDMatrixButton.place("63vw", "90vh")
             self.clearLEDMatrixButton.place("82vw", "90vh")
             
-            # if globals.colorPickerEnabled:
-            #     colorPicker.border(3, gFrame.Color.GREEN)
-            # else:
-            #     colorPicker.border(0, gFrame.Color.BLACK)
+            if globalVars.colorPickerEnabled:
+                self.colorPicker.setBorder(3, gFrame.Color.GREEN)
+            else:
+                self.colorPicker.setBorder(0, gFrame.Color.BLACK)
             
-            self.menuButton.place("93vw", "2vh")
+            globalVars.menuButton.place("93vw", "2vh")
             self.undoButton.place("93vw", "10vh")
             self.redoButton.place("93vw", "18vh")
             self.colorWheel.place("93vw", "26vh")
             self.colorPicker.place("93vw", "34vh")
+            self.colorBucket.place("93vw", "42vh")
+            self.delete.place("93vw", "50vh")
             self.COLOR_PICKER_BUTTONS.place()
         
-        # COLOR_INDICATOR.place(gFrame.ScreenUnit.vw(60), gFrame.ScreenUnit.vh(10))
+            # self.CURRENT_COLOR_INDICATOR.place("60vw", "10vh")
         
         
         

@@ -1,22 +1,30 @@
 import gFrame, globalVars
+
+globalVars.app = gFrame.AppConstructor("50dw", "50dh", manualUpdating=True)
+globalVars.app.centerApp()
+gFrame.Display.setAspectRatio(gFrame.aspectRatios.ratio16to9, "100dw")
+
+from widgets.menuButton import MenuButton
+globalVars.menuButton = MenuButton()
+
 import pygame, sys
 from core.ledMatrix import LEDmatrix
 
 LED_MATRIX = LEDmatrix(16, 16, "100vh", "100vh")
 
-from screens.menuScreen import MenuScreen
-from screens.drawingScreen import DrawingScreen
-from screens.colorMenu import ColorMenu
-from screens.calculatorScreen import CalculatorScreen
-from screens.presetScreen import PresetScreen
+from pages.menuScreen import MenuScreen
+from pages.drawingScreen import DrawingScreen
+from pages.colorMenu import ColorMenu
+from pages.calculatorScreen import CalculatorScreen
+from pages.presetScreen import PresetScreen
 
-SCREEN_LISTING = [MenuScreen(), DrawingScreen(LED_MATRIX), ColorMenu(), PresetScreen(LED_MATRIX)]
+PAGE_LISTING = [MenuScreen(), DrawingScreen(LED_MATRIX), ColorMenu(), PresetScreen(LED_MATRIX)]
 
 while True:
     globalVars.app.eventHandler()
     globalVars.app.fill(gFrame.Color.BLACK) 
     
-    SCREEN_LISTING[globalVars.currentScreen.value].place()
+    PAGE_LISTING[globalVars.currentScreen.value].place()
     
     if gFrame.Interactions.isKeyReleased(pygame.K_ESCAPE):
         if globalVars.RPIconnected:

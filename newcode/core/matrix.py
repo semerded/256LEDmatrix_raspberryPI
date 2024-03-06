@@ -4,12 +4,12 @@ class Matrix:
         self.matrixDimensions = [colums, rows]
                 
     @staticmethod
-    def makeEmptyMatrix(colums, rows):
+    def makeEmptyMatrix(colums, rows, value: int = 0):
         matrix = []
         for i in range(rows):
             matrixRow = []
             for j in range(colums):
-                matrixRow.append(0)
+                matrixRow.append(value)
             matrix.append(matrixRow)
         return matrix
     
@@ -17,5 +17,5 @@ class Matrix:
         self.matrix = Matrix.makeEmptyMatrix(*self.matrixDimensions)
         
     def setMatrix(self, newMatrix):
-        self.matrix = newMatrix   
+        self.matrix = newMatrix  
     

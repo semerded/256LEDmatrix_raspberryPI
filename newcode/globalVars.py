@@ -1,7 +1,6 @@
 import gFrame
 
-app = gFrame.AppConstructor("50dw", "50dh", manualUpdating=True)
-gFrame.Display.setAspectRatio(gFrame.aspectRatios.ratio16to9, "50dw")
+app: gFrame.AppConstructor = None
 
 try:
     import board, neopixel  # check if a rpi is connected with the required libraries
@@ -67,6 +66,9 @@ fieldColors = [
 
 currentColor = 0
 
-from screens.screenEnum import screens
+from pages.screenEnum import screens
 
 currentScreen = screens.menu
+
+from widgets.menuButton import MenuButton
+menuButton: MenuButton

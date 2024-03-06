@@ -1,7 +1,6 @@
 import gFrame, json, globalVars
 from core.matrix import Matrix
 from core.ledMatrix import LEDmatrix
-from widgets.menuButton import MenuButton
 from copy import deepcopy
 
 class PresetScreen:
@@ -14,7 +13,6 @@ class PresetScreen:
     drawPixelOnLEDMatrixButton = gFrame.Button(("18vw", "10vh"), gFrame.Color.GREEN, 5)
     drawPixelOnLEDMatrixButton.text("Tekenen!", gFrame.Font.FONT50, gFrame.Color.BLACK)
     
-    menuButton = MenuButton()
     
     currentMatrixIndex = 0
     reloadMatrix = True
@@ -50,7 +48,7 @@ class PresetScreen:
             self.LED_MATRIX.setMatrix(deepcopy(self.matrixList[self.currentMatrixIndex].matrix))
             globalVars.app.requestUpdate()
         
-        if self.menuButton.checkIfClicked():
+        if globalVars.menuButton.checkIfClicked():
             self.reloadMatrix = True
             return
         
@@ -60,6 +58,6 @@ class PresetScreen:
             
             self.LED_MATRIX.place(gFrame.ScreenUnit.vw(50) - (gFrame.ScreenUnit.vh(50)), 0)
             
-            self.menuButton.place("93vw", "2vh")
+            globalVars.menuButton.place("93vw", "2vh")
             
             self.drawPixelOnLEDMatrixButton.place("80vw", "80vh")

@@ -1,5 +1,5 @@
 from core.gMatrix import gMatrix
-from screens.loadingScreen import LoadingScreen
+from pages.loadingScreen import LoadingScreen
 import globalVars, gFrame
 from threading import Thread
 
@@ -40,4 +40,10 @@ class LEDmatrix(gMatrix):
     def erasePhysicalMatrix(self):
         self.eraseMatrix()
         globalVars.app.requestUpdate()
-        self.pixels.fill(gFrame.Color.BLACK)
+        self.fillMatrix(gFrame.Color.BLACK)
+        
+    def fillMatrix(self, color: gFrame.RGBvalue):
+        super().fillMatrix(color)
+        if globalVars.RPIconnected:
+            self.pixels.fill(color)
+        
