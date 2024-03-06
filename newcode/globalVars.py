@@ -72,3 +72,5 @@ currentScreen = screens.menu
 
 from widgets.menuButton import MenuButton
 menuButton: MenuButton
+
+mathBotClass = None

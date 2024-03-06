@@ -126,7 +126,7 @@ class DrawingScreen:
             self.delete.place("93vw", "50vh")
             self.COLOR_PICKER_BUTTONS.place()
         
-            # self.CURRENT_COLOR_INDICATOR.place("60vw", "10vh")
+            self.CURRENT_COLOR_INDICATOR.place("60vw", "10vh")
         
         
         

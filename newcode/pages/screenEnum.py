@@ -5,3 +5,4 @@ class screens(Enum):
     colorMenu = 2
     preset = 3
     calculator = 4
+    chooseClass = 5

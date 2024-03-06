@@ -34,7 +34,7 @@ class MenuScreen:
             return globalVars.app.switchPage()
                 
         if self.calculatorScreenButton.isClicked():
-            globalVars.currentScreen = globalVars.screens.calculator
+            globalVars.currentScreen = globalVars.screens.chooseClass
             return globalVars.app.switchPage()
     
             # TODO add function for button
