@@ -39,4 +39,4 @@ class gMatrix(Matrix):
                     self.matrix[self.mouseGridpos[1] - 1][self.mouseGridpos[0] - 1] = globalVars.currentColor
     
     def fillMatrix(self, color):
-        self.matrix = Matrix.makeEmptyMatrix(self.matrixDimensions[0], self.matrixDimensions[1], color)
+        self.matrix = Matrix.createNewMatrix(self.matrixDimensions[0], self.matrixDimensions[1], color)

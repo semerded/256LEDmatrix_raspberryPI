@@ -10,7 +10,7 @@ class DrawingHistory:
     def resetDrawingHistory(self):
         self.drawingHistory = []
         self.currentHistoryIndex = 0
-        self.drawingHistory.append(Matrix.makeEmptyMatrix(*self.matrixDimensions))
+        self.drawingHistory.append(Matrix.createNewMatrix(*self.matrixDimensions))
     
     def undo(self):
         if self.currentHistoryIndex > 0:
