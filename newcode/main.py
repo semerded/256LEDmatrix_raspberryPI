@@ -2,7 +2,7 @@ import gFrame, globalVars
 
 globalVars.app = gFrame.AppConstructor("50dw", "50dh", manualUpdating=True)
 globalVars.app.centerApp()
-gFrame.Display.setAspectRatio(gFrame.aspectRatios.ratio16to9, "100dw")
+gFrame.Display.setAspectRatio(gFrame.aspectRatios.ratio16to9, "50dw")
 
 from widgets.menuButton import MenuButton
 globalVars.menuButton = MenuButton()
