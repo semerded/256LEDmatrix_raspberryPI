@@ -5,10 +5,14 @@ def testCalculate(number1, number2, type, solution):
     try:
         assert result == solution
     except AssertionError:
-        print(number1, number2, type, solution, result)
+        print(f"fout met: {number1} {type} {number2} = {result}, maar verwachte {solution}")
+    
+        
+# def testRange(number1, number2, result, range)
 
 for i in range(1000):
     testCalculate(*MathBot.eersteJaar())
     testCalculate(*MathBot.tweedeJaar())
     testCalculate(*MathBot.derdeJaar())
     # testCalculate(*MathBot.eersteJaar())
+print("test klaar")
