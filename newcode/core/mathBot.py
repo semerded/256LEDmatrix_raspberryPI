@@ -1,9 +1,8 @@
 import random
 
+
 class MathBot:
-    def __init__(self) -> None:
-        pass
-    
+
     def calculate(number1, number2, type):
         if type == "+":
             return number1 + number2
@@ -52,8 +51,14 @@ class MathBot:
             number1, number2 = MathBot.getNumbers(1000, type)
         solution = MathBot.calculate(number1, number2, type)
         return str(number1), str(number2), type, solution
+    
+    def getQuestion(classNumber):
+        return classList[classNumber - 1]()
+    
+classList = [MathBot.eersteJaar, MathBot.tweedeJaar, MathBot.derdeJaar]
 
 if __name__ == "__main__":
     print(MathBot.eersteJaar())
     print(MathBot.tweedeJaar())
     print(MathBot.derdeJaar())
+    
