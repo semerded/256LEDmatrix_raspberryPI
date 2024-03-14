@@ -3,7 +3,7 @@ from core.mathBot import MathBot
 from random import choice
 
 buttonValues = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ",", "<<", "enter"]
-         
+
 def int_or_float(number: int | float) -> int | float:
     try: 
         number = int(number)
@@ -21,10 +21,10 @@ class CalculatorButtons:
             ["jammer", "volgende keer beter", "helaas, fout"]
     }
     chooseClassButton = gFrame.Button(("20vw", "7vh"), gFrame.Color.WHITE)
-    chooseClassButton.setBorder(2, gFrame.Color.BLUE)
+    chooseClassButton.setBorder(5, gFrame.Color.BLUE)
     chooseClassButton.text("Kies je leerjaar", gFrame.Font.H1, gFrame.Color.BLACK)
     newQuestionButton = gFrame.Button(("20vw", "7vh"), gFrame.Color.WHITE)
-    newQuestionButton.setBorder(2, gFrame.Color.YELLOW)
+    newQuestionButton.setBorder(5, gFrame.Color.YELLOW)
     newQuestionButton.text("nieuwe vraag", gFrame.Font.H1, gFrame.Color.BLACK)
     
     questionText = gFrame.Text(questionString, gFrame.Font.FONT150, gFrame.Color.WHITE, italic=True)
@@ -62,21 +62,22 @@ class CalculatorScreen(CalculatorButtons):
                         self.answerString += value
                 else:
                     self.answerString += value
-                globalVars.app.requestUpdate()
                 return
         
     def place(self):
         if not self.questionActive:
-            number1, number2, mathType, self.expectedResult = MathBot.getQuestion(globalVars.mathBotClass)
+            self.mathBot = MathBot(globalVars.mathBotDifficulty, globalVars.mathBotClass)
+            self.newQuestionButton.updateColor(gFrame.Color.WHITE)
+            number1, number2, mathType, self.expectedResult = self.mathBot.getQuestion()
             self.questionText.setText(f"{number1} {mathType} {number2} = ?")
             self.questionActive = True
+            globalVars.app.requestUpdate()
             
         if globalVars.menuButton.checkIfClicked():
             globalVars.mathBotClass = None
             self.questionActive = False
             self.answerString = ""
             self.feedbackText.setText("")
-            
             
         if self.chooseClassButton.isClicked():
             globalVars.currentScreen = globalVars.screens.chooseClass
@@ -90,7 +91,6 @@ class CalculatorScreen(CalculatorButtons):
             self.questionActive = False
             self.answerString = ""
             self.feedbackText.setText("")
-            globalVars.app.requestUpdate()
             
         self.checkInputButtons()
         
@@ -118,6 +118,7 @@ class CalculatorScreen(CalculatorButtons):
         if givinAnswer == self.expectedResult:
             self.feedbackText.setTextColor(gFrame.Color.GREEN)
             self.feedbackText.setText(choice(self.feedback["positief"]))
+            self.newQuestionButton.updateColor(gFrame.Color.GREEN)
         else:
             self.feedbackText.setTextColor(gFrame.Color.RED)
             self.feedbackText.setText(choice(self.feedback["negatief"]))

@@ -74,3 +74,4 @@ from widgets.menuButton import MenuButton
 menuButton: MenuButton
 
 mathBotClass = None
+mathBotDifficulty = 1

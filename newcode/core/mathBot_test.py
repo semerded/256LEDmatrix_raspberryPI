@@ -14,5 +14,6 @@ for i in range(1000):
     testCalculate(*MathBot.eersteJaar())
     testCalculate(*MathBot.tweedeJaar())
     testCalculate(*MathBot.derdeJaar())
+    testCalculate(*MathBot.vierdeJaar())
     # testCalculate(*MathBot.eersteJaar())
 print("test klaar")
