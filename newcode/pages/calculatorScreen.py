@@ -65,6 +65,7 @@ class CalculatorScreen(CalculatorButtons):
                 return
         
     def place(self):
+        # TODO add thread that generates 10 questions in advance
         if not self.questionActive:
             self.mathBot = MathBot(globalVars.mathBotDifficulty, globalVars.mathBotClass)
             self.newQuestionButton.updateColor(gFrame.Color.WHITE)

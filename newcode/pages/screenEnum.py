@@ -6,3 +6,4 @@ class screens(Enum):
     preset = 3
     calculator = 4
     chooseClass = 5
+    chooseDifficulty = 6

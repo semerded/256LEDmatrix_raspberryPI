@@ -18,8 +18,9 @@ from pages.colorMenu import ColorMenu
 from pages.calculatorScreen import CalculatorScreen
 from pages.presetScreen import PresetScreen
 from pages.chooseClassScreen import ChooseClassScreen
+from pages.chooseDifficultyScreen import ChooseDifficultyScreen
 
-PAGE_LISTING = [MenuScreen(), DrawingScreen(LED_MATRIX), ColorMenu(), PresetScreen(LED_MATRIX), CalculatorScreen(), ChooseClassScreen()]
+PAGE_LISTING = [MenuScreen(), DrawingScreen(LED_MATRIX), ColorMenu(), PresetScreen(LED_MATRIX), CalculatorScreen(), ChooseClassScreen(), ChooseDifficultyScreen()]
 
 while True:
     globalVars.app.eventHandler()
