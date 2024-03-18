@@ -10,7 +10,7 @@ class ChooseDifficultyScreen:
         self.difficultyButtonList = []
         for index in range(3):
             color = self.difficultyColor[index]
-            difficultyButton = gFrame.Button(("24vw", "12vw"), color)
+            difficultyButton = gFrame.Button(("24vw", "9vw"), color)
             difficultyButton.text(self.difficultyInnerText[index], "comic sans", gFrame.ScreenUnit.vw(4.5), gFrame.Text.textColorFromColor(color))
             difficultyButton.setBorder(5, gFrame.Color.WHITE)
             self.difficultyButtonList.append(difficultyButton)

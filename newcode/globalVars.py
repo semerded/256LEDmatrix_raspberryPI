@@ -3,7 +3,7 @@ import gFrame
 app: gFrame.AppConstructor = None
 
 try:
-    import board, neopixel  # check if a rpi is connected with the required libraries
+    import board, neopixel  #? check if a rpi is connected with the required libraries
 except ImportError:
     print("program will run without LEDmatrix capibilities")
     RPIconnected = False
