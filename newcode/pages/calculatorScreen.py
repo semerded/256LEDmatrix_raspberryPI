@@ -1,5 +1,5 @@
 import gFrame, globalVars
-from core.mathBotBackgroundGenerator import MathBotGenerator
+from core.math.mathBotBackgroundGenerator import MathBotGenerator
 from random import choice
 
 buttonValues = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ",", "<<", "enter"]
@@ -27,8 +27,8 @@ class CalculatorButtons:
     newExcerciseButton.setBorder(5, gFrame.Color.YELLOW)
     newExcerciseButton.text("nieuwe vraag", gFrame.Font.H1, gFrame.Color.BLACK)
     
-    excerciseText = gFrame.Text(excerciseString, gFrame.Font.FONT150, gFrame.Color.WHITE, italic=True)
-    answerText = gFrame.Text(answerString, gFrame.Font.FONT150, gFrame.Color.WHITE, bold=True)
+    excerciseText = gFrame.Text(excerciseString, 'comic sans', gFrame.ScreenUnit.vw(8), gFrame.Color.WHITE, italic=True)
+    answerText = gFrame.Text(answerString, 'comic sans', gFrame.ScreenUnit.vw(8), gFrame.Color.WHITE, bold=True)
     feedbackText = gFrame.Text("", gFrame.Font.FONT150, gFrame.Color.WHITE)    
     def __init__(self) -> None:
         self.buttonList = []
