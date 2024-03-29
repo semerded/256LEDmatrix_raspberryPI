@@ -13,12 +13,12 @@ def calculate(number1, number2, operand):
         return number1 + number2
     elif operand == "-":
         return number1 - number2
-    elif operand == "*":
+    elif operand in ("*", "maaltafel"):
         return number1 * number2
     elif operand == "/":
         return number1 / number2
-    elif operand == "%":
-        return 
+    elif "%" in operand:
+        return number1 / 100 * number2
 
 def _checkSolutionFloatingPointAmount(number1: float, number2: float, operand: str, floatingPointAmout: int = 0):
     if floatingPointAmout == 0:
@@ -46,7 +46,7 @@ def subtraction(maxNumber: int, maxSolution: int, floatingPointAmount: int = 0):
 def multiplication(maxNumber: int, maxSolution: int, floatingPointAmount: int = 0, secondNumberDecimal = False):
     while True:
         secondNumberFloatingPointAmout = floatingPointAmount if secondNumberDecimal else 0
-        number1 = _generateDecimalNumber(maxNumber, floatingPointAmount)
+        number1 = _generateDecimalNumber(maxNumber / (maxSolution / 100), floatingPointAmount)
         number2 = _generateDecimalNumber(maxNumber / (maxSolution / 100), secondNumberFloatingPointAmout)
         if number1 * number2 <= maxSolution and number1 * number2 >= 0 and _checkSolutionFloatingPointAmount(number1, number2, "*", floatingPointAmount):
             return number1, number2
@@ -54,7 +54,7 @@ def multiplication(maxNumber: int, maxSolution: int, floatingPointAmount: int = 
 def division(maxNumber: int, maxSolution: int, floatingPointAmount: int = 0, secondNumberDecimal = False):
     while True:
         secondNumberFloatingPointAmout = floatingPointAmount if secondNumberDecimal else 0
-        number1 = _generateDecimalNumber(maxNumber, floatingPointAmount)
+        number1 = _generateDecimalNumber(maxNumber / (maxSolution / 100), floatingPointAmount)
         number2 = _generateDecimalNumber(maxNumber / (maxSolution / 100), secondNumberFloatingPointAmout)
         try:
             if number1 / number2 <= maxSolution and number1 / number2 >= 0 and _checkSolutionFloatingPointAmount(number1, number2, "/", floatingPointAmount):
@@ -64,10 +64,10 @@ def division(maxNumber: int, maxSolution: int, floatingPointAmount: int = 0, sec
 def multiplicationTables(*void): #? outrule crash when arguments are givin
     return multiplication(10, 100)
 
-def percentage(maxNumber: int, floatingPointAmount: int = 0):
+def percentage(maxNumber: int, void: None, floatingPointAmount: int = 0):
     while True:
         _percentage = random.randint(1, 100)
-        number = _generateDecimalNumber(maxNumber, floatingPointAmount)
+        number = _generateDecimalNumber(int(maxNumber / 100), floatingPointAmount)
         if _percentage / 100 * number == round(_percentage / 100 * number, floatingPointAmount):  # TODO
             return _percentage, number
         

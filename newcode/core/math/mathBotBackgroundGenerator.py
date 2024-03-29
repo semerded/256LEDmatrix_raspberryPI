@@ -1,6 +1,7 @@
-from core.mathBot import MathBot
+from core.math.mathBot import MathBot
 from threading import Thread
 from pages.loadingScreen import LoadingScreen
+from time import sleep
 
 class MathBotGenerator(MathBot):
     generatorActive = False
@@ -16,6 +17,8 @@ class MathBotGenerator(MathBot):
         while self.generatorActive:
             if len(self.excerciseQueue) < 10:
                 self.excerciseQueue.append(super().getExcercise())
+            sleep(0.05) # save resources
+            
     
     def getExcerciseFromQueue(self):
         if len(self.excerciseQueue) != 0:

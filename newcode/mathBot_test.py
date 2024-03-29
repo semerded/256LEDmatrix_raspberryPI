@@ -1,5 +1,5 @@
-from core.mathBot import MathBot
-from core.excersizeGenerator import calculate
+from core.math.mathBot import MathBot
+from core.math.excersizeGenerator import calculate
 
 def testCalculate(number1, number2, type, solution):
     result = calculate((number1), (number2), type)
