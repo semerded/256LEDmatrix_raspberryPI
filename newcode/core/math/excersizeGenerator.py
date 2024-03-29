@@ -6,7 +6,7 @@ def _removeDecimal_0_fromNumber(number: float):
     return number
 
 def _generateDecimalNumber(maxNumber: int, floatingPointAmount: int = 0):
-    return _removeDecimal_0_fromNumber(round(random.random() * maxNumber, floatingPointAmount))
+    return _removeDecimal_0_fromNumber(round(random.random() * (maxNumber - 1) + 1, floatingPointAmount))
 
 def calculate(number1, number2, operand):
     if operand == "+":
@@ -21,8 +21,6 @@ def calculate(number1, number2, operand):
         return number1 / 100 * number2
 
 def _checkSolutionFloatingPointAmount(number1: float, number2: float, operand: str, floatingPointAmout: int = 0):
-    if floatingPointAmout == 0:
-        return True
     solution = calculate(number1, number2, operand)
     return round(solution, floatingPointAmout) == solution
         
@@ -57,7 +55,7 @@ def division(maxNumber: int, maxSolution: int, floatingPointAmount: int = 0, sec
         number1 = _generateDecimalNumber(maxNumber / (maxSolution / 100), floatingPointAmount)
         number2 = _generateDecimalNumber(maxNumber / (maxSolution / 100), secondNumberFloatingPointAmout)
         try:
-            if number1 / number2 <= maxSolution and number1 / number2 >= 0 and _checkSolutionFloatingPointAmount(number1, number2, "/", floatingPointAmount):
+            if number1 / number2 <= maxSolution and number1 / number2 >= 0 and _checkSolutionFloatingPointAmount(number1, number2, "/", floatingPointAmount) and number1 != number2:
                 return number1, number2
         except ZeroDivisionError: ... # rule out a crash from a division by zero
         
@@ -75,3 +73,6 @@ def percentage(maxNumber: int, void: None, floatingPointAmount: int = 0):
 # print(multiplication(100000, 100000, 2))
 # print(percentage(600, 1))
 # print(multiplicationTables())
+
+
+print(division(100000, 100000))
