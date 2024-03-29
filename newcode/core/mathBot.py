@@ -1,8 +1,8 @@
-import random, json
+import random
+import core.excersizeGenerator as generator
+from core.mathBotRules import rules
 
-with open("core/mathBotRules.json") as fp:
-    rules = json.load(fp)
-
+generatorRefference = {"+": generator.addition, "-": generator.subtraction, "*": generator.multiplication, "/": generator.division, "maaltafel": generator.multiplicationTables}
 
 class MathBot:
     def __init__(self, difficulty: int, classNumber: int) -> None:
@@ -13,71 +13,65 @@ class MathBot:
     def getExcercise(self):
         operand = random.choice(self.parameters["operand"])
         
-        numbers = self.getNumbersPerClass(self.parameters["maxNumber1"], self.parameters["maxNumber2"], operand, self.parameters["maxRange"])
-        expectedResult = MathBot.calculate(*numbers, operand)
+        numbers = self.getNumbersPerClass(self.parameters["maxNumber"], self.parameters["maxSolution"], operand)
+        expectedResult = generator.calculate(*numbers, operand)
         return *numbers, operand, expectedResult
 
-
-    @staticmethod
-    def calculate(number1, number2, operand):
-        if operand == "+":
-            return number1 + number2
-        elif operand == "-":
-            return number1 - number2
-        elif operand == "*":
-            return number1 * number2
-        elif operand == "/":
-            return number1 / number2
-        elif operand == "%":
-            return 
-    
-    @staticmethod
-    def getNumbers(maxNumber1: int, maxNumber2: int, operand: str, maxRange: int, minRange: int = 1):
-        while True:
-            number1 = random.randint(minRange, maxNumber1)
-            number2 = random.randint(minRange, maxNumber2)
-            print(number1, number2, operand)
-            if MathBot.calculate(number1, number2, operand) in range(minRange, maxRange + 1):
-                return number1, number2
-            
-    def getNumbersPerClass(self, maxNumber1: int, maxNumber2: int, operand: str, maxRange: int):
-        if self.classNumber == 1:
-            return self.eersteJaar(maxNumber1, maxNumber2, operand, maxRange)
-        elif self.classNumber == 2:
-            return self.tweedeJaar(maxNumber1, maxNumber2, operand, maxRange)
-        elif self.classNumber == 3:
-            return self.derdeJaar(maxNumber1, maxNumber2, operand, maxRange)
-        elif self.classNumber == 4:
-            return self.vierdeJaar(maxNumber1, maxNumber2, operand, maxRange)
-            
-    def eersteJaar(self, maxNumber1: int, maxNumber2: int, operand: str, maxRange: int):
-        return MathBot.getNumbers(maxNumber1, maxNumber2, operand, maxRange)
-
-    def tweedeJaar(self, maxNumber1: int, maxNumber2: int, operand: str, maxRange: int):
-        return MathBot.getNumbers(maxNumber1, maxNumber2, operand, maxRange)
         
-    def derdeJaar(self, maxNumber1: int, maxNumber2: int, operand: str, maxRange: int):
-        if operand == "maaltafels":
-            return MathBot.getNumbers(10, 10, "*", 100)
-        return MathBot.getNumbers(maxNumber1, maxNumber2, operand, maxRange)
+    def getNumbersPerClass(self, maxNumber: int, maxSolution: int, operand: str):
+        if self.classNumber == 1:
+            return self.eersteJaar(maxNumber, maxSolution, operand)
+        elif self.classNumber == 2:
+            return self.tweedeJaar(maxNumber, maxSolution, operand)
+        elif self.classNumber == 3:
+            return self.derdeJaar(maxNumber, maxSolution, operand)
+        elif self.classNumber == 4:
+            return self.vierdeJaar(maxNumber, maxSolution, operand)
+        elif self.classNumber == 5:
+            return self.vijfdeJaar(maxNumber, maxSolution, operand)
     
-    def vierdeJaar(self, maxNumber1: int, maxNumber2: int, operand: str, maxRange: int):
-        if operand == "maaltafels":
-            return MathBot.getNumbers(10, 10, "*", 100)
+    def getNumbers(self, maxNumber: int, maxSolution: int, operand: str, floatingPointAmount: int = 0):
+        return generatorRefference[operand](maxNumber, maxSolution, floatingPointAmount)
+    
+    def getNumbersEndingWithZero(self, maxNumber: int, maxSolution: int, operand: str, floatingPointAmout: int = 0):
+        
+        return tuple([number * 10 for number in generatorRefference[operand](int(maxNumber / 10), maxSolution, floatingPointAmout)])
+        
+        
+    #* classes
+    
+    def eersteJaar(self, maxNumber: int, maxSolution: int, operand: str):
+        return self.getNumbers(maxNumber, maxSolution, operand)
+
+
+    def tweedeJaar(self, maxNumber: int, maxSolution: int, operand: str):
+        return self.getNumbers(maxNumber, maxSolution, operand)
+        
+        
+    def derdeJaar(self, maxNumber: int, maxSolution: int, operand: str):
+        return self.getNumbers(maxNumber, maxSolution, operand)
+
+    
+    def vierdeJaar(self, maxNumber: int, maxSolution: int, operand: str):
+        if self.difficulty == 1:
+            return self.getNumbers(maxNumber, maxSolution, operand)
         
         elif self.difficulty == 2:
+            floatingPointAmount = random.randint(1, 3) if random.randint(0, 5) == 1 else 0
+            
             if random.randint(0, 3) == 0:
-                if operand in ("+", "-"):
-                    return tuple([10*x for x in MathBot.getNumbers(int(maxNumber1 / 10), int(maxNumber2 / 10), operand, int(maxRange / 10), minRange=1000)])
-                else:
-                    return tuple([10*x for x in MathBot.getNumbers(int(maxNumber1 / 10), int(maxNumber2 / 10), operand, int(maxRange / 10))])
+                return self.getNumbersEndingWithZero(maxNumber, maxSolution, operand, floatingPointAmount)
+            
+            return self.getNumbers(int(maxNumber / 10), int(maxSolution / 10), operand, floatingPointAmount)
                     
         elif self.difficulty == 3:
+            floatingPointAmount = random.randint(1, 3) if random.randint(0, 2) == 1 else 0
             if random.randint(0, 2) == 0:
-                if operand in ("+", "-"):
-                    return tuple([10*x for x in MathBot.getNumbers(int(maxNumber1 / 10), int(maxNumber2 / 10), operand, int(maxRange / 10), minRange=1000)])
-                else:
-                    return tuple([10*x for x in MathBot.getNumbers(int(maxNumber1 / 10), int(maxNumber2 / 10), operand, int(maxRange / 10))])
-                    
-        return MathBot.getNumbers(int(maxNumber1 / 10), int(maxNumber2 / 10), operand, int(maxRange / 10))
+                return self.getNumbersEndingWithZero(maxNumber, maxSolution, operand)
+            return self.getNumbers(int(maxNumber / 10), int(maxSolution / 10), operand, floatingPointAmount)
+    
+    
+    def vijfdeJaar(self, maxNumber: int, maxSolution: int, operand: str):
+        return self.getNumbers(maxNumber, maxSolution, operand)
+        
 
