@@ -37,6 +37,7 @@ class gMatrix(Matrix):
                     globalVars.colorPickerEnabled = False   
                 else:
                     self.matrix[self.mouseGridpos[1] - 1][self.mouseGridpos[0] - 1] = globalVars.currentColor
+                gFrame.Updating.requestUpdate()
     
     def fillMatrix(self, color):
         self.matrix = Matrix.createNewMatrix(self.matrixDimensions[0], self.matrixDimensions[1], color)
