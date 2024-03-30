@@ -23,6 +23,7 @@ PAGE_LISTING = [MenuScreen(), DrawingScreen(LED_MATRIX), ColorMenu(), PresetScre
 
 import pygame, sys
 
+@gFrame.production
 def main():
     while True:
         try:
