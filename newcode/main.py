@@ -22,19 +22,23 @@ from pages.chooseDifficultyScreen import ChooseDifficultyScreen
 PAGE_LISTING = [MenuScreen(), DrawingScreen(LED_MATRIX), ColorMenu(), PresetScreen(LED_MATRIX), CalculatorScreen(), ChooseClassScreen(), ChooseDifficultyScreen()]
 
 import pygame, sys
-while True:
-    try:
-        globalVars.app.eventHandler()
-        globalVars.app.fill(gFrame.Color.BLACK) 
-        
-        PAGE_LISTING[globalVars.currentScreen.value].place()
-        
-        if gFrame.Interactions.isKeyReleased(pygame.K_ESCAPE):
-            if globalVars.RPIconnected:
-                LED_MATRIX.erasePhysicalMatrix()
+
+def main():
+    while True:
+        try:
+            globalVars.app.eventHandler()
+            globalVars.app.fill(gFrame.Color.BLACK) 
+            
+            PAGE_LISTING[globalVars.currentScreen.value].place()
+            
+            if gFrame.Interactions.isKeyReleased(pygame.K_ESCAPE):
+                if globalVars.RPIconnected:
+                    LED_MATRIX.erasePhysicalMatrix()
+                globalVars.programRunning = False
+                pygame.quit()
+                sys.exit()
+        except KeyboardInterrupt:
             globalVars.programRunning = False
-            pygame.quit()
-            sys.exit()
-    except KeyboardInterrupt:
-        globalVars.programRunning = False
-    
+
+if __name__ == '__main__':
+    main() 
