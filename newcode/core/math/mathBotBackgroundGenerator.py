@@ -16,7 +16,6 @@ class MathBotGenerator(MathBot):
         
     def _generator(self):
         while self.generatorActive and globalVars.programRunning:
-            print(globalVars.programRunning)
             if len(self.excerciseQueue) < 10:
                 self.excerciseQueue.append(super().getExcercise())
             sleep(0.05) # save resources

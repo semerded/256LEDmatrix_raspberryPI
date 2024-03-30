@@ -75,4 +75,4 @@ def percentage(maxNumber: int, void: None, floatingPointAmount: int = 0):
 # print(multiplicationTables())
 
 
-print(division(100000, 100000))
+# print(division(100000, 100000))
