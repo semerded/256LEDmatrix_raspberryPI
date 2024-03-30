@@ -58,7 +58,7 @@ class CalculatorScreen(CalculatorButtons):
                 elif value == "enter":
                     self._checkAnswer()
                 elif value == ",":
-                    if "," not in self.answerString:
+                    if "," not in self.answerString and "." not in self.answerString:
                         self.answerString += value
                 else:
                     self.answerString += value
