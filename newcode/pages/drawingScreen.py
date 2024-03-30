@@ -1,5 +1,5 @@
 import gFrame, globalVars
-from core.ledMatrix import LEDmatrix
+from LEDs.ledMatrix import LEDmatrix
 from core.undo_redo import DrawingHistory
 from widgets.currentColorIndicator import CurrentColorIndicator
 

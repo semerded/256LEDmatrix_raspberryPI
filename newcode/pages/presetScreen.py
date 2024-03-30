@@ -1,6 +1,6 @@
 import gFrame, json, globalVars
 from core.matrix import Matrix
-from core.ledMatrix import LEDmatrix
+from LEDs.ledMatrix import LEDmatrix
 from copy import deepcopy
 
 class PresetScreen:

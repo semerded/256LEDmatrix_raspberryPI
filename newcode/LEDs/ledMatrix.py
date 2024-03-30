@@ -1,4 +1,4 @@
-from core.gMatrix import gMatrix
+from widgets.gMatrix import gMatrix
 from pages.loadingScreen import LoadingScreen
 import globalVars, gFrame
 from threading import Thread

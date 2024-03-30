@@ -7,7 +7,7 @@ gFrame.Display.setAspectRatio(gFrame.aspectRatios.ratio16to9, "50dw")
 from widgets.menuButton import MenuButton
 globalVars.menuButton = MenuButton()
 
-from core.ledMatrix import LEDmatrix
+from LEDs.ledMatrix import LEDmatrix
 
 LED_MATRIX = LEDmatrix(16, 16, "100vh", "100vh")
 
