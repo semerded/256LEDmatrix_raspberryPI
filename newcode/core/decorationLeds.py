@@ -5,6 +5,18 @@ from threading import Thread
 if globalVars.RPIconnected:
     import board, neopixel
     
+"""
+voor (links en rechts):
+    1 ronde neopixel van 16 leds
+    2 ronde neopixels van 12 leds
+
+voor (midden):
+    1 "knight rider" led strip van 9 leds
+    
+achter (links en rechts):
+    1 ronde neopixel van 16 leds
+"""
+    
     
 class DecorationLEDS:
     _ledMatrixLedCount = 256
@@ -17,7 +29,7 @@ class DecorationLEDS:
         Thread(target=self._decorationLedsLoop).start()
         
     def _decorationLedsLoop(self):
-        while True:
+        while globalVars.programRunning:
             
             sleep(0.5)
             

@@ -23,14 +23,18 @@ PAGE_LISTING = [MenuScreen(), DrawingScreen(LED_MATRIX), ColorMenu(), PresetScre
 
 import pygame, sys
 while True:
-    globalVars.app.eventHandler()
-    globalVars.app.fill(gFrame.Color.BLACK) 
-    
-    PAGE_LISTING[globalVars.currentScreen.value].place()
-    
-    if gFrame.Interactions.isKeyReleased(pygame.K_ESCAPE):
-        if globalVars.RPIconnected:
-            LED_MATRIX.erasePhysicalMatrix()
-        pygame.quit()
-        sys.exit()
+    try:
+        globalVars.app.eventHandler()
+        globalVars.app.fill(gFrame.Color.BLACK) 
+        
+        PAGE_LISTING[globalVars.currentScreen.value].place()
+        
+        if gFrame.Interactions.isKeyReleased(pygame.K_ESCAPE):
+            if globalVars.RPIconnected:
+                LED_MATRIX.erasePhysicalMatrix()
+            globalVars.programRunning = False
+            pygame.quit()
+            sys.exit()
+    except KeyboardInterrupt:
+        globalVars.programRunning = False
     

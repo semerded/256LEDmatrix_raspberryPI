@@ -1,3 +1,5 @@
+programRunning = True
+
 import gFrame
 
 app: gFrame.AppConstructor = None
