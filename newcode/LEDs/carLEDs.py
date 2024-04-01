@@ -11,9 +11,7 @@ achter (links en rechts):
     
 121
 """
-from LEDs.threaded_LEDcontroller import Threaded_LEDcontroller
 
-from LEDs.LED_segments.knightrider import KnightRider
 import board # GPIO 10, 12, 18, 21
 
 
@@ -23,5 +21,15 @@ listing = {
     "rear": [[80, 95], [96, 111]],
 }
 
+from LEDs.LED_segments.knightrider import KnightRider
 
-knightRider = KnightRider(board.D10, 9, 100, 0.5)
+knightRider = KnightRider(board.D21, 9, 100, 0.5)
+
+from LEDs.LED_segments.front_lights import 
+
+frontLights = 
+
+from LEDs.LED_segments.rear_lights import RearLights
+
+rearLights = RearLights(board.D12, 80, 0.4)
+
