@@ -34,7 +34,7 @@ def subtraction(maxNumber: int, maxSolution: int, floatingPointAmount: int = 0):
 
 def multiplication(maxNumber: int, maxSolution: int, floatingPointAmount: int = 0, secondNumberDecimal = False):
     while True:
-        number1, number2 = ex.multiplication(maxNumber / (maxSolution / 100), floatingPointAmount, secondNumberDecimal)
+        number1, number2 = ex.multiplication(maxNumber / (maxSolution / 100), maxSolution, floatingPointAmount, secondNumberDecimal)
         if _checkIfSolutionHasSameFloatingPointAmount(number1, number2, "*", floatingPointAmount):
             return number1, number2
         
@@ -45,7 +45,7 @@ def division(maxNumber: int, maxSolution: int, floatingPointAmount: int = 0, sec
             return number1, number2
         
 def multiplicationTables(*void): #? outrule crash when arguments are givin
-    return multiplication(10, 100)
+    return ex.multiplication(10, 100)
 
 def percentage(maxNumber: int, void: None, floatingPointAmount: int = 0):
     while True:

@@ -1,5 +1,4 @@
-from LEDs.threaded_LEDcontroller import Threaded_LEDcontroller
-from gFrame.elements.colors import Color
+from LEDs.threaded_LEDcontroller import Threaded_LEDcontroller, Color
 from time import sleep
 import board
 

@@ -1,6 +1,7 @@
 import globalVars
 from threading import Thread
 import board, neopixel    
+from gFrame.elements.colors import Color
     
     
 class Threaded_LEDcontroller:
@@ -8,14 +9,16 @@ class Threaded_LEDcontroller:
         self.pixels: neopixel.NeoPixel = neopixel.NeoPixel(pin, ledCount, brightness = brightness)
         self.ledCount = ledCount
         self.controllerActive = False
+        self.ledFunction = None
 
     def startThread(self, loop):
         self.controllerActive = True
-        Thread(target=loop).start()
+        self.ledFunction = loop
+        Thread(target=self._LEDloop).start()
         
-    def LEDloop(self, func):
+    def _LEDloop(self):
         while self.controllerActive and globalVars.programRunning:
-            func()
+            self.ledFunction()
             
     def stopThread(self):
         self.controllerActive = False

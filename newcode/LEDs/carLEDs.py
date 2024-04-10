@@ -25,11 +25,11 @@ from LEDs.LED_segments.knightrider import KnightRider
 
 knightRider = KnightRider(board.D21, 9, 100, 0.5)
 
-from LEDs.LED_segments.front_lights import 
+from LEDs.LED_segments.front_lights import FrontLights
 
-frontLights = 
+frontLights = FrontLights(board.D10, 80, 0.4)
 
 from LEDs.LED_segments.rear_lights import RearLights
 
-rearLights = RearLights(board.D12, 80, 0.4)
+rearLights = RearLights(board.D12, 32, 0.4)
 

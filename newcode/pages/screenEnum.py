@@ -7,3 +7,4 @@ class screens(Enum):
     calculator = 4
     chooseClass = 5
     chooseDifficulty = 6
+    carLED = 7
