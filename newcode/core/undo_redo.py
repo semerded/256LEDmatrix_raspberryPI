@@ -23,7 +23,7 @@ class DrawingHistory:
         return deepcopy(self.drawingHistory[self.currentHistoryIndex])
     
     def checkForChanges(self, currentMatrix: list[list[int]], matrixRect):
-        if self._checkForDifferenceInNewMatrix(currentMatrix) and not gFrame.Interactions.isMousePressingInRect(gFrame.mouseButton.leftMouseButton, matrixRect): 
+        if self._checkForDifferenceInNewMatrix(currentMatrix) and not gFrame.Interactions.isMousePressingInRect(matrixRect, gFrame.mouseButton.leftMouseButton, ): 
             self._checkIfHistoryNeedsOverwrite(currentMatrix)
                 
             self.currentHistoryIndex += 1

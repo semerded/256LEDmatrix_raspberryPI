@@ -26,7 +26,7 @@ class gMatrix(Matrix):
             currentMatrixPosition[0] = 0
             
     def checkForInteraction(self):
-        if gFrame.Interactions.isMousePressingInRect(gFrame.mouseButton.leftMouseButton, self.rect):
+        if gFrame.Interactions.isMousePressingInRect(self.rect, gFrame.mouseButton.leftMouseButton):
             mousePos = gFrame.pygame.mouse.get_pos()
             mousePos = (mousePos[0] - self.rect.x, mousePos[1] - self.rect.y)
             if (mouseGridX := math.ceil(mousePos[0] / self.matrixUnitSize[0])) > 0 and (mouseGridY := math.ceil(mousePos[1] / self.matrixUnitSize[1])) > 0:

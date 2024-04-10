@@ -24,7 +24,7 @@ PAGE_LISTING = [MenuScreen(), DrawingScreen(LED_MATRIX), ColorMenu(), PresetScre
 
 import pygame, sys
 
-@gFrame.debugger
+# @gFrame.debugger
 def main():
     while True:
         try:
