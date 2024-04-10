@@ -5,7 +5,7 @@ from gFrame.elements.colors import Color
 rainbowColors = [Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE, Color.PINK, Color.PURPLE]
 def rainbow(pixels):
     for color in rainbowColors:
-        pixles.fill(color)
+        pixels.fill(color)
         sleep(0.2)
 
     

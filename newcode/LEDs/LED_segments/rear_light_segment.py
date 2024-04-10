@@ -1,4 +1,4 @@
-from LEDs.threaded_LEDcontroller import Threaded_LEDcontroller, Color
+from LEDs.LEDcontroller import Threaded_LEDcontroller, Color
 import board
 
 class RearLights(Threaded_LEDcontroller):

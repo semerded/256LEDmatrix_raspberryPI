@@ -21,15 +21,15 @@ listing = {
     "rear": [[80, 95], [96, 111]],
 }
 
-from LEDs.LED_segments.knightrider import KnightRider
+from LEDs.LED_segments.knightrider_segment import KnightRider
 
 knightRider = KnightRider(board.D21, 9, 100, 0.5)
 
-from LEDs.LED_segments.front_lights import FrontLights
+from LEDs.LED_segments.front_light_segment import FrontLights
 
 frontLights = FrontLights(board.D10, 80, 0.4)
 
-from LEDs.LED_segments.rear_lights import RearLights
+from LEDs.LED_segments.rear_light_segment import RearLights
 
 rearLights = RearLights(board.D12, 32, 0.4)
 

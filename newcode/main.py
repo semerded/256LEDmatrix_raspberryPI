@@ -22,7 +22,7 @@ from pages.carLEDscreen import CarLEDscreen
 
 PAGE_LISTING = [MenuScreen(), DrawingScreen(LED_MATRIX), ColorMenu(), PresetScreen(LED_MATRIX), CalculatorScreen(), ChooseClassScreen(), ChooseDifficultyScreen(), CarLEDscreen()]
 
-import pygame, sys
+import pygame, sys, json
 
 # @gFrame.debugger
 def main():
@@ -41,6 +41,13 @@ def main():
                 sys.exit()
         except KeyboardInterrupt:
             globalVars.programRunning = False
+        finally:
+            with open("LEDs/led_data.json", "r+") as fp:
+                data = json.load(fp)
+                data["active"] = False
+                fp.seek(0)
+                json.dump(data, fp, indent = 4, separators=(',',': '))
+                
 
 if __name__ == '__main__':
     main() 
