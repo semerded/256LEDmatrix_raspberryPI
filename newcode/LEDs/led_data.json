@@ -2,11 +2,11 @@
     "active": false,
     "front_light": {
         "type": "static",
-        "color": "white"
+        "color": [0, 255, 0]
     },
     "rear_light": {
         "type": "static",
-        "color": "white"
+        "color": [0, 0, 255]
     },
     "knightrider": {
         "type": null,

@@ -1,11 +1,14 @@
-from LEDs.LEDcontroller import Threaded_LEDcontroller, Color
-import board
+def main():
+    from LEDs._segment import _Segment
+    from time import sleep
+    import board
 
-class RearLights(Threaded_LEDcontroller):
-    def __init__(self, pin: board, ledCount: int, brightness: float = 0.1) -> None:
-        super().__init__(pin, ledCount, brightness)
-    
-    def staticLight(self):
-        self.pixels.fill(Color.RED)
-        self.pixels.show()
+    ledCount: int = 32
+    frontLight = _Segment(board.D12, ledCount, 0.4)
+
+    while True:
+        data = frontLight.loadData("front_light")
+        frontLight.pixels.fill(data["color"])
+        
+        sleep(0.1)
         
