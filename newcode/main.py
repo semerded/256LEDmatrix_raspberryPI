@@ -27,6 +27,13 @@ import pygame, sys, json
 # @gFrame.debugger
 def main():
     print("main succesfully launched")
+    fp = open("LEDs/led_data.json")
+    data = json.load(fp)
+    data["active"] = True
+    fp.close()
+    fp = open("LEDs/led_data.json", "w")
+    json.dump(data, fp, indent = 4, separators=(',',': '))
+    fp.close()
     while True:
         try:
             globalVars.app.eventHandler()
