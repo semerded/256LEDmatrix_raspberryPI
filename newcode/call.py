@@ -1,17 +1,19 @@
-import subprocess, threading
+import subprocess, threading, json
+
+fp = open("LEDs/led_data.json")
+data = json.load(fp)
+data["active"] = True
+fp.close()
+fp = open("LEDs/led_data.json", "w")
+json.dump(data, fp, indent = 4, separators=(',',': '))
+fp.close()
 
 
 def main():
-    subprocess.call("main.py", shell=True)
+    subprocess.call("sudo python3 main.py", shell=True)
     
 def knightRider():
-    subprocess.call("LED_knightRider.py", shell=True)
+    subprocess.call("sudo python3 LED_knightRider.py", shell=True)
     
-threading.Thread(target=knightRider).start()
 threading.Thread(target=main).start()
-
-while True:
-    try:
-        pass
-    except KeyboardInterrupt:
-        subprocess.call("terminate.py", shell=True)
+threading.Thread(target=knightRider).start()
