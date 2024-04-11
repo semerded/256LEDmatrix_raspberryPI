@@ -2,7 +2,7 @@ import board, neopixel, json, sys
 
 class _Segment:
     def __init__(self, pin: board, ledCount: int, brightness: float = 0.1) -> None:
-        self.pixels: neopixel.NeoPixel = neopixel.NeoPixel(pin, ledCount, brightness)
+        self.pixels: neopixel.NeoPixel = neopixel.NeoPixel(pin, ledCount, brightness=brightness)
         self.ledCount = ledCount
         
     def loadData(self, dataName: str):
