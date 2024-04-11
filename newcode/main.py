@@ -26,6 +26,7 @@ import pygame, sys, json
 
 # @gFrame.debugger
 def main():
+    print("main succesfully launched")
     while True:
         try:
             globalVars.app.eventHandler()
