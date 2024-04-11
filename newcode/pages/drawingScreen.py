@@ -34,9 +34,9 @@ class ColorButtons:
     #     return gFrame.ScreenUnit.vh(2 + 9 * len(self.buttonList))
 
 class DrawingScreen:
-    drawPixelOnLEDMatrixButton = gFrame.Button(("15vw", "7vh"), gFrame.Color.WHITE, borderRadius=5)
-    drawPixelOnLEDMatrixButton.setBorder(4, gFrame.Color.GREEN)
-    drawPixelOnLEDMatrixButton.text("Teken!", gFrame.Font.H1, gFrame.Color.BLACK, overFlow=gFrame.overFlow.show)
+    drawOnLEDmatrixButton = gFrame.Button(("15vw", "7vh"), gFrame.Color.WHITE, borderRadius=5)
+    drawOnLEDmatrixButton.setBorder(4, gFrame.Color.GREEN)
+    drawOnLEDmatrixButton.text("Teken!", gFrame.Font.H1, gFrame.Color.BLACK, overFlow=gFrame.overFlow.show)
     clearLEDMatrixButton = gFrame.Button(("15vw", "7vh"), gFrame.Color.WHITE, borderRadius=5)
     clearLEDMatrixButton.setBorder(4, gFrame.Color.RED)
     clearLEDMatrixButton.text("Verwijder", gFrame.Font.H1, gFrame.Color.BLACK, overFlow=gFrame.overFlow.show)
@@ -64,12 +64,13 @@ class DrawingScreen:
         if gFrame.Interactions.isMousePressing(gFrame.mouseButton.leftMouseButton):
             # if globals.RPIconnected and drawPixelOnLEDMatrixButton.isClicked():
             #         LED_MATRIX.drawMatrixOnPhysicalMatrix(.getMatrix)
-                    
+            if globalVars.RPIconnected and self.drawOnLEDmatrixButton.isClicked():
+                self.LED_MATRIX.drawPhysicalMatrix()
+
             if self.clearLEDMatrixButton.isClicked():
                 if globalVars.RPIconnected:
                     self.LED_MATRIX.erasePhysicalMatrix()
-                else:
-                    self.LED_MATRIX.eraseMatrix()
+                self.LED_MATRIX.eraseMatrix()
                 self.DRAWING_HISTORY.resetDrawingHistory()
                 globalVars.app.requestUpdate() # TODO nieuwe update van gFrame
                 
@@ -109,7 +110,7 @@ class DrawingScreen:
         #* drawing
         if globalVars.app.drawElements():
         
-            self.drawPixelOnLEDMatrixButton.place("63vw", "90vh")
+            self.drawOnLEDmatrixButton.place("63vw", "90vh")
             self.clearLEDMatrixButton.place("82vw", "90vh")
             
             if globalVars.colorPickerEnabled:
