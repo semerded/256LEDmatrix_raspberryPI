@@ -2,6 +2,7 @@ def main():
     from LEDs._segment import _Segment
     from time import sleep
     from gFrame.elements.colors import Color
+    import board
 
     ledCount: int = 9
     knightRider = _Segment(board.D21, ledCount, 0.4)
@@ -11,7 +12,7 @@ def main():
 
 
     while True:
-        data = knightRider.loadData()
+        data = knightRider.loadData("knightrider")
         
         knightRider.pixels[_currentLED] = data["color"]
             
@@ -27,4 +28,4 @@ def main():
             
         _currentLED += 1 if _ascending else - 1
         
-        sleep(0.2)
+        sleep(0.1)
