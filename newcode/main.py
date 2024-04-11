@@ -23,17 +23,12 @@ from pages.carLEDscreen import CarLEDscreen
 PAGE_LISTING = [MenuScreen(), DrawingScreen(LED_MATRIX), ColorMenu(), PresetScreen(LED_MATRIX), CalculatorScreen(), ChooseClassScreen(), ChooseDifficultyScreen(), CarLEDscreen()]
 
 import pygame, sys, json
+from LED__switch import LEDswitch
 
 # @gFrame.debugger
 def main():
     print("main succesfully launched")
-    fp = open("LEDs/led_data.json")
-    data = json.load(fp)
-    data["active"] = True
-    fp.close()
-    fp = open("LEDs/led_data.json", "w")
-    json.dump(data, fp, indent = 4, separators=(',',': '))
-    fp.close()
+    LEDswitch(True)
     while True:
         try:
             globalVars.app.eventHandler()
@@ -45,20 +40,12 @@ def main():
                 if globalVars.RPIconnected:
                     LED_MATRIX.erasePhysicalMatrix()
                 globalVars.programRunning = False
-                with open("LEDs/led_data.json", "r+") as fp:
-                    data = json.load(fp)
-                    data["active"] = False
-                    fp.seek(0)
-                    json.dump(data, fp, indent = 4, separators=(',',': '))
+                LEDswitch(False)
                 pygame.quit()
                 sys.exit()
         except KeyboardInterrupt:
             globalVars.programRunning = False
-            with open("LEDs/led_data.json", "r+") as fp:
-                data = json.load(fp)
-                data["active"] = False
-                fp.seek(0)
-                json.dump(data, fp, indent = 4, separators=(',',': '))
+            LEDswitch(False)
                 
 
 if __name__ == '__main__':

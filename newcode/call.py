@@ -12,10 +12,17 @@ def frontLight():
 def rearLight():
     subprocess.call("sudo python3 LED_rear.py", shell=True)
         
+threading.Thread(target=main).start()
+
+from time import sleep
+while True:
+    with open("LEDs/led_data.json") as fp:
+        if json.load(fp)["active"]:
+            break
+    sleep(0.1)
+    
 threading.Thread(target=knightRider).start()
 threading.Thread(target=frontLight).start()
 threading.Thread(target=rearLight).start()
-import time
-# time.sleep(3)
-threading.Thread(target=main).start()
+
 print("calling done")
