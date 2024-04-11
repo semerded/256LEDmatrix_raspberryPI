@@ -1,7 +1,6 @@
 def main():
     from LEDs._segment import _Segment
     from time import sleep
-    from gFrame.elements.colors import Color
     import board
 
     ledCount: int = 9
@@ -17,9 +16,9 @@ def main():
         knightRider.pixels[_currentLED] = data["color"]
             
         if _ascending and _currentLED > 0:
-            knightRider.pixels[_currentLED - 1] = Color.BLACK
+            knightRider.pixels[_currentLED - 1] = (0, 0, 0)
         elif not _ascending and _currentLED < ledCount - 1:
-            knightRider.pixels[_currentLED + 1] = Color.BLACK
+            knightRider.pixels[_currentLED + 1] = (0, 0, 0)
         
         if _currentLED == 0 and not _ascending:
             _ascending = True
