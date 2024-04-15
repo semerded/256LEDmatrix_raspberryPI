@@ -6,11 +6,8 @@ def main():
 def knightRider():
     subprocess.call("sudo python3 LED_knightRider.py", shell=True)
     
-def frontLight():
+def carLight():
     subprocess.call("sudo python3 LED_front.py", shell=True)
-    
-def rearLight():
-    subprocess.call("sudo python3 LED_rear.py", shell=True)
         
 threading.Thread(target=main).start()
 
@@ -22,7 +19,6 @@ while True:
     sleep(0.1)
     
 threading.Thread(target=knightRider).start()
-threading.Thread(target=frontLight).start()
-threading.Thread(target=rearLight).start()
+threading.Thread(target=carLight).start()
 
 print("calling done")
