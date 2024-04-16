@@ -22,7 +22,7 @@ class LEDeffects:
         self.pixels.fill(color)
         
     def rainbowRider(self, *void):
-        self.rider(self.pixels, self.rainbowColors[self._currentRainbow], self.ledAmount)
+        self.rider(self.rainbowColors[self._currentRainbow])
         self._currentRainbow += 1
         if self._currentRainbow == len(self.rainbowColors):
             self._currentRainbow = 0
@@ -42,6 +42,6 @@ class LEDeffects:
 
         self._currentLED += 1 if self._ascending else - 1
         
-    def getEffectByName(self, name: str):
-        return self._effectNames[name]
+    def getEffectByName(self, name: str, color):
+        self._effectNames[name](color)
     

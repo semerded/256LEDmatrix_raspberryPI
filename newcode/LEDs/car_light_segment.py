@@ -12,5 +12,5 @@ def main():
 
     while True:
         data = carlight.loadData("car_light")
-        ledEffects.getEffectByName(data["type"])
+        ledEffects.getEffectByName(data["type"], data["color"])
         sleep(0.1)
