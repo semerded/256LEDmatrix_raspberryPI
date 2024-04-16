@@ -7,14 +7,15 @@ ascending = True
 
 rainbowColors = [Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE, Color.PINK, Color.PURPLE]
 def rainbowfull(pixels):
-    for color in rainbowColors:
-        pixels.fill(color)
-        sleep(0.1)
+    global currentRainbow
+    static(pixels, rainbowColors[currentRainbow])
+    currentRainbow += 1
+    if currentRainbow == len(rainbowColors):
+        currentRainbow = 0
         
 
 def static(pixels, color):
     pixels.fill(color)
-    sleep(0.1)
         
         
 def rainbowRider(pixels, ledAmount):
@@ -26,7 +27,7 @@ def rainbowRider(pixels, ledAmount):
     
 
 def rider(pixels, color, ledAmount):
-    global currentLED
+    global currentLED, ascending
     pixels.pixels[currentLED] = color
     
     if ascending and currentLED > 0:
@@ -41,6 +42,5 @@ def rider(pixels, color, ledAmount):
 
     currentLED += 1 if ascending else - 1
     
-    sleep(0.1)
     
     

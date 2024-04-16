@@ -14,4 +14,7 @@ class _Segment:
             self.pixels.show()
             sys.exit()
         
-        return data[dataName]            
+        return data[dataName]   
+
+    def fill(self, color):
+        self.pixels.fill(color)         
