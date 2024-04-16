@@ -10,8 +10,9 @@ class PresetScreen:
     buttonNext = gFrame.Button(("10vh", "10vh"), gFrame.Color.WHITE, 5)
     buttonNext.text(">", gFrame.Font.FONT50, gFrame.Color.BLACK, bold=True)
     
-    drawPixelOnLEDMatrixButton = gFrame.Button(("18vw", "10vh"), gFrame.Color.GREEN, 5)
+    drawPixelOnLEDMatrixButton = gFrame.Button(("18vw", "10vh"), gFrame.Color.WHITE, 5)
     drawPixelOnLEDMatrixButton.text("Tekenen!", gFrame.Font.FONT50, gFrame.Color.BLACK)
+    drawPixelOnLEDMatrixButton.setBorder(5, gFrame.Color.GREEN)
     
     
     currentMatrixIndex = 0
@@ -51,6 +52,9 @@ class PresetScreen:
         if globalVars.menuButton.checkIfClicked():
             self.reloadMatrix = True
             return
+        
+        if self.drawPixelOnLEDMatrixButton.isClicked():
+            self.LED_MATRIX.drawPhysicalMatrix()
         
         if globalVars.app.drawElements():
             self.buttonPrevious.place("5vw", "45vh")
