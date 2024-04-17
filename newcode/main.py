@@ -20,7 +20,7 @@ from pages.chooseClassScreen import ChooseClassScreen
 from pages.chooseDifficultyScreen import ChooseDifficultyScreen
 from pages.carLEDscreen import CarLEDscreen
 
-PAGE_LISTING = [MenuScreen(), DrawingScreen(LED_MATRIX), ColorMenu(), PresetScreen(LED_MATRIX), CalculatorScreen(), ChooseClassScreen(), ChooseDifficultyScreen(), CarLEDscreen()]
+PAGE_LISTING = [MenuScreen(), DrawingScreen(LED_MATRIX), ColorMenu(), PresetScreen(LED_MATRIX), CalculatorScreen(), ChooseClassScreen(), ChooseDifficultyScreen(), CarLEDscreen("LEDs/led_data.json")]
 
 import pygame, sys, json
 from LED__switch import LEDswitch
@@ -43,6 +43,7 @@ def main():
                 LEDswitch(False)
                 pygame.quit()
                 sys.exit()
+                
         except KeyboardInterrupt:
             globalVars.programRunning = False
             LEDswitch(False)
