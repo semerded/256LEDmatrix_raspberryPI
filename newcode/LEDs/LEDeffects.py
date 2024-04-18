@@ -1,6 +1,29 @@
 from time import sleep
 from gFrame.elements.colors import Color
 
+ledEffectsProperties = {
+    "static": {
+        "color": True,
+        "speed": False
+    },
+    "rainbow": {
+        "color": False,
+        "speed": True
+    },
+    "rider": {
+        "color": True,
+        "speed": True
+    },
+    "rainbowrider": {
+        "color": False,
+        "speed": True
+    },
+    "car": {
+        "color": False,
+        "speed": False
+    }
+}
+
 class LEDeffects:
     rainbowColors = [Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE, Color.PINK, Color.PURPLE]
     _currentLED = 0

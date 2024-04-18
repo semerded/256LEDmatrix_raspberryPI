@@ -1,4 +1,5 @@
 import gFrame, globalVars, json
+from widgets.carLedTab import CarLedTab
 
 class CarLEDscreen:
     carLedTextSelector = gFrame.Button(("20vw", "10vh"), gFrame.Color.BLACK)
@@ -7,25 +8,33 @@ class CarLEDscreen:
     
     knightriderTextSelector = gFrame.Button(("20vw", "10vh"), gFrame.Color.BLACK)
     knightriderTextSelector.text("KnightRider", "comic sans", gFrame.ScreenUnit.vw(3), gFrame.Color.WHITE)
-    
-    selectedButton: int = 1
-    
+        
+    ledTab = gFrame.Rect("50vw", "10vh", "40vw", "80vh")
+
     def __init__(self, LEDjsonDataFilePath: str) -> None:
         self.dataPath = LEDjsonDataFilePath
+        
+        self.carLedTab = CarLedTab(self.ledTab, "Auto Lampen", globalVars.fieldColors[globalVars.currentCarLedColor][1])
+        self.knightRiderTab = CarLedTab(self.ledTab, "KnightRider", globalVars.fieldColors[globalVars.currentKnightRiderColor][1], chooseEffect=False)
     
     
-    def place(self):
+    def place(self):       
         globalVars.menuButton.checkIfClicked()
         
         if self.carLedTextSelector.isClicked():
             self.carLedTextSelector.setBorder(3, gFrame.Color.GRAY)
             self.knightriderTextSelector.setBorder(0, gFrame.Color.GRAY)
-            self.selectedButton = 1
+            globalVars.currentLedSelected = "carled"
+            gFrame.Updating.requestUpdate()
         
         if self.knightriderTextSelector.isClicked():
             self.knightriderTextSelector.setBorder(3, gFrame.Color.GRAY)
             self.carLedTextSelector.setBorder(0, gFrame.Color.GRAY)
-            self.selectedButton = 2
+            globalVars.currentLedSelected = "knightrider"
+            gFrame.Updating.requestUpdate()
+        
+        self.carLedTab.place(globalVars.fieldColors[globalVars.currentCarLedColor][1]) if globalVars.currentLedSelected == "carled" else self.knightRiderTab.place(globalVars.fieldColors[globalVars.currentKnightRiderColor][1])
+        
 
         
         if globalVars.app.drawElements():
@@ -34,9 +43,9 @@ class CarLEDscreen:
             self.carLedTextSelector.place("30vw", "35vh")
             self.knightriderTextSelector.place("30vw", "55vh")
                             
-            gFrame.Draw.border("50vw", "10vh", "40vw", "80vh", 3, gFrame.Color.GRAY, cornerRadius=5)
+            gFrame.Draw.border(*self.ledTab.unpack(), 3, gFrame.Color.GRAY, cornerRadius=5)
             
-            top = gFrame.ScreenUnit.vh(35) + 1 if self.selectedButton == 1 else gFrame.ScreenUnit.vh(55) + 1
+            top = gFrame.ScreenUnit.vh(35) + 1 if globalVars.currentLedSelected == "carled" else gFrame.ScreenUnit.vh(55) + 1
             gFrame.Draw.rectangle(gFrame.ScreenUnit.vw(50) - 2, top, 3, gFrame.ScreenUnit.vh(10) - 3, gFrame.Color.BLACK)
             
 

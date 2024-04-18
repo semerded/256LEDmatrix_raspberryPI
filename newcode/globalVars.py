@@ -68,6 +68,10 @@ fieldColors = [
 
 currentColor = 0
 
+currentCarLedColor = 9
+currentKnightRiderColor = 1
+currentLedSelected = "carled"
+
 from pages.screenEnum import screens
 
 currentScreen = screens.menu
