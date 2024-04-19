@@ -19,10 +19,16 @@ class CarLedTab:
         self.colorCurrentIndicator = gFrame.Button((rect.rw(80), rect.rh(15)), currentColor)
         self.colorCurrentIndicator.setBorder(1, gFrame.Color.WHITE)
         
+        self.effectText = gFrame.Text("huidig effect", "comic sans", rect.rw(10), gFrame.Color.BLACK)
+        
         
         
     def place(self, currentColor):
-        self._chooseColor(currentColor)
+        if self.chooseColor:
+            self._chooseColor(currentColor)
+            
+        if self.chooseEffect:
+            self._chooseEffect()
         
         if globalVars.app.drawElements():
             pass
@@ -40,6 +46,12 @@ class CarLedTab:
             if self.firstShow: # to counter a weird bug
                 self.colorCurrentIndicator.place(self.rect.pw(10), self.rect.ph(15))
                 self.firstShow = False
+    
+    def _chooseEffect(self):
+        
+        
+        if globalVars.app.drawElements():
+            self.effectText.placeInRect(gFrame.Rect(self.rect.x), self.rect.y + self.rect.rh(30), self.rect.width, self.rect.rh(10))
                 
             
             
