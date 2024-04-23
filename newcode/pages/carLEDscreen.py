@@ -14,8 +14,8 @@ class CarLEDscreen:
     def __init__(self, LEDjsonDataFilePath: str) -> None:
         self.dataPath = LEDjsonDataFilePath
         
-        self.carLedTab = CarLedTab(self.ledTab, "Auto Lampen", globalVars.fieldColors[globalVars.currentCarLedColor][1])
-        self.knightRiderTab = CarLedTab(self.ledTab, "KnightRider", globalVars.fieldColors[globalVars.currentKnightRiderColor][1], chooseEffect=False)
+        self.carLedTab = CarLedTab(self.ledTab, "Auto Lampen", globalVars.fieldColors[globalVars.currentCarLedColor])
+        self.knightRiderTab = CarLedTab(self.ledTab, "KnightRider", globalVars.fieldColors[globalVars.currentKnightRiderColor], chooseEffect=False)
     
     
     def place(self):       
@@ -33,7 +33,7 @@ class CarLEDscreen:
             globalVars.currentLedSelected = "knightrider"
             gFrame.Updating.requestUpdate()
         
-        self.carLedTab.place(globalVars.fieldColors[globalVars.currentCarLedColor][1]) if globalVars.currentLedSelected == "carled" else self.knightRiderTab.place(globalVars.fieldColors[globalVars.currentKnightRiderColor][1])
+        self.carLedTab.place(globalVars.fieldColors[globalVars.currentCarLedColor]) if globalVars.currentLedSelected == "carled" else self.knightRiderTab.place(globalVars.fieldColors[globalVars.currentKnightRiderColor])
         
 
         
