@@ -25,6 +25,7 @@ class LEDmatrix(gMatrix):
                 return globalVars.app.switchPage()
         
     def _threadedDrawingOnMatrix(self, matrix: list[list[int]]):
+        matrix = list(zip(*matrix))[::-1]
         ledCounter = 0
         reverse = True
         for row in matrix:
