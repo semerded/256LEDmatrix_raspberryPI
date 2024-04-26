@@ -41,9 +41,9 @@ class LEDmatrix(gMatrix):
     def erasePhysicalMatrix(self):
         self.eraseMatrix()
         globalVars.app.requestUpdate()
-        self.fillMatrix(gFrame.Color.BLACK)
+        self.fillPhysicalMatrix(gFrame.Color.BLACK)
         
-    def fillMatrix(self, color: gFrame.RGBvalue):
+    def fillPhysicalMatrix(self, color: gFrame.RGBvalue):
         super().fillMatrix(color)
         if globalVars.RPIconnected:
             self.pixels.fill(color)
