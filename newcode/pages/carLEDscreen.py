@@ -25,13 +25,13 @@ class CarLEDscreen:
             self.carLedTextSelector.setBorder(3, gFrame.Color.GRAY)
             self.knightriderTextSelector.setBorder(0, gFrame.Color.GRAY)
             globalVars.currentLedSelected = "carled"
-            gFrame.Updating.requestUpdate()
+            globalVars.app.switchPage()
         
         if self.knightriderTextSelector.isClicked():
             self.knightriderTextSelector.setBorder(3, gFrame.Color.GRAY)
             self.carLedTextSelector.setBorder(0, gFrame.Color.GRAY)
             globalVars.currentLedSelected = "knightrider"
-            gFrame.Updating.requestUpdate()
+            globalVars.app.switchPage()
         
         self.carLedTab.place(globalVars.fieldColors[globalVars.currentCarLedColor]) if globalVars.currentLedSelected == "carled" else self.knightRiderTab.place(globalVars.fieldColors[globalVars.currentKnightRiderColor])
         

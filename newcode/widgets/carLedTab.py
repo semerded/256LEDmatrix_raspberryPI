@@ -12,8 +12,7 @@ class CarLedTab:
         self.chooseColor = chooseColor
         self.chooseSpeed = chooseSpeed
         
-        self.currentEffect = "static"
-        
+        # color
         self.colorText = gFrame.Text("huidige kleur:", "comic sans", rect.rw(10), gFrame.Color.WHITE)
                 
         self.changeColorButton = gFrame.Button((rect.rw(80), rect.rh(10)), gFrame.Color.WHITE, 5)
@@ -24,14 +23,23 @@ class CarLedTab:
         self.currentColorIndicator.text(currentColor[0], "comic sans", rect.rw(4), gFrame.Text.textColorFromColor(currentColor[1]), overFlow=gFrame.overFlow.show)
         self.currentColorIndicator.setBorder(1, gFrame.Color.GRAY)
         
+        # effect
+        self.currentEffect = "static"
         self.effectText = gFrame.Text("huidig effect", "comic sans", rect.rw(10), gFrame.Color.WHITE)
         
+        # speed
+        self.speedSlider = gFrame.Slider((rect.rw(70), 20), 0, 100, gFrame.Color.AQUAMARINE, gFrame.Color.WHITE)
+        self.speedSlider.setKnob(13, gFrame.Color.RED)
         
         
-    def place(self, currentColor: tuple[str, gFrame.RGBvalue]):
+        
+    def place(self, currentColor: tuple[str, gFrame.RGBvalue]):   
+        if self.chooseSpeed:
+            self._chooseSpeed()
+            
         if self.chooseColor:
             self._chooseColor(currentColor)
-            
+                        
         if self.chooseEffect:
             self._chooseEffect()
         
@@ -59,6 +67,11 @@ class CarLedTab:
         if globalVars.app.drawElements():
             self.effectText.placeInRect(gFrame.Rect(self.rect.x, self.rect.y + self.rect.rh(30), self.rect.width, self.rect.rh(10)))
                 
+    def _chooseSpeed(self):
+        if self.speedSlider.handler():
+            gFrame.Updating.requestUpdate()
             
-            
+        if globalVars.app.drawElements():
+            self.speedSlider.place(self.rect.pw(15), self.rect.ph(60))
+            pass
             
