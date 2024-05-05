@@ -7,14 +7,14 @@ defaultLedData = {
         "color": [
             255, 255, 255
         ],
-        "speed": 50
+        "speed": 0.1
     },
     "knightrider": {
         "type": None,
         "color": [
             255, 0, 0
         ],
-        "speed": 50
+        "speed": 0.1
     }
 }
 
