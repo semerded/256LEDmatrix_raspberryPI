@@ -1,5 +1,4 @@
 import gFrame, globalVars
-import gFrame.baseImporter
 from LEDs.LEDeffects import ledEffectsProperties
 import json
 
