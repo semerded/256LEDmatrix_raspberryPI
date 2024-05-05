@@ -27,4 +27,4 @@ def main():
             
         _currentLED += 1 if _ascending else - 1
         
-        sleep(0.1)
+        sleep(data["speed"])
