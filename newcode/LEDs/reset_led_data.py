@@ -19,5 +19,5 @@ defaultLedData = {
 }
 
 def resetLedData():
-    with open("LEDs\led_data.json", "w") as fp:
+    with open("LEDs/led_data.json", "w") as fp:
         json.dump(defaultLedData, fp, indent = 4, separators=(',',': '))
