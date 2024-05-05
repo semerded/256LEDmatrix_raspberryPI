@@ -48,7 +48,7 @@ class CarLedTab:
         with open("LEDs/led_data.json") as fp:
             ledData = json.load(fp)
             if self.chooseEffect:
-                pass
+                ledData[self.led_data_name]["type"] = globalVars.currentCarLedEffect.value
             
             
             if globalVars.currentLedSelected == "knightrider" or ledEffectsProperties[globalVars.currentCarLedEffect.value]["color"]:
