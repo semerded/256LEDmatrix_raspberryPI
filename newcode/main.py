@@ -21,8 +21,9 @@ from pages.chooseClassScreen import ChooseClassScreen
 from pages.chooseDifficultyScreen import ChooseDifficultyScreen
 from pages.carLEDscreen import CarLEDscreen
 from pages.carLEDcolorMenu import CarLedColorMenu
+from pages.carLEDeffectMenu import CarLedEffectMenu
 
-PAGE_LISTING = [MenuScreen(), DrawingScreen(LED_MATRIX), ColorMenu(), PresetScreen(LED_MATRIX), CalculatorScreen(), ChooseClassScreen(), ChooseDifficultyScreen(), CarLEDscreen("LEDs/led_data.json"), CarLedColorMenu()]
+PAGE_LISTING = [MenuScreen(), DrawingScreen(LED_MATRIX), ColorMenu(), PresetScreen(LED_MATRIX), CalculatorScreen(), ChooseClassScreen(), ChooseDifficultyScreen(), CarLEDscreen("LEDs/led_data.json"), CarLedColorMenu(), CarLedEffectMenu()]
 
 import pygame, sys, json
 from LED__switch import LEDswitch

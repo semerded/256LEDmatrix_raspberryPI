@@ -9,3 +9,4 @@ class screens(Enum):
     chooseDifficulty = 6
     carLED = 7
     carLEDcolorMenu = 8
+    carLEDeffectMenu = 9

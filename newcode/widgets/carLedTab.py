@@ -1,16 +1,18 @@
 import gFrame, globalVars
 import gFrame.baseImporter
 from LEDs.LEDeffects import ledEffectsProperties
+import json
 
 class CarLedTab:
     firstShow = True
     
-    def __init__(self, rect: gFrame.Rect, name: str, currentColor: tuple[str, gFrame.RGBvalue], chooseEffect: bool = True, chooseColor: bool = True, chooseSpeed: bool = True) -> None:
+    def __init__(self, rect: gFrame.Rect, name: str, led_data_name: str, currentColor: tuple[str, gFrame.RGBvalue], chooseEffect: bool = True, chooseColor: bool = True, chooseSpeed: bool = True) -> None:
         self.rect: gFrame.Rect = rect
         self.name = name
         self.chooseEffect = chooseEffect
         self.chooseColor = chooseColor
         self.chooseSpeed = chooseSpeed
+        self.led_data_name = led_data_name
         
         # color
         self.colorText = gFrame.Text("huidige kleur:", "comic sans", rect.rw(10), gFrame.Color.WHITE)
@@ -25,15 +27,48 @@ class CarLedTab:
         
         # effect
         self.currentEffect = "static"
+        self.changeEffectButton = gFrame.Button((rect.rw(80), rect.rh(10)), gFrame.Color.WHITE, 5)
+        self.changeEffectButton.setBorder(1, gFrame.Color.GRAY)
+        self.changeEffectButton.text("verander effect", "comic sans", rect.rw(6), gFrame.Color.BLACK)
+        
         self.effectText = gFrame.Text("huidig effect", "comic sans", rect.rw(10), gFrame.Color.WHITE)
         
         # speed
-        self.speedSlider = gFrame.Slider((rect.rw(70), 20), 0, 100, gFrame.Color.AQUAMARINE, gFrame.Color.WHITE)
+        self.speedSlider = gFrame.Slider((rect.rw(70), 20), 1, 100, gFrame.Color.AQUAMARINE, gFrame.Color.WHITE, 50)
         self.speedSlider.setKnob(13, gFrame.Color.RED)
         
+        self.speedText = gFrame.Text("effect snelheid", "comic sans", rect.rw(10), gFrame.Color.WHITE)
         
+        # update led data
+        self.updateLedDataButton = gFrame.Button((rect.rw(80), rect.rh(10)), gFrame.Color.WHITE, 5)
+        self.updateLedDataButton.setBorder(5, gFrame.Color.GREEN)
+        self.updateLedDataButton.text("pimp!", "comic sans", rect.rw(7), gFrame.Color.BLACK)
+        
+    def writeToLedDataFile(self):
+        with open("LEDs/led_data.json") as fp:
+            ledData = json.load(fp)
+            if self.chooseEffect:
+                pass
+            
+            
+            if globalVars.currentLedSelected == "knightrider" or ledEffectsProperties[globalVars.currentCarLedEffect.value]["color"]:
+                if self.chooseColor:
+                    if globalVars.currentLedSelected == "carled":
+                        ledData[self.led_data_name]["color"] = globalVars.fieldColors[globalVars.currentCarLedColor][1]
+                    else:
+                        ledData[self.led_data_name]["color"] = globalVars.fieldColors[globalVars.currentKnightRiderColor][1]
+            
+            if globalVars.currentLedSelected == "knightrider" or ledEffectsProperties[globalVars.currentCarLedEffect.value]["speed"]:  
+                if self.chooseSpeed:
+                    ledData[self.led_data_name]["speed"] = self.speedSlider.getValue()
+                
+        with open("LEDs/led_data.json", "w") as fp:
+            json.dump(ledData, fp, indent = 4, separators=(',',': '))
         
     def place(self, currentColor: tuple[str, gFrame.RGBvalue]):   
+        if self.updateLedDataButton.isClicked():
+            self.writeToLedDataFile()
+        
         if self.chooseSpeed:
             self._chooseSpeed()
             
@@ -43,13 +78,18 @@ class CarLedTab:
         if self.chooseEffect:
             self._chooseEffect()
         
+        self.firstShow = False
+        
         if globalVars.app.drawElements():
-            pass
+            self.updateLedDataButton.place(self.rect.pw(10), self.rect.ph(87))
+            
+        
             
     def _chooseColor(self, currentColor: tuple[str, gFrame.RGBvalue]):
         if self.changeColorButton.isClicked():
             globalVars.currentScreen = globalVars.screens.carLEDcolorMenu
             globalVars.app.switchPage()
+            
         
         if globalVars.app.drawElements():
             
@@ -61,17 +101,21 @@ class CarLedTab:
             if self.firstShow: # to counter a weird bug
                 self.currentColorIndicator.place(self.rect.pw(69), self.rect.ph(2))
                 self.changeColorButton.place(self.rect.pw(10), self.rect.ph(15))
-                self.firstShow = False
     
     def _chooseEffect(self):
+        if self.changeEffectButton.isClicked():
+            globalVars.currentScreen = globalVars.screens.carLEDeffectMenu
+            globalVars.app.switchPage()
+        
         if globalVars.app.drawElements():
-            self.effectText.placeInRect(gFrame.Rect(self.rect.x, self.rect.y + self.rect.rh(30), self.rect.width, self.rect.rh(10)))
+            self.changeEffectButton.place(self.rect.pw(10), self.rect.ph(45))
+            self.effectText.placeInRect(gFrame.Rect(self.rect.x, self.rect.y + self.rect.rh(30), self.rect.rw(70), self.rect.rh(10)))
                 
     def _chooseSpeed(self):
         if self.speedSlider.handler():
             gFrame.Updating.requestUpdate()
             
         if globalVars.app.drawElements():
-            self.speedSlider.place(self.rect.pw(15), self.rect.ph(60))
-            pass
+            self.speedText.placeInRect(gFrame.Rect(self.rect.x, self.rect.y + self.rect.rh(60), self.rect.width, self.rect.rh(10)))
+            self.speedSlider.place(self.rect.pw(15), self.rect.ph(75))
             

@@ -72,6 +72,17 @@ currentCarLedColor = 9
 currentKnightRiderColor = 1
 currentLedSelected = "carled"
 
+from enum import Enum
+class ledEffect(Enum):
+    static = "static"
+    rainbow = "rainbow"
+    rider = "rider"
+    rainbowrider = "rainbowrider"
+    car = "car"
+    
+    
+currentCarLedEffect = ledEffect.static
+
 from pages.screenEnum import screens
 
 currentScreen = screens.menu

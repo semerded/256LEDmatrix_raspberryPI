@@ -14,8 +14,8 @@ class CarLEDscreen:
     def __init__(self, LEDjsonDataFilePath: str) -> None:
         self.dataPath = LEDjsonDataFilePath
         
-        self.carLedTab = CarLedTab(self.ledTab, "Auto Lampen", globalVars.fieldColors[globalVars.currentCarLedColor])
-        self.knightRiderTab = CarLedTab(self.ledTab, "KnightRider", globalVars.fieldColors[globalVars.currentKnightRiderColor], chooseEffect=False)
+        self.carLedTab = CarLedTab(self.ledTab, "Auto Lampen", "car_light", globalVars.fieldColors[globalVars.currentCarLedColor])
+        self.knightRiderTab = CarLedTab(self.ledTab, "KnightRider", "knightrider", globalVars.fieldColors[globalVars.currentKnightRiderColor], chooseEffect=False)
     
     
     def place(self):       
@@ -46,9 +46,4 @@ class CarLEDscreen:
             gFrame.Draw.border(*self.ledTab.unpack(), 3, gFrame.Color.GRAY, cornerRadius=5)
             
             top = gFrame.ScreenUnit.vh(35) + 1 if globalVars.currentLedSelected == "carled" else gFrame.ScreenUnit.vh(55) + 1
-            gFrame.Draw.rectangle(gFrame.ScreenUnit.vw(50) - 2, top, 3, gFrame.ScreenUnit.vh(10) - 3, gFrame.Color.BLACK)
-            
-
-    def writeDataToJson(self):
-        with open(self.dataPath) as fp:
-            json.dump(..., fp, indent=4)
+            gFrame.Draw.rectangle(gFrame.ScreenUnit.vw(50) - 4, top, 6, gFrame.ScreenUnit.vh(10) - 3, gFrame.Color.BLACK)

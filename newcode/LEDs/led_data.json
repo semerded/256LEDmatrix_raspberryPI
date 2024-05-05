@@ -3,17 +3,19 @@
     "car_light": {
         "type": "rainbowrider",
         "color": [
+            80,
             255,
-            255,
-            0
-        ]
+            177
+        ],
+        "speed": 73.30362959516054
     },
     "knightrider": {
         "type": null,
         "color": [
-            255,
-            0,
-            0
-        ]
+            57,
+            67,
+            183
+        ],
+        "speed": 70.0788738948348
     }
 }
