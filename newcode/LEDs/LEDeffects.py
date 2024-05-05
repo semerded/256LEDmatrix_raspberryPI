@@ -33,7 +33,7 @@ class LEDeffects:
     def __init__(self, pixels, ledAmount: int) -> None:
         self.pixels = pixels
         self.ledAmount = ledAmount
-        self._effectNames = {"static": self.static, "rainbow": self.rainbowfull, "rider": self.rider, "rainbowrider": self.rainbowRider}
+        self._effectNames = {"static": self.static, "rainbow": self.rainbowfull, "rider": self.rider, "rainbowrider": self.rainbowRider, "car": self.car}
 
     def rainbowfull(self, *void):
         self.static(self.rainbowColors[self._currentRainbow])
@@ -64,6 +64,10 @@ class LEDeffects:
             self._ascending = False 
 
         self._currentLED += 1 if self._ascending else - 1
+
+    def car(self, *void):
+        self.pixels.fill((255, 255, 0))
+
         
     def getEffectByName(self, name: str, color):
         self._effectNames[name](color)
