@@ -5,6 +5,9 @@ globalVars.app = gFrame.AppConstructor("50dw", "50dh", manualUpdating=True)
 globalVars.app.centerApp()
 # gFrame.Display.setAspectRatio(gFrame.aspectRatios.ratio16to9, "100dw")
 
+from LEDs.reset_led_data import resetLedData
+resetLedData()
+
 from widgets.menuButton import MenuButton
 globalVars.menuButton = MenuButton()
 
