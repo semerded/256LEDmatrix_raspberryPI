@@ -34,7 +34,7 @@ class CarLedTab:
         self.effectText = gFrame.Text("huidig effect", "comic sans", rect.rw(10), gFrame.Color.WHITE)
         
         # speed
-        self.speedSlider = gFrame.Slider((rect.rw(70), 20), 1, 100, gFrame.Color.AQUAMARINE, gFrame.Color.WHITE, 50)
+        self.speedSlider = gFrame.Slider((rect.rw(70), 20), 0.03, 0.5, gFrame.Color.AQUAMARINE, gFrame.Color.WHITE, startValue=0.1, reverse=True)
         self.speedSlider.setKnob(13, gFrame.Color.RED)
         
         self.speedText = gFrame.Text("effect snelheid", "comic sans", rect.rw(10), gFrame.Color.WHITE)
@@ -113,6 +113,7 @@ class CarLedTab:
                 
     def _chooseSpeed(self):
         if self.speedSlider.handler():
+            print(self.speedSlider.getValue())
             gFrame.Updating.requestUpdate()
             
         if globalVars.app.drawElements():
