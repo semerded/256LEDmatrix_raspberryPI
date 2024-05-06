@@ -15,7 +15,7 @@ class CarLEDscreen:
         self.dataPath = LEDjsonDataFilePath
         
         self.carLedTab = CarLedTab(self.ledTab, "Auto Lampen", "car_light", globalVars.fieldColors[globalVars.currentCarLedColor])
-        self.knightRiderTab = CarLedTab(self.ledTab, "KnightRider", "knightrider", globalVars.fieldColors[globalVars.currentKnightRiderColor], chooseEffect=False)
+        self.knightRiderTab = CarLedTab(self.ledTab, "KnightRider", "knightrider", globalVars.fieldColors[globalVars.currentKnightRiderColor])
     
     
     def place(self):       

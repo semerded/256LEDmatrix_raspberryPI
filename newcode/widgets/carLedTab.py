@@ -5,12 +5,10 @@ import json
 class CarLedTab:
     firstShow = True
     
-    def __init__(self, rect: gFrame.Rect, name: str, led_data_name: str, currentColor: tuple[str, gFrame.RGBvalue], chooseEffect: bool = True, chooseColor: bool = True, chooseSpeed: bool = True) -> None:
+    def __init__(self, rect: gFrame.Rect, name: str, led_data_name: str, currentColor: tuple[str, gFrame.RGBvalue]) -> None:
         self.rect: gFrame.Rect = rect
         self.name = name
-        self.chooseEffect = chooseEffect
-        self.chooseColor = chooseColor
-        self.chooseSpeed = chooseSpeed
+
         self.led_data_name = led_data_name
         
         # color
@@ -46,20 +44,17 @@ class CarLedTab:
     def writeToLedDataFile(self):
         with open("LEDs/led_data.json") as fp:
             ledData = json.load(fp)
-            if self.chooseEffect:
+            if not globalVars.currentLedSelected == "knightrider":
                 ledData[self.led_data_name]["type"] = globalVars.currentCarLedEffect.value
             
-            
             if globalVars.currentLedSelected == "knightrider" or ledEffectsProperties[globalVars.currentCarLedEffect.value]["color"]:
-                if self.chooseColor:
-                    if globalVars.currentLedSelected == "carled":
-                        ledData[self.led_data_name]["color"] = globalVars.fieldColors[globalVars.currentCarLedColor][1]
-                    else:
-                        ledData[self.led_data_name]["color"] = globalVars.fieldColors[globalVars.currentKnightRiderColor][1]
+                if globalVars.currentLedSelected == "carled":
+                    ledData[self.led_data_name]["color"] = globalVars.fieldColors[globalVars.currentCarLedColor][1]
+                else:
+                    ledData[self.led_data_name]["color"] = globalVars.fieldColors[globalVars.currentKnightRiderColor][1]
             
             if globalVars.currentLedSelected == "knightrider" or ledEffectsProperties[globalVars.currentCarLedEffect.value]["speed"]:  
-                if self.chooseSpeed:
-                    ledData[self.led_data_name]["speed"] = self.speedSlider.getValue()
+                ledData[self.led_data_name]["speed"] = self.speedSlider.getValue()
                 
         with open("LEDs/led_data.json", "w") as fp:
             json.dump(ledData, fp, indent = 4, separators=(',',': '))
@@ -68,13 +63,13 @@ class CarLedTab:
         if self.updateLedDataButton.isClicked():
             self.writeToLedDataFile()
         
-        if self.chooseSpeed:
+        if globalVars.currentLedSelected == "knightrider" or ledEffectsProperties[globalVars.currentCarLedEffect.value]["speed"]:
             self._chooseSpeed()
             
-        if self.chooseColor:
+        if globalVars.currentLedSelected == "knightrider" or ledEffectsProperties[globalVars.currentCarLedEffect.value]["color"]:
             self._chooseColor(currentColor)
-                        
-        if self.chooseEffect:
+                
+        if not globalVars.currentLedSelected == "knightrider":      
             self._chooseEffect()
         
         self.firstShow = False
