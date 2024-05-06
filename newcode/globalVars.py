@@ -74,11 +74,11 @@ currentLedSelected = "carled"
 
 from enum import Enum
 class ledEffect(Enum):
-    static = "static"
-    rainbow = "rainbow"
-    rider = "rider"
-    rainbowrider = "rainbowrider"
-    car = "car"
+    static = "statisch"
+    rainbow = "regenboog"
+    rider = "roller"
+    rainbowrider = "regenboogroller"
+    car = "auto lichten"
     
     
 currentCarLedEffect = ledEffect.static

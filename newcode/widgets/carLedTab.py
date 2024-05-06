@@ -30,6 +30,10 @@ class CarLedTab:
         
         self.effectText = gFrame.Text("huidig effect", "comic sans", rect.rw(10), gFrame.Color.WHITE)
         
+        self.currentEffectIndicator = gFrame.Button((rect.rw(30), rect.rh(10)), gFrame.Color.BLACK, 5)
+        self.currentEffectIndicator.text(f"{globalVars.currentCarLedEffect.value}", "comic sans", rect.rw(4), gFrame.Color.WHITE)
+        self.currentEffectIndicator.setBorder(1, gFrame.Color.GRAY)
+        
         # speed
         self.speedSlider = gFrame.Slider((rect.rw(70), 20), 0.03, 0.5, gFrame.Color.AQUAMARINE, gFrame.Color.WHITE, startValue=0.1, reverse=True)
         self.speedSlider.setKnob(13, gFrame.Color.RED)
@@ -87,14 +91,14 @@ class CarLedTab:
         
         if globalVars.app.drawElements():
             
-            self.colorText.placeInRect(gFrame.Rect(self.rect.x, self.rect.y, self.rect.rw(70), self.rect.rh(10)))
+            self.colorText.placeInRect(gFrame.Rect(self.rect.x, self.rect.ph(30), self.rect.rw(70), self.rect.rh(10)))
             self.currentColorIndicator.updateColor(currentColor[1])
             self.currentColorIndicator.text(currentColor[0], "comic sans", self.rect.rw(4), gFrame.Text.textColorFromColor(currentColor[1]))
-            self.currentColorIndicator.place(self.rect.pw(69), self.rect.ph(2))
-            self.changeColorButton.place(self.rect.pw(10), self.rect.ph(15))
+            self.currentColorIndicator.place(self.rect.pw(69), self.rect.ph(32))
+            self.changeColorButton.place(self.rect.pw(10), self.rect.ph(45))
             if self.firstShow: # to counter a weird bug
-                self.currentColorIndicator.place(self.rect.pw(69), self.rect.ph(2))
-                self.changeColorButton.place(self.rect.pw(10), self.rect.ph(15))
+                self.currentColorIndicator.place(self.rect.pw(69), self.rect.ph(32))
+                self.changeColorButton.place(self.rect.pw(10), self.rect.ph(45))
     
     def _chooseEffect(self):
         if self.changeEffectButton.isClicked():
@@ -102,12 +106,14 @@ class CarLedTab:
             globalVars.app.switchPage()
         
         if globalVars.app.drawElements():
-            self.changeEffectButton.place(self.rect.pw(10), self.rect.ph(45))
-            self.effectText.placeInRect(gFrame.Rect(self.rect.x, self.rect.y + self.rect.rh(30), self.rect.rw(70), self.rect.rh(10)))
+            self.changeEffectButton.place(self.rect.pw(10), self.rect.ph(15))
+            
+            self.currentEffectIndicator.text(f"{globalVars.currentCarLedEffect.value}", "comic sans", self.rect.rw(4), gFrame.Color.WHITE)
+            self.currentEffectIndicator.place(self.rect.pw(69), self.rect.ph(2))
+            self.effectText.placeInRect(gFrame.Rect(self.rect.x, self.rect.rh(10), self.rect.rw(70), self.rect.rh(10)))
                 
     def _chooseSpeed(self):
         if self.speedSlider.handler():
-            print(self.speedSlider.getValue())
             gFrame.Updating.requestUpdate()
             
         if globalVars.app.drawElements():

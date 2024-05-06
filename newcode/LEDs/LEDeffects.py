@@ -2,23 +2,23 @@ from time import sleep
 from gFrame.elements.colors import Color
 
 ledEffectsProperties = {
-    "static": {
+    "statisch": {
         "color": True,
         "speed": False
     },
-    "rainbow": {
+    "regenboog": {
         "color": False,
         "speed": True
     },
-    "rider": {
+    "roller": {
         "color": True,
         "speed": True
     },
-    "rainbowrider": {
+    "regenboogroller": {
         "color": False,
         "speed": True
     },
-    "car": {
+    "auto lichten": {
         "color": False,
         "speed": False
     }
@@ -33,7 +33,7 @@ class LEDeffects:
     def __init__(self, pixels, ledAmount: int) -> None:
         self.pixels = pixels
         self.ledAmount = ledAmount
-        self._effectNames = {"static": self.static, "rainbow": self.rainbowfull, "rider": self.rider, "rainbowrider": self.rainbowRider, "car": self.car}
+        self._effectNames = {"statisch": self.static, "regenboog": self.rainbowfull, "roller": self.rider, "regenboogroller": self.rainbowRider, "auto lichten": self.car}
 
     def rainbowfull(self, *void):
         self.static(self.rainbowColors[self._currentRainbow])
