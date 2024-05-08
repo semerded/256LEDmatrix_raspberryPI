@@ -1,5 +1,6 @@
 from time import sleep
 from gFrame.elements.colors import Color
+from LEDs.carLedMapping import carLedMapping
 
 ledEffectsProperties = {
     "statisch": {
@@ -43,6 +44,7 @@ class LEDeffects:
         
     def static(self, color):
         self.pixels.fill(color)
+        sleep(0.1)
         
     def rainbowRider(self, *void):
         self.rider(self.rainbowColors[self._currentRainbow])
@@ -66,9 +68,34 @@ class LEDeffects:
         self._currentLED += 1 if self._ascending else - 1
 
     def car(self, *void):
-        self.pixels.fill((255, 255, 0))
+        self._colorLedRing(carLedMapping["voor"]["links"][0], Color.ORANGE)
+        self._colorLedRing(carLedMapping["voor"]["rechts"][0], Color.ORANGE)
+        self._colorLedRing(carLedMapping["achter"]["links"][0], Color.ORANGE)
+        self._colorLedRing(carLedMapping["achter"]["rechts"][0], Color.ORANGE)
+        
+        self._colorLedRing(carLedMapping["voor"]["links"][1], Color.WHITE)
+        self._colorLedRing(carLedMapping["voor"]["links"][2], Color.WHITE)
+        
+        self._colorLedRing(carLedMapping["voor"]["rechts"][1], Color.WHITE)
+        self._colorLedRing(carLedMapping["voor"]["rechts"][2], Color.WHITE)
+        
+        self._colorLedRing(carLedMapping["achter"]["links"][1], Color.WHITE)
+        self._colorLedRing(carLedMapping["achter"]["rechts"][1], Color.WHITE)
+        
+        sleep(0.5)
+        
+        self._colorLedRing(carLedMapping["voor"]["links"][0], Color.BLACK)
+        self._colorLedRing(carLedMapping["voor"]["rechts"][0], Color.BLACK)
+        self._colorLedRing(carLedMapping["achter"]["links"][0], Color.BLACK)
+        self._colorLedRing(carLedMapping["achter"]["rechts"][0], Color.BLACK)
+        
+        sleep(0.5)
 
         
     def getEffectByName(self, name: str, color):
         self._effectNames[name](color)
+        
+    def _colorLedRing(self, ledRange: tuple[int, int], color):
+            for index in range(ledRange[0], ledRange[1] + 1):
+                self.pixels.pixels[index] = color
     
