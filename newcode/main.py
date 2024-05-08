@@ -54,6 +54,3 @@ def main():
             globalVars.programRunning = False
             LEDswitch(False)
                 
-
-if __name__ == '__main__':
-    main() 
