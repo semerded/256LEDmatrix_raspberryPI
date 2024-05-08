@@ -53,4 +53,6 @@ def main():
         except KeyboardInterrupt:
             globalVars.programRunning = False
             LEDswitch(False)
-                
+            
+if __name__ == "__main__":
+    main()
