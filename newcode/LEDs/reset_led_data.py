@@ -3,7 +3,7 @@ import json
 defaultLedData = {
     "active": False,
     "car_light": {
-        "type": "car",
+        "type": "auto lichten",
         "color": [
             255, 255, 255
         ],
