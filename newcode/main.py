@@ -1,7 +1,7 @@
-import gFrame, globalVars
+import gFrame, globalVars, pygame
 
 # globalVars.app = gFrame.AppConstructor("100dw", "100dh", manualUpdating=True)
-globalVars.app = gFrame.AppConstructor("50dw", "50dh", manualUpdating=True)
+globalVars.app = gFrame.AppConstructor("50dw", "50dh", pygame.FULLSCREEN, manualUpdating=True)
 globalVars.app.centerApp()
 # gFrame.Display.setAspectRatio(gFrame.aspectRatios.ratio16to9, "100dw")
 
@@ -28,7 +28,7 @@ from pages.carLEDeffectMenu import CarLedEffectMenu
 
 PAGE_LISTING = [MenuScreen(), DrawingScreen(LED_MATRIX), ColorMenu(), PresetScreen(LED_MATRIX), CalculatorScreen(), ChooseClassScreen(), ChooseDifficultyScreen(), CarLEDscreen("LEDs/led_data.json"), CarLedColorMenu(), CarLedEffectMenu()]
 
-import pygame, sys, json
+import sys
 from LED__switch import LEDswitch
 
 @gFrame.debugging
