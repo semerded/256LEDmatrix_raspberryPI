@@ -1,7 +1,7 @@
 import gFrame, globalVars, pygame
 
 # globalVars.app = gFrame.AppConstructor("100dw", "100dh", manualUpdating=True)
-globalVars.app = gFrame.AppConstructor("50dw", "50dh", pygame.FULLSCREEN, manualUpdating=True)
+globalVars.app = gFrame.AppConstructor("100dw", "100dh", pygame.FULLSCREEN, manualUpdating=True)
 globalVars.app.centerApp()
 # gFrame.Display.setAspectRatio(gFrame.aspectRatios.ratio16to9, "100dw")
 
@@ -31,7 +31,7 @@ PAGE_LISTING = [MenuScreen(), DrawingScreen(LED_MATRIX), ColorMenu(), PresetScre
 import sys
 from LED__switch import LEDswitch
 
-@gFrame.debugging
+# @gFrame.debugging
 def main():
     print("main succesfully launched")
     LEDswitch(True)
