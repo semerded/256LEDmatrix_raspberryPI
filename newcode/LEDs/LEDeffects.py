@@ -22,6 +22,10 @@ ledEffectsProperties = {
     "auto lichten": {
         "color": False,
         "speed": False
+    },
+    "slang": {
+        "color": False,
+        "speed": True
     }
 }
 
@@ -35,23 +39,18 @@ class LEDeffects:
     def __init__(self, pixels, ledAmount: int) -> None:
         self.pixels = pixels
         self.ledAmount = ledAmount
-        self._effectNames = {"statisch": self.static, "regenboog": self.rainbowfull, "roller": self.rider, "regenboogroller": self.rainbowRider, "auto lichten": self.car}
+        self._effectNames = {"statisch": self.static, "regenboog": self.rainbowfull, "roller": self.rider, "regenboogroller": self.rainbowRider, "auto lichten": self.car, "slang": self.snake}
 
     def rainbowfull(self, *void):
-        self.static(self.rainbowColors[self._currentRainbow])
-        self._currentRainbow += 1
-        if self._currentRainbow == len(self.rainbowColors):
-            self._currentRainbow = 0
+        self.static(self._getRainbowColor())
         
     def static(self, color):
         self.pixels.fill(color)
         sleep(0.1)
         
     def rainbowRider(self, *void):
-        self.rider(self.rainbowColors[self._currentRainbow])
-        self._currentRainbow += 1
-        if self._currentRainbow == len(self.rainbowColors):
-            self._currentRainbow = 0
+        self.rider(self._getRainbowColor())
+        
     
     def rider(self, color):
         self._riderPerRing(carLedMapping["voor"]["links"][0], 0, color)
@@ -89,28 +88,48 @@ class LEDeffects:
         self._colorLedRing(carLedMapping["achter"]["rechts"][1], Color.BLACK)
         
         sleep(0.3)
+        
+    def snake(self, *void):
+        color = self._getRainbowColor()
+        self._ledPerRing(carLedMapping["voor"]["links"][0], 0, color)
+        self._ledPerRing(carLedMapping["voor"]["links"][1], 1, color)
+        self._ledPerRing(carLedMapping["voor"]["links"][2], 2, color)
+        self._ledPerRing(carLedMapping["voor"]["rechts"][0], 3, color)
+        self._ledPerRing(carLedMapping["voor"]["rechts"][1], 4, color)
+        self._ledPerRing(carLedMapping["voor"]["rechts"][2], 5, color)
+        self._ledPerRing(carLedMapping["achter"]["links"][0], 6, color)
+        self._ledPerRing(carLedMapping["achter"]["links"][1], 7, color)
+        self._ledPerRing(carLedMapping["achter"]["rechts"][0], 8, color)
+        self._ledPerRing(carLedMapping["achter"]["rechts"][1], 9, color)
 
         
     def getEffectByName(self, name: str, color):
         self._effectNames[name](color)
         
+        
     def _colorLedRing(self, ledRange: tuple[int, int], color):
         for index in range(ledRange[0], ledRange[1] + 1):
             self.pixels.pixels[index] = color
-                
-    def _riderPerRing(self, ledRange: tuple[int, int], index, color):
+   
+    def _ledPerRing(self, ledRange: tuple[int, int], index, color):
         _index = self._activeLEDperRing[index] + 1
         self._activeLEDperRing[index] += 1
         if _index + ledRange[0] > ledRange[1]:
             _index = 0
             self._activeLEDperRing[index] = 0
         
+        self.pixels.pixels[ledRange[0] + _index] = color
+        return _index
+                
+    def _riderPerRing(self, ledRange: tuple[int, int], index, color):
+        _index = self._ledPerRing(ledRange, index, color)
         if _index == 0:
             self.pixels.pixels[ledRange[1]] = Color.BLACK
         else:    
             self.pixels.pixels[ledRange[0] + _index - 1] = Color.BLACK
-        self.pixels.pixels[ledRange[0] + _index] = color
         
-        
-            
-    
+    def _getRainbowColor(self):
+        self._currentRainbow += 1
+        if self._currentRainbow == len(self.rainbowColors):
+            self._currentRainbow = 0
+        return self.rainbowColors[self._currentRainbow]

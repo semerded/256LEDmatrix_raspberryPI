@@ -30,6 +30,10 @@ class CarLedEffectMenu:
         self.effectCarButton.text("auto lichten", *self.textProp)
         self.effectCarButton.setBorder(*self.borderProp)
         
+        self.effectSnakeButton = gFrame.Button(*self.buttonProp)
+        self.effectSnakeButton.text("slang", *self.textProp)
+        self.effectSnakeButton.setBorder(*self.borderProp)
+        
     def place(self):
         globalVars.menuButton.checkIfClicked()
         
@@ -57,7 +61,12 @@ class CarLedEffectMenu:
             globalVars.currentCarLedEffect = globalVars.ledEffect.car
             globalVars.currentScreen = globalVars.screens.carLED
             globalVars.app.switchPage()
-        
+            
+        if self.effectSnakeButton.isClicked():
+            globalVars.currentCarLedEffect = globalVars.ledEffect.snake
+            globalVars.currentScreen = globalVars.screens.carLED
+            globalVars.app.switchPage()
+
         if globalVars.app.drawElements():
             globalVars.menuButton.place("93vw", "2vh")
             self.header.placeInRect(gFrame.Rect(0, 0, gFrame.ScreenUnit.vw(100), gFrame.ScreenUnit.vh(10)))
@@ -67,4 +76,5 @@ class CarLedEffectMenu:
             self.effectRiderButton.place(self.body.pw(2.5), self.body.ph(33))
             self.effectRainbowRiderButton.place(self.body.pw(52.5), self.body.ph(33))
             self.effectCarButton.place(self.body.pw(2.5), self.body.ph(66))
+            self.effectSnakeButton.place(self.body.pw(52.5), self.body.ph(66))
             

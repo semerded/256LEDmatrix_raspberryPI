@@ -80,6 +80,7 @@ class ledEffect(Enum):
     rider = "roller"
     rainbowrider = "regenboogroller"
     car = "auto lichten"
+    snake = "slang"
     
     
 currentCarLedEffect = ledEffect.static
