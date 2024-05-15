@@ -60,6 +60,9 @@ class CarLedTab:
             if globalVars.currentLedSelected == "knightrider" or ledEffectsProperties[globalVars.currentCarLedEffect.value]["speed"]:  
                 ledData[self.led_data_name]["speed"] = self.speedSlider.getValue()
                 
+        if globalVars.currentLedSelected == "carled":
+            ledData[self.led_data_name]["reset"] = True
+                
         with open("LEDs/led_data.json", "w") as fp:
             json.dump(ledData, fp, indent = 4, separators=(',',': '))
         

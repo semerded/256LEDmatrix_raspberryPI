@@ -1,4 +1,4 @@
-import gFrame, globalVars, json
+import gFrame, globalVars
 
 class CarLedEffectMenu:
     def __init__(self) -> None:
@@ -75,8 +75,3 @@ class CarLedEffectMenu:
     def switchPage(self):
         globalVars.currentScreen = globalVars.screens.carLED
         globalVars.app.switchPage()
-        with open("LEDs/led_data.json") as fp:
-            ledData = json.load(fp)
-        ledData["car_light"]["reset"] = True
-        with open("LEDs/led_data.json", "w") as fp:
-            json.dump(ledData, fp, indent = 4, separators=(',',': '))
