@@ -47,6 +47,7 @@ def main():
                     LED_MATRIX.erasePhysicalMatrix()
                 globalVars.programRunning = False
                 LEDswitch(False)
+                resetLedData()
                 pygame.quit()
                 sys.exit()
                 

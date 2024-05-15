@@ -14,7 +14,7 @@ def main():
     while True:
         data = carlight.loadData("car_light")
         
-        if ledEffectsProperties[data["reset"]]:
+        if data["reset"]:
             ledEffects.reset()
             with open("LEDs/led_data.json") as fp:
                 ledData = json.load(fp)
