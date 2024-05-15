@@ -109,7 +109,7 @@ class LEDeffects:
             self.pixels.pixels[ledRange[1]] = Color.BLACK
         else:    
             self.pixels.pixels[ledRange[0] + _index - 1] = Color.BLACK
-        self.pixels.pixels[_index] = color
+        self.pixels.pixels[ledRange[0] + _index] = color
         
         
             
