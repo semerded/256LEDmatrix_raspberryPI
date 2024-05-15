@@ -28,20 +28,21 @@ fieldColors = [
     ("lichtblauw", gFrame.Color.LIGHT_BLUE),
     ("donkerblauw", gFrame.Color.BLUE),
     ("paars", gFrame.Color.PURPLE),
-    ("roze", gFrame.Color.PINK),
     ("wit", gFrame.Color.WHITE),
+    ("roze", gFrame.Color.PINK),
     # extra colors
-    ("", gFrame.Color.LESS_RED),
+    ("getint rood", gFrame.Color.LESS_RED),
     ("lava rood", gFrame.Color.LAVA_RED),
     ("bitter zoet", gFrame.Color.BITTERSWEET),
-    ("", gFrame.Color.REDWOOD),
+    ("herfst rood", gFrame.Color.REDWOOD),
     ("bruin", gFrame.Color.BROWN),
     ("goud", gFrame.Color.GOLD),
-    ("", gFrame.Color.SAFFRON),
+    ("saffron", gFrame.Color.SAFFRON),
+    ("lego geel", (255, 215, 0)),
     ("ecru", gFrame.Color.ECRU),
-    ("", gFrame.Color.BRUNSWICK_GREEN),
+    ("brunswick groen", gFrame.Color.BRUNSWICK_GREEN),
     ("donkergroen", gFrame.Color.DARK_GREEN),
-    ("", gFrame.Color.LESS_GREEN),
+    ("getint groen", gFrame.Color.LESS_GREEN),
     ("olijf groen", gFrame.Color.OLIVE_GREEN),
     ("ligthgroen", gFrame.Color.LIGHT_GREEN),
     ("aquamarine", gFrame.Color.AQUAMARINE),
@@ -49,14 +50,14 @@ fieldColors = [
     ("thee groen", gFrame.Color.TEA_GREEN),
     ("turquise", gFrame.Color.TURQUISE),
     ("maansteen", gFrame.Color.MOONSTONE),
-    ("", gFrame.Color.LESS_BLUE),
+    ("getint blauw", gFrame.Color.LESS_BLUE),
     ("navy blauw", gFrame.Color.NAVY_BLUE),
     ("russisch violet", gFrame.Color.RUSSIAN_VIOLET),
     ("staal roze", gFrame.Color.STEEL_PINK),
     ("lucht blauw", gFrame.Color.SKY_BLUE),
     ("celestial blauw", gFrame.Color.CELESTIAL_BLUE),
     ("violet blauw", gFrame.Color.VIOLET_BLUE),
-    ("", gFrame.Color.CELESTIAL_BLUE),
+    ("celestial blauw", gFrame.Color.CELESTIAL_BLUE),
     ("donker paars", gFrame.Color.DARK_PURPLE),
     ("beige", gFrame.Color.BEIGE),
     ("geest wit", gFrame.Color.GHOST_WHITE),
@@ -68,7 +69,7 @@ fieldColors = [
 
 currentColor = 0
 
-currentCarLedColor = 9
+currentCarLedColor = 8
 currentKnightRiderColor = 1
 currentLedSelected = "carled"
 
