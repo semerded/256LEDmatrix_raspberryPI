@@ -1,4 +1,4 @@
-import gFrame, globalVars
+import gFrame, globalVars, json
 
 class CarLedEffectMenu:
     def __init__(self) -> None:
@@ -39,33 +39,27 @@ class CarLedEffectMenu:
         
         if self.effectStaticButton.isClicked():
             globalVars.currentCarLedEffect = globalVars.ledEffect.static
-            globalVars.currentScreen = globalVars.screens.carLED
-            globalVars.app.switchPage()
+            self.switchPage()
             
         if self.effectRainbowButton.isClicked():
             globalVars.currentCarLedEffect = globalVars.ledEffect.rainbow
-            globalVars.currentScreen = globalVars.screens.carLED
-            globalVars.app.switchPage()
+            self.switchPage()
             
         if self.effectRiderButton.isClicked():
             globalVars.currentCarLedEffect = globalVars.ledEffect.rider
-            globalVars.currentScreen = globalVars.screens.carLED
-            globalVars.app.switchPage()
+            self.switchPage()
             
         if self.effectRainbowRiderButton.isClicked():
             globalVars.currentCarLedEffect = globalVars.ledEffect.rainbowrider
-            globalVars.currentScreen = globalVars.screens.carLED
-            globalVars.app.switchPage()
+            self.switchPage()
             
         if self.effectCarButton.isClicked():
             globalVars.currentCarLedEffect = globalVars.ledEffect.car
-            globalVars.currentScreen = globalVars.screens.carLED
-            globalVars.app.switchPage()
+            self.switchPage()
             
         if self.effectSnakeButton.isClicked():
             globalVars.currentCarLedEffect = globalVars.ledEffect.snake
-            globalVars.currentScreen = globalVars.screens.carLED
-            globalVars.app.switchPage()
+            self.switchPage()
 
         if globalVars.app.drawElements():
             globalVars.menuButton.place("93vw", "2vh")
@@ -77,4 +71,12 @@ class CarLedEffectMenu:
             self.effectRainbowRiderButton.place(self.body.pw(52.5), self.body.ph(33))
             self.effectCarButton.place(self.body.pw(2.5), self.body.ph(66))
             self.effectSnakeButton.place(self.body.pw(52.5), self.body.ph(66))
-            
+    
+    def switchPage(self):
+        globalVars.currentScreen = globalVars.screens.carLED
+        globalVars.app.switchPage()
+        with open("LEDs/led_data.json") as fp:
+            ledData = json.load(fp)
+        ledData["car_light"]["reset"] = True
+        with open("LEDs/led_data.json", "w") as fp:
+            json.dump(ledData, fp, indent = 4, separators=(',',': '))

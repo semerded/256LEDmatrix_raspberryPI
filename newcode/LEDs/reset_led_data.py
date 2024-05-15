@@ -7,7 +7,8 @@ defaultLedData = {
         "color": [
             255, 255, 255
         ],
-        "speed": 0.1
+        "speed": 0.1,
+        "reset": False
     },
     "knightrider": {
         "type": None,

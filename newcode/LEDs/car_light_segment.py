@@ -1,7 +1,7 @@
 def main():
     from LEDs._segment import _Segment
     from time import sleep
-    import board
+    import board, json
     from LEDs.LEDeffects import ledEffectsProperties
     
     ledCount: int = 136 # 80, 56 rear (112)
@@ -13,6 +13,15 @@ def main():
 
     while True:
         data = carlight.loadData("car_light")
+        
+        if ledEffectsProperties[data["reset"]]:
+            ledEffects.reset()
+            with open("LEDs/led_data.json") as fp:
+                ledData = json.load(fp)
+            ledData["car_light"]["reset"] = False
+            with open("LEDs/led_data.json", "w") as fp:
+                json.dump(ledData, fp, indent = 4, separators=(',',': '))
+                
         ledEffects.getEffectByName(data["type"], data["color"])
         if ledEffectsProperties[data["type"]]["speed"]:
             sleep(data["speed"])

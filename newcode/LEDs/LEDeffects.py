@@ -133,3 +133,6 @@ class LEDeffects:
         if self._currentRainbow == len(self.rainbowColors):
             self._currentRainbow = 0
         return self.rainbowColors[self._currentRainbow]
+    
+    def reset(self):
+        self.pixels.fill(Color.BLACK)
