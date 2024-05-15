@@ -100,8 +100,10 @@ class LEDeffects:
                 
     def _riderPerRing(self, ledRange: tuple[int, int], index, color):
         _index = self._activeLEDperRing[index] + 1
+        self._activeLEDperRing[index] += 1
         if _index + ledRange[0] > ledRange[1]:
             _index = 0
+            self._activeLEDperRing[index] = 0
         
         if _index == 0:
             self.pixels.pixels[ledRange[1]] = Color.BLACK
