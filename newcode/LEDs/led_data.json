@@ -7,7 +7,8 @@
             255,
             255
         ],
-        "speed": 0.1
+        "speed": 0.1,
+        "reset": false
     },
     "knightrider": {
         "type": null,
