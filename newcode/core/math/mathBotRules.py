@@ -115,6 +115,31 @@ rules = [
 
             "maxNumber": 999999
         }
+    ],
+    [ # 6de 
+        {
+            "operand": [
+                "+", "+", "-", "-", "*", "*", "/", "/", "%" 
+            ],
+            "maxSolution": 1000000,
+            "maxNumber": 500000
+        },
+        {
+            "operand": [
+                "+", "-", "*", "/", "%"
+            ],
+            "maxSolution": 10000000,
+
+            "maxNumber": 5000000
+        },
+        {
+            "operand": [
+                "+", "-", "*", "/", "%"
+            ],
+            "maxSolution": 10000000,
+
+            "maxNumber": 9999999
+        }
     ]
 
 ]

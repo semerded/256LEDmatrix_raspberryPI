@@ -37,6 +37,8 @@ class MathBot:
             return self.vierdeJaar(maxNumber, maxSolution, operand)
         elif self.classNumber == 5:
             return self.vijfdeJaar(maxNumber, maxSolution, operand)
+        elif self.classNumber == 6:
+            return self.zesdeJaar(maxNumber, maxSolution, operand)
         
     def _correctOperand(self, operand: str):  
         if operand == "maaltafel":
@@ -92,7 +94,8 @@ class MathBot:
 
     
     def zesdeJaar(self, maxNumber: int, maxSolution: int, operand: str):
-        pass
+        floatingPointAmount = random.randint(1, 2) if random.randint(0, 5 - self.difficulty) == 1 else 0
+        return self.getNumbers(maxNumber, maxSolution, operand, floatingPointAmount)
             
             
             
